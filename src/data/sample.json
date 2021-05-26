@@ -1,0 +1,213 @@
+{
+  "sendResponses": true,
+  "strainColSize": "11-50 strains",
+  "strainSources": [
+    {
+      "value": "strainsrc--self-isolated",
+      "label": "Isolated in our lab",
+      "strainSourceAmounts": "few"
+    },
+    {
+      "value": "strainsrc--collaborators",
+      "label": "Received from collaborators",
+      "strainSourceAmounts": "few"
+    },
+    {
+      "value": "strainsrc--culture-collection",
+      "label": "Received from culture collection",
+      "strainSourceAmounts": "most"
+    },
+    {
+      "value": "strainsrc--unknown",
+      "label": "Not sure / Unknown",
+      "strainSourceAmounts": "few"
+    }
+  ],
+  "strainSampleSources": [
+    {
+      "value": "strainsamplesrc--environmental",
+      "label": "Environmental",
+      "strainSampleSourceAmounts": "most"
+    },
+    {
+      "value": "strainsamplesrc--clinical",
+      "label": "Clinical",
+      "strainSampleSourceAmounts": "few"
+    },
+    {
+      "value": "strainsamplesrc--animal",
+      "label": "Animal",
+      "strainSampleSourceAmounts": "all"
+    },
+    {
+      "value": "strainsamplesrc--unknown",
+      "label": "Unknown",
+      "strainSampleSourceAmounts": "few"
+    }
+  ],
+  "phageColSize": "11-50 phages",
+  "phagesSequenced": "phseq-few",
+  "phagesCharacterized": "phchar-many",
+  "phageSources": [
+    {
+      "value": "phsrc--self-isolated",
+      "label": "Isolated in our lab",
+      "phageSourceAmounts": "most"
+    },
+    {
+      "value": "phsrc--collaborators",
+      "label": "Received from collaborators",
+      "phageSourceAmounts": "few"
+    },
+    {
+      "value": "phsrc--culture-collection",
+      "label": "Ordered from culture collection",
+      "phageSourceAmounts": "most"
+    },
+    {
+      "value": "phsrc--unknown",
+      "label": "Not sure / Unknown",
+      "phageSourceAmounts": "most"
+    }
+  ],
+  "phageSampleSources": [
+    {
+      "value": "phsamplesrc--environmental",
+      "label": "Environmental",
+      "phageSampleSourceAmounts": "most"
+    },
+    {
+      "value": "phsamplesrc--clinical",
+      "label": "Clinical",
+      "phageSampleSourceAmounts": "few"
+    },
+    {
+      "value": "phsamplesrc--animal",
+      "label": "Animal",
+      "phageSampleSourceAmounts": "none"
+    },
+    {
+      "value": "phsamplesrc--unknown",
+      "label": "Unknown",
+      "phageSampleSourceAmounts": "none"
+    }
+  ],
+  "name": "woof",
+  "email": "woof@phage.directory",
+  "orgs": "Phage Directory",
+  "labname": "Phage Directory",
+  "country": "United States",
+  "professionalStage": "masters",
+  "jobs": [
+    "teaching",
+    "industry-rnd"
+  ],
+  "phageYears": "4",
+  "experiences": [
+    "seaphages-taught",
+    "not-seaphages",
+    "published",
+    "sent-therapy"
+  ],
+  "strainList": [
+    {
+      "value": "propionibacterium",
+      "label": "Propionibacterium spp.",
+      "strainSize": "50+",
+      "phageSize": "0"
+    },
+    {
+      "value": "pseudomonas-aeruginosa",
+      "label": "Pseudomonas aeruginosa",
+      "strainSize": "50+",
+      "phageSize": "0"
+    },
+    {
+      "value": "acinetobacter-baumannii",
+      "label": "Acinetobacter baumannii",
+      "strainSize": "50+",
+      "phageSize": "0"
+    }
+  ],
+  "phageHostRange": [
+    {
+      "value": "erwinia-amylovora",
+      "label": "Erwinia amylovora",
+      "phageSize": "11-50"
+    },
+    {
+      "value": "gordonia",
+      "label": "Gordonia spp.",
+      "phageSize": "1-10"
+    },
+    {
+      "value": "propionibacterium",
+      "label": "Propionibacterium spp.",
+      "strainSize": "11-50",
+      "phageSize": "11-50"
+    },
+    {
+      "value": "pseudomonas-aeruginosa",
+      "label": "Pseudomonas aeruginosa",
+      "strainSize": "1-10",
+      "phageSize": "1-10"
+    },
+    {
+      "value": "acinetobacter-baumannii",
+      "label": "Acinetobacter baumannii",
+      "strainSize": "50+",
+      "phageSize": "11-50"
+    }
+  ],
+  "charMethodTypes": [
+    {
+      "value": "charmethod--genome-sequencing",
+      "label": "Genome sequencing and annotation",
+      "charMethodTypesAmounts": "all"
+    },
+    {
+      "value": "charmethod--receptor",
+      "label": "Receptor analysis",
+      "charMethodTypesAmounts": "few"
+    },
+    {
+      "value": "charmethod--proteomics",
+      "label": "Proteomics",
+      "charMethodTypesAmounts": "few"
+    }
+  ],
+  "phageColActivity": [
+    "expanding-collection",
+    "acquiring-collection"
+  ],
+  "difficultPhageHosts": "Bloop coli",
+  "toolsMethods": [
+    "clinical-trials",
+    "tox-removal",
+    "host-range",
+    "proteomics",
+    "[other] Excel"
+  ],
+  "difficultMethods": "Excel",
+  "bioinfoTools": "Excel",
+  "publishCategories": [
+    "phage-char",
+    "meta-genomics-bioinfo",
+    "prophage",
+    "microbiome",
+    "[other] Excel"
+  ],
+  "journals": [
+    "frontiers",
+    "phage-mal"
+  ],
+  "journalsGood": "Excel",
+  "journalsBad": "Excel",
+  "relationships": [
+    "tto",
+    "investors"
+  ],
+  "howMuchPerResearchPhage": "Excel",
+  "howMuchPerDepositPhage": "Excel",
+  "howMuchPerBiotechPhage": "Excel"
+}

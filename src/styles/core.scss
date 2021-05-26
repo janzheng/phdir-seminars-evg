@@ -1,0 +1,110 @@
+         
+	 
+@font-face {
+    font-family: 'Fraunces';
+    src: url('/fraunces/Fraunces-9ptBlack.woff2') format('woff2'),
+        url('/fraunces/Fraunces-9ptBlack.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+} 
+
+@font-face {
+    font-family: 'Fraunces';
+    src: url('/fraunces/Fraunces-9ptBlack.woff2') format('woff2'),
+        url('/fraunces/Fraunces-9ptBlack.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+      
+ 
+  
+  
+         
+ 
+@import '../../node_modules/coeur/styles/_head-reset.scss';
+
+
+@import 'settings.scss';
+@import 'design.scss';
+@import 'layout'; // typography, basic design & whitespace
+
+@import '../../node_modules/coeur/styles/_body-starter.scss';
+    
+
+
+  
+/*       
+
+	Custom Code 
+
+ */ 
+  
+
+ input, textarea {
+    border: solid 2px usetheme(brand-med);
+    border-radius: 4px;
+    background: #ffffff !important;
+   
+    &:focus {
+        background: usetheme(brand-white) !important;
+    }
+ } 
+    ._error {
+        // color: usetheme(danger);
+        color: red;
+    }
+
+   
+    
+     
+   
+      
+ 
+    
+
+.ContentFrame-body {
+	// padding-bottom: 140px; // $size-9;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;   
+}
+
+   
+input {
+	-webkit-appearance: none;
+}
+
+.__highlight {
+	border: #065fb1 2px solid;
+}
+      
+// defined units
+$unit: $size;
+$line-height: $unit * 1.6;
+$radius: $unit/4;
+
+ 
+@import 'pdseminar.scss';
+@import 'forms.scss'; 
+
+ 
+img {
+  max-width: 100%; 
+}
+
+html, body, * {
+	@extend ._font-body;
+}
+
+
+
+
+.Content-box {
+  padding: $size-2 $size-4;
+  border-radius: $size-2;
+  background-color: usetheme(brand-green);
+}
+
+
