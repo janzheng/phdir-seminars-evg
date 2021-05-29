@@ -16,9 +16,6 @@
     "load-content": "node src/_project/content-loader.js",
     "commit": "git add . -A ; git commit ; git push origin main "
   },
-  "engines": {
-    "node": "14.x"
-  },
   "browser": {
     "airtable": "./node_modules/airtable/build/airtable.browser"
   },
