@@ -36,7 +36,6 @@
     "sirv": "^0.4.0",
     "stripe": "^8.150.0",
     "svelte-forms-lib": "^1.1.1",
-    "svelte-local-storage-store": "^0.2.3",
     "yup": "^0.29.1"
   },
   "devDependencies": {
