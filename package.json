@@ -14,7 +14,7 @@
     "test": "run-p --race dev cy:run",
     "prod": "ls && sapper build --legacy; now",
     "load-content": "node src/_project/content-loader.js",
-    "commit": "git add . -A ; git commit ; git push origin master "
+    "commit": "git add . -A ; git commit ; git push origin main "
   },
   "engines": {
     "node": "14.x"
