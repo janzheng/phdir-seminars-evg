@@ -115,13 +115,17 @@ $colors-brand: (
   brand-white: #f7fffb, // 
   brand-copy: #273F0B,
   brand-active: #065fb1, // #065fb1,
+  brand-light: #6aaae6, // #065fb1,
+  brand-green-white: #e1f3e2,
+  brand-green-light: #72dd77,
+  brand-active-green: #04960b,
   brand-red: #b90236,
   background-light: #E7FAF3,
   background-white: #F5FAF8,
   brand-background: #DBF4E9,
   brand-green: #E7FAF3,
 );
-
+ 
 @include addtheme($colors-brand);
 @include colorate($colors-brand);
 

@@ -1,5 +1,6 @@
 
 
+
 /*
 
   Documentation / Notes
@@ -13,29 +14,23 @@
     - clears the entire cache (refreshes browser data)
 
   - GET api/cache/clear/{key}
-    - clears cache at a key  
+    - clears cache at a key
 
 */
 
 
 
-import send from '@polka/send';
-import { cacheGet, cacheSet, cacheClear, cacheKeys } from "../../../../_utils/cache"
+// import send from '@polka/send';
+import { sendData } from "../../../../_utils/sapper-helpers" 
+import { cacheGet, cacheSet, cacheClear, getCacheKeys } from "../../../../_utils/cache"
 
 export async function get(req, res) {
   try {
     const { key } = req.params
     let _result = {status: cacheClear(key)}
-
-    if(_result) {
-      const json = JSON.stringify(_result)
-      send(res, 200, json, {
-        'Content-Type': 'application/json'
-      });
-      return 
-    }
+    return sendData(_result, res)
   } catch(e) {
-    console.error('[api/content/nodes]', e)
+    console.error('[api/cache/clear]', e)
     send(res, 500, JSON.stringify(e));
   }
 }

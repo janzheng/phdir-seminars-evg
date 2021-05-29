@@ -9,15 +9,16 @@
   
   <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
     <div class="_section-article _margin-center">
-      <div class="Content-box _margin-bottom-2">{@html marked(intro||'')}</div>
+      <div class="Content-box _margin-bottom-2">{@html marked(_intro||'')}</div>
+  
     </div>
   </div>
 
   <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
     <div class="_section-article _margin-center">
       <div class="_grid-2">
-        <div class="Content-box ">{@html marked(date||'')}</div>
-        <div class="Content-box ">{@html marked(price||'')}</div>
+        <div class="Content-box ">{@html marked(_datetime||'')}</div>
+        <div class="Content-box ">{@html marked(_fee||'')}</div>
       </div>
     </div>
   </div>
@@ -25,7 +26,6 @@
 
 
 
-  
 
   <div class="Home-content _section-page _padding-top-2 _margin-center ">
 
@@ -79,7 +79,7 @@
 
   <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
     <div class=" _margin-center">
-      <div class="">{@html marked(end||'')}</div>
+      <div class="">{@html marked(_end||'')}</div>
     </div>
   </div>
 
@@ -89,106 +89,18 @@
 
 <script>
 
-	import Cytosis from 'cytosis';
   import marked from 'marked';
 
-  import Separator from '../components/Separator.svelte';
-  import Signup from '../components/Signup.svelte';
-  import Subscribe from '../components/Subscribe.svelte';
-  import RenderProfile from '../components/RenderProfile.svelte';
-  import ScheduleItem from '../components/ScheduleItem.svelte';
+	import { _content, _contents } from "@/stores/sitedata"
 
-  import { onMount, getContext, setContext } from 'svelte';
+  import Separator from '../components/widgets/Separator.svelte';
+  import Signup from '../components/widgets/Signup.svelte';
+  // import Subscribe from '../components/Subscribe.svelte';
+  // import RenderProfile from '../components/RenderProfile.svelte';
+  // import ScheduleItem from '../components/ScheduleItem.svelte';
 
-  // Content passed down from layout
-  const Content$ = getContext('Content')
-  $: Content = $Content$
+  const {_intro, _datetime, _fee, abstract, _end, } = _contents(['_intro','_datetime', '_fee', 'abstract', '_end'])
 
-  const Schedule$ = getContext('Schedule')
-  $: Schedule = $Schedule$
-
-  const Profiles$ = getContext('Profiles')
-  $: Profiles = $Profiles$
-
-  let intro
-  $: intro = Cytosis.findField('intro', Content, 'Markdown')
-  
-  let date
-  $: date = Cytosis.findField('date', Content, 'Markdown')
-
-  let price
-  $: price = Cytosis.findField('price', Content, 'Markdown')
-
-  let abstract
-  $: abstract = Cytosis.findField('abstract', Content, 'Markdown')
-
-  let end
-  $: end = Cytosis.findField('end', Content, 'Markdown')
-
-
-
-
-
-
-
-  let addl
-  // $: addl = Cytosis.findField('addl', Content, 'Markdown')
-  
-  let sop
-	// $: sop = Cytosis.findField('stateofphage', Content, 'Markdown')
-
-  let subscribe
-  $: subscribe = Cytosis.findField('subscribe', Content, 'Markdown')
-
-  let scheduled
-  $: scheduled = Cytosis.findField('scheduled', Content, 'Markdown')
-
-  let previous
-  $: previous = Cytosis.findField('previous', Content, 'Markdown')
-
-
-
-  
-  let noScheduled
-  $: noScheduled = Cytosis.findField('no-scheduled-events', Content, 'Markdown')
-
-  let middle
-  // $: middle = Cytosis.findField('middle', Content, 'Markdown')
-
-  let signup
-  $: signup = Cytosis.findField('signup', Content, 'Markdown')
-
-  // let end
-  // $: end = Cytosis.findField('end', Content, 'Markdown')
-
-  let organizers
-  // $: organizers = Cytosis.findField('organizers', Content, 'Markdown')
-
-  let organizerProfiles
-  // $: organizerProfiles = Profiles.filter(profile => profile.fields['Tags'] && profile.fields['Tags'].includes('Organizer'))
-
-  let upcomingItems
-  $: upcomingItems = [...Schedule.filter(item => item.fields['Status'].includes('Upcoming')) , ...Schedule.filter(item => item.fields['Status'].includes('Preview'))]
-
-  let pastItems
-  $: pastItems = Schedule.filter(item => item.fields['Status'].includes('Past'))
-
-
-  // const refreshData = async () => {
-  //   // refresh data
-  //   const response = await fetch(`api/content`)
-  //   const _result = await response.json()
-
-  //   const Content = cytosis.results['Content']
-  //   const Schedule = cytosis.results['Schedule']
-  //   const Profiles = cytosis.results['Profiles']
-
-  //   setContext('Schedule', Schedule)
-  // }
-
-  // onMount(async () => {
-  //   // refreshData()
-  // })
 </script>
 
 <style type="text/scss">

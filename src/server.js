@@ -5,8 +5,6 @@ import * as sapper from '@sapper/server';
 
 const { json } = require('body-parser');
 
-import "./styles/core.scss"
-
 import { config } from "dotenv";
 config(); // https://github.com/sveltejs/sapper/issues/122
 

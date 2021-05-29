@@ -4,7 +4,7 @@
   Utility Helpers
 
 
-  Last updated: 12/5/2020
+  Last updated: 5/26/2020
 
 */
 
@@ -104,6 +104,11 @@ export const keyReplace = (text, replacer, cleanup=true) => {
   }
 }
 
+
+
+
+
+
 // super simple delayer, bc setTimeout is gross in code
 export const zzz = (fn, vars, delayMs=350) => {
   setTimeout(()=>{
@@ -111,3 +116,18 @@ export const zzz = (fn, vars, delayMs=350) => {
     fn(vars)
   }, delayMs);
 }
+
+
+
+
+export const getNiceAddress = (stripeAddress) => {
+  /*
+      gets formatted address from Stripe
+  */
+  return `${stripeAddress.line1 ? stripeAddress.line1 : ''} <br />
+          ${stripeAddress.line2 ? stripeAddress.line2 : ''}  <br />
+          ${stripeAddress.city ? stripeAddress.city : ''} ${stripeAddress.state ? stripeAddress.state : ''} ${stripeAddress.postal_code ? stripeAddress.postal_code : ''}
+          Canada
+          `
+}
+

@@ -1,40 +1,67 @@
 
-
-/*
-
-  Documentation / Notes
-
-  Cache API
-
-  - GET api/cache/
-    - gets a list of active cache keys
-
-  - GET api/cache/clear
-    - clears the entire cache (refreshes browser data)
-
-  - GET api/cache/clear/{key}
-    - clears cache at a key
-
-*/
-
-
+// logs into fauna
 import send from '@polka/send';
-import { cacheGet, cacheSet, cacheClear, cacheKeys } from "../../../_utils/cache"
-import { sendData } from "../../../_utils/sapper-helpers"
+import * as sapper from '@sapper/server';
+
+import Cytosis from 'cytosis';
+import { config } from "dotenv";
+import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
+import { sendData } from "@/_utils/sapper-helpers" 
+import { saveSetup, save } from '@/_utils/save.js'
 
 
-export async function get(req, res) {
-  try {
 
-    let _result = cacheKeys()
+config(); // https://github.com/sveltejs/sapper/issues/122
 
-    if(_result) {
-      return sendData(_result, res)
-    }
-  } catch(e) {
-    console.error('[api/content/nodes]', e)
-    return sendData(e, res, 500)
+let json
+
+
+
+
+
+
+
+// gets a collection based on a slug that looks like basedId-recordId
+export const get = async (req, res, next) => {
+
+	const { cacheslug, type } = req.params
+
+	try {
+		if(type==='base')
+			cacheClear(`_base-${cacheslug}`)
+
+	  return sendData({status: true}, res, 200)
+  } catch(err) {
+			console.error('api/cache', err)
+			throw new Error(err)
   }
 }
+
+
+
+
+// export async function post(req, res) {
+
+// 	try {
+// 		const { cmd, baseId, recordId, data } = req.body
+
+// 		// console.log('[api/getters] post', type, req.body)
+		
+// 		if(cmd === 'DELETE') {
+// 	    const fave = await deleteFave(req.body)
+// 	    return sendData(fave, res)
+
+// 		} else if (cmd === 'SAVE') {
+// 	    const fave = await saveFave(req.body)
+// 	    return sendData(fave, res)
+// 		}
+// 	} catch(e) {
+// 		console.error('[api/fave]', e)
+// 	}
+// }
+
+
+
+
 
 

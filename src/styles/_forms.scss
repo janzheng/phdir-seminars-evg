@@ -45,7 +45,7 @@ input, .input, %input {
 	  }
 
 	  &:focus {
-	    border-color: usetheme(brand-active) !important;
+	    border-color: usetheme(brand-active-green) !important;
 	  }
   }
 
@@ -64,7 +64,7 @@ textarea, .textarea {
   }
 
   &:focus {
-    border-color: usetheme(brand-active);
+    border-color: usetheme(brand-active-green);
   }
   // border-radius: $radius;
   // background-color: usetheme(purewhite); // purewhite stands out w/ colored bg
@@ -334,8 +334,8 @@ textarea, .textarea {
       width: $outerCheck;
       height: $outerCheck;
       // background: transparent;
-      background-color: usetheme(mono-20);
-      border: solid $border-thin transparent;
+      background-color: transparent; // usetheme(mono-20);
+      border: solid $border-thin usetheme(brand-active-green);
       border-radius: 100%;
       // top: 28px;
       top: calc(50% - #{$outerCheck}/2);
@@ -347,7 +347,7 @@ textarea, .textarea {
       width: $innerCheck;
       height: $innerCheck;
       // background: transparent;
-      background-color: usetheme(mono-0);
+      background-color: transparent; // usetheme(brand-active-green);
       border-radius: 100px;
       top: calc(50% - #{$innerCheck}/2);
       left: calc(var(--radiomarkOuter, 19px) + 1px); //$outerCheck + 1px;
@@ -363,13 +363,13 @@ textarea, .textarea {
   /* On mouse-over, add a grey background color */
   &:hover input ~ .radiomark {
     cursor: pointer;
-    border-color: usetheme(brand-active);
+    border-color: usetheme(brand-active-green);
   }
 
   input:active ~ .radiomark,
   input:focus ~ .radiomark {
     cursor: pointer;
-    border-color: usetheme(brand-active);
+    border-color: usetheme(brand-active-green);
     background-color: usetheme(brand-lightest);
   }
   /* When the radio button is checked, add a blue background */
@@ -377,7 +377,7 @@ textarea, .textarea {
     // border-color: usetheme(brand-active); // too loud
 
     &:before {
-      background: usetheme(brand-active);
+      background: usetheme(brand-active-green);
       @extend %ease;
     };
     &:after {
@@ -434,8 +434,9 @@ textarea, .textarea {
       position: absolute;
       width: $outerCheck;
       height: $outerCheck;
-      background-color: usetheme(mono-20);
-      border: solid $border-thin transparent;
+      background-color: transparent; // usetheme(mono-20);
+      border: solid $border-thin usetheme(brand-active-green);
+      // border: solid $border-thin transparent;
       border-radius: 4px !important;
       // top: 28px;
       top: calc(50% - #{$outerCheck}/2);
@@ -470,13 +471,13 @@ textarea, .textarea {
   /* On mouse-over, add a grey background color */
   &:hover input ~ .checkbox {
     cursor: pointer;
-    border-color: usetheme(brand-active);
+    border-color: usetheme(brand-active-green);
   }
 
   input:active ~ .checkbox,
   input:focus ~ .checkbox {
     cursor: pointer;
-    border-color: usetheme(brand-active);
+    border-color: usetheme(brand-active-green);
     background-color: usetheme(brand-lightest);
   }
   /* When the radio button is checked, add a blue background */
@@ -485,7 +486,7 @@ textarea, .textarea {
     // border-color: usetheme(brand-active);
 
     &:before {
-      background: usetheme(brand-active);
+      background: usetheme(brand-active-green);
       @extend %ease;
     };
     &:after {
