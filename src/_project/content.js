@@ -38,12 +38,14 @@ try {
 export const getContent = async () => {
   console.log('[Content] Cache Mode:', process.env.CACHE)
 
-  if(process.env.CACHE && process.env.CACHE=='Loader') {
+  if(process.env.CACHE && process.env.CACHE=='Loader' && content) {
     console.log('[Content] -- Loader Mode')
     return content // json file should be in form of cytosis.results  
+  } else {
+    console.log('[Content] -- Loader Mode Off -- using Airtable Mode', cache)
   }
     
-  console.log('[Content] -- Airtable Mode')
+  // console.log('[Content] -- Airtable Mode')
   return getContentFromAirtable()
 }
 
