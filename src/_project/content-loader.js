@@ -27,13 +27,15 @@ if (!fs.existsSync('static/data')){
 
 const loadContent = async () => {
 	try {
+
+    console.log('[loading content] ------------------------------')
 		// handle Airtable
 		let cytosis = await getContent()
-		await saveJson(cytosis.results, cytosisPath)
-    console.log('[saved]')
+  await saveJson(cytosis.results, cytosisPath)
+    console.log('[content saved] ------------------------------')
     
 	} catch(err) {
-    throw new Error('[yotion/loader] Error', err)
+    throw new Error('[loader] Error', err)
 	}
 }
 

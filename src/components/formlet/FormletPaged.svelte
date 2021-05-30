@@ -71,6 +71,11 @@
                 <button type="submit" class="_button __action _ease _margin-bottom-none-i {formStyles['submitButtonClasses'] || ''} ">{formData.settings&&formData.settings.submitText || "Submit"}</button>
               {/if}
             {/if}
+
+
+            <slot name="postCheckout">
+              <!-- <div>default</div> -->
+            </slot>
           </div>
         </div>
       </div>
