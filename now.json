@@ -3,7 +3,8 @@
   "name": "evergreen-phage-directory",
   "builds": [
     {
-      "src": "package.json"
+      "src": "package.json",
+      "use": "now-sapper"
     }
   ]
 }
