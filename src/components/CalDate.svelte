@@ -66,6 +66,7 @@
 
   .CalDate-insert {
     padding: 0.5rem 1rem;
+    padding-bottom: 1rem;
     border: 2px solid #c7f0c9;
     background: #f6fcf6;
     border-radius: 0.5rem;
