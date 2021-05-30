@@ -12,7 +12,7 @@
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "test": "run-p --race dev cy:run",
-    "prod": "ls && sapper build --legacy; now",
+    "prod": "npm run loadbuild; now",
     "load-content": "node src/_project/content-loader.js",
     "commit": "git add . -A ; git commit ; git push origin main "
   },
@@ -71,7 +71,6 @@
     "rollup-plugin-terser": "^4.0.4",
     "sapper": "^0.28.0",
     "svelte": "^3.24.1",
-    "svelte-local-storage-store": "^0.2.3",
     "svelte-masonry": "^0.0.18",
     "svelte-preprocess": "^3.7.4",
     "svelte-select": "^3.16.1",
