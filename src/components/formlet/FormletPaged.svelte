@@ -58,6 +58,12 @@
               <button type="button" class={`Formlet-page-pagination-next _button _margin-none ${formStyles['nextButtonClasses']} ${curPageNumber==formPages.length-1?'__disabled':''}`} on:click={gotoNextPage(curPage,curPageNumber)}>{curPage.nextText || 'Next Page'}
               </button>
             {/if}
+
+
+            <slot name="preCheckout">
+              <!-- <div>default</div> -->
+            </slot>
+            
             {#if formData.settings && formData.settings.submitText && curPageNumber == formPages.length-1}
               {#if isSubmitting}
                 <button type="submit" class="_button __cta _ease _margin-bottom-none-i {formStyles['submittingButtonClasses'] || ''} ">{formData.settings&&formData.settings.submittingText || "Submitting..."}</button>

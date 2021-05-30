@@ -5814,6 +5814,11 @@ svelte-forms-lib@^1.1.1:
     property-expr "2.0.2"
     svelte "3.16.5"
 
+svelte-local-storage-store@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/svelte-local-storage-store/-/svelte-local-storage-store-0.2.3.tgz#6a652391fe1f4b8d26ff012af95e39dd8e8bbd39"
+  integrity sha512-xpo8Q+PTJWnmUrnGy13rItn0ZSTPEh826GoYbNZ5RCdJEUEayY6dmvoS7HTvrzyzYkiozQ1PKOuge5uuIof3NQ==
+
 svelte-masonry@^0.0.18:
   version "0.0.18"
   resolved "https://registry.yarnpkg.com/svelte-masonry/-/svelte-masonry-0.0.18.tgz#372fa31971d87901fe6b74ff997c662cefebfebf"

@@ -4,12 +4,23 @@
   <Formlet
     formData={formData} 
     showPageURL={false}
-    on:update={(evt => {console.log('[testPaged] formlet updated:', evt.detail)})}
+    on:update={(evt => {handleUpdate(evt.detail)})}
     on:clear={(() => {console.log('[testPaged] formlet cleared')})}
     bind:submitted={formSubmitted}
     bind:formState={formState} 
     on:submit={(evt => {handleSubmit(evt.detail)})}
-  />
+  >
+  
+    <div slot="preCheckout">
+      <div class="pricing _card _padding">
+        {#if ticketPrice > 0}
+         Your final ticket price is ${ticketPrice} USD
+        {:else}
+          Fill out the form to see your final price.
+        {/if}
+      </div>
+    </div>
+  </Formlet>
 </div>
 
 
@@ -31,17 +42,51 @@
     formData['settings']['successText'] = textReplacer(signedup)
   }
 
+  // default to disabled style
+  // formData['styles']['submitButtonClasses'] = '_button __action-outline _ease _margin-bottom-none-i __massive __disabled'
 
 
   export let formState
   let resetForm, formSubmitted, formSubmitting
   
-  // $: console.log('testformthree form data bind:', formtest, Formdatathree, formtest.basics.fields)
+  let ticketPrice = -1
+
+
+  const handleUpdate = async (data) => {
+    let state = data.state
+
+    // ticket prices should be hard coded
+    // should also be coded again separately on server
+    if(state.position === 'Student'  && state.tickettype === 'In-Person' )
+      ticketPrice = 150
+    else if(state.position === 'Student'  && state.tickettype === 'Virtual' )
+      ticketPrice = 50
+    else if(state.position === 'Academic'  && state.tickettype === 'In-Person' )
+      ticketPrice = 250
+    else if(state.position === 'Academic'  && state.tickettype === 'Virtual' )
+      ticketPrice = 100
+    else if(state.position === 'Industry'  && state.tickettype === 'In-Person' )
+      ticketPrice = 400
+    else if(state.position === 'Industry'  && state.tickettype === 'Virtual' )
+      ticketPrice = 300
+
+    if (ticketPrice > 0) {
+      // formData['styles']['submitButtonClasses'] = '_button __action-outline _ease _margin-bottom-none-i __massive'
+      // creates infinite loop: formData['settings']['successText'] = `Buy your ticket for ${ticketPrice} USD`
+    }
+  }
 
   const handleSubmit = async (data) => {
     if (process.browser) {
       // console.log('submitting data: ', data.state)
     }
+
+    if(ticketPrice < 1) {
+      // show error
+      return
+    }
+
+
     const _res = await fetchPost('/api/setters', {data: data.state, type: 'signup'}, fetch)
     if(_res.status == 200) {
       let resData = await _res.json()

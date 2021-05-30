@@ -4,8 +4,13 @@
 
   import { onMount, getContext, setContext } from 'svelte';
 	import { _content } from "@/stores/sitedata"
+  import { scrollToAnchor } from "@/_utils/scrollto.js";
+
+  import CalDate from '@/components/CalDate.svelte'
 
   let top = _content('top') || ''
+  let caldate = _content('_caldate') || ''
+
 </script>
 
 
@@ -46,9 +51,13 @@
   <div class="Nav-content _section-page _margin-center ">
     <div class="_section-article _margin-center ">
       <div class="_section-narrow _margin-center _center _margin-bottom-2">{@html marked(top||'')}</div>
-			<!-- <div class="_margin-top-2 _center _padding-top-2">
-				<a href="#sign-up" class="_button __action __massive _font-display">Sign up!</a>
-			</div> -->
+			<div class="_margin-top-2 _center _padding-top-2">
+				<a href="#intro" class="_button __action-outline _font-display" style="width: 10rem;" on:click={()=>{scrollToAnchor('intro')}} >Get a ticket</a>
+			</div>
+
+      <div class="_margin-top-2 _margin-bottom-2 _center">
+        <CalDate str={caldate} classes="_margin-center" styles="max-width: 10rem;" />
+      </div>
 		</div>
 	</div>
 </nav>

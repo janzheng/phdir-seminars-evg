@@ -5,7 +5,8 @@ export const formData = {
   name: "## Sign Up For Evergreen",
   description: "",
   settings: {
-    submitText: "Sign up for Evergreen 2021",
+    submitText: "Buy your ticket",
+    submittingText: "Buying your ticket...",
     successText: `
     \n\n ## Welcome to Evergreen 2021!
     \n\n We are excited to have you onboard. A confirmation email has been sent to {{email}}.
@@ -13,8 +14,10 @@ export const formData = {
     \n\n ~ Evergreen 2021 Team`,
   },
   styles: {
-    submitButtonClasses: "_button __action _ease _margin-bottom-none-i  __massive",
+    submitButtonClasses: "_button __action-outline _ease _margin-bottom-none-i  __massive",
     successBox: "_margin-none-i",
+
+    submittingButtonClasses: "_button __action-outline _ease _margin-bottom-none-i  __massive",
   },
   submitHandler: (data)=> {
     console.log('[formtest submit.handler] Submitting with data:', data)
@@ -126,9 +129,10 @@ export const formData = {
         description: "By checking this box, you agree to our [terms & conditions](/terms)",
         fieldType: "Checkbox",
         styles: {
-          formletClasses: "_margin-bottom-2 _md-pfix",
+          formletClasses: "_margin-bottom-2 _md-pfix _padding-none",
           fieldClasses: "_width-full",
           labelClasses: "__bold",
+          descriptionClasses: "_padding-none"
         }
       },
 //     {
@@ -191,7 +195,7 @@ export const formData = {
       email: yup
         .string()
         .email("Please use a valid email")
-        .required("Email required!"),
+        .required("Email required"),
       institution: yup
         .string()
         .required("Institution required"),

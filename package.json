@@ -71,6 +71,7 @@
     "rollup-plugin-terser": "^4.0.4",
     "sapper": "^0.28.0",
     "svelte": "^3.24.1",
+    "svelte-local-storage-store": "^0.2.3",
     "svelte-masonry": "^0.0.18",
     "svelte-preprocess": "^3.7.4",
     "svelte-select": "^3.16.1",

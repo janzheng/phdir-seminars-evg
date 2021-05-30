@@ -28,13 +28,14 @@
   </div>
 </div> -->
 
+<ContentBlock name="_sponsors" classes="_margin-center _center" />
 
 <footer class="Footer __antialiased __content-footer">
   <div class="Footer-content _section-page _margin-center _padding-top-2 _padding-bottom-2">
     <div class="_center">
-      {@html marked(content)}
+      {@html marked(_footer)}
     </div>
-    <!-- <div class="_divider-top terms">{@html marked(terms)}</div> -->
+    <!-- <div class="_divider-top terms">{@html marked(_terms)}</div> -->
   </div>
 </footer>
 
@@ -55,11 +56,12 @@
   import marked from 'marked'
 
 	import { _content } from "@/stores/sitedata"
+  import ContentBlock from '@/components/ContentBlock.svelte'
 
   // export let segment
-  let content = _content('content') || ''
-  let terms = _content('terms') || ''
-  let sponsors = _content('sponsors') || ''
+  let _footer = _content('_footer') || ''
+  let _terms = _content('_terms') || ''
+  // let sponsors = _content('sponsors') || ''
 
 </script>
 
