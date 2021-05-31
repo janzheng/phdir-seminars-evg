@@ -27,7 +27,7 @@ import Cytosis from 'cytosis';
 // import * as sapper from '@sapper/server';
 // import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
-import { registerSignup } from "@/_project/registration" 
+import { registerSignup, registerPostPayment } from "@/_project/registration" 
 
 import { config } from "dotenv";
 
@@ -52,12 +52,19 @@ export async function post(req, res) {
 		console.log('[api/setters] post', type, req.body)
 		
     if (type === 'signup') {
-			const { ticketnumber } = await registerSignup(req.body)
+			const { data } = await registerSignup(req.body)
+      sendData({
+        data
+      }, res);
+    }
 
-		sendData({
-      ticketnumber
-    }, res);
-		}
+    if (type === 'post_payment') {
+			const { data } = await registerPostPayment(req.body)
+      sendData({
+        data // don't send cytosis back, just send empty data to confirm
+      }, res);
+    }
+
 
     res.end('Something happened, and you’re not signed up.')
 
@@ -92,7 +99,7 @@ export async function post(req, res) {
 		// } else 
     
 	} catch(e) {
-		console.error('[api/getters]', e)
+		console.error('[api/setters]', e)
 	}
 }
 

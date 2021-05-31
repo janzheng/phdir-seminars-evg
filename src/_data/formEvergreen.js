@@ -14,7 +14,7 @@ export const formData = {
     \n\n ~ Evergreen 2021 Team`,
   },
   styles: {
-    submitButtonClasses: "_button __action-outline _ease _margin-bottom-none-i  __massive",
+    submitButtonClasses: "_button __action-outline _ease _margin-bottom-none-i _margin-right-none-i  __massive",
     successBox: "_margin-none-i",
 
     submittingButtonClasses: "_button __action-outline _ease _margin-bottom-none-i  __massive",
@@ -25,8 +25,8 @@ export const formData = {
   fields: [
     {
       name: "name",
-      label: `__First and Last Name__`,
-      placeholder: `Jane Doe`,
+      label: `__First and Last Name__ *`,
+      placeholder: `Betty Kutter`,
       fieldType: "Input",
       type: "text",
       styles: {
@@ -36,8 +36,8 @@ export const formData = {
     },
     {
       name: "email",
-      label: `__Email address__`,
-      placeholder: `jane.doe@cmu.edu`,
+      label: `__Email address__ *`,
+      placeholder: `betty.kutter@evergreen.edu`,
       fieldType: "Input",
       type: "email",
       styles: {
@@ -47,8 +47,8 @@ export const formData = {
     },
     {
       name: "institution",
-      label: `__Institution / Affiliation__`,
-      placeholder: `e.g. University of Georgia`,
+      label: `__Institution / Affiliation__ *`,
+      placeholder: `e.g. Evergreen State College`,
       fieldType: "Input",
       type: "text",
       styles: {
@@ -69,7 +69,7 @@ export const formData = {
     // },
     {
       name: "country",
-      label: `__Country__`,
+      label: `__Country__ *`,
       placeholder: `e.g. United States`,
       fieldType: "Input",
       type: "text",
@@ -80,7 +80,7 @@ export const formData = {
     },
       {
         name: "position",
-        label: `Career Position`,
+        label: `Career Position *`,
         fieldType: "Radiogroup",
         styles: {
           formletClasses: "_margin-bottom-2",
@@ -104,7 +104,7 @@ export const formData = {
       },
       {
         name: "tickettype",
-        label: `Ticket Type`,
+        label: `Ticket Type *`,
         description: "Are you attending in-person or virtually?",
         fieldType: "Radiogroup",
         styles: {

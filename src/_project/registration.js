@@ -8,6 +8,13 @@ import { config } from "dotenv";
 // import { checkAttendee } from './_api-helpers'
 import { customAlphabet } from 'nanoid';
 
+import { createPayment, getTicketPrice } from './payments';
+
+
+
+
+
+
 // import { notifyAdmins, notifySubscribe, notifyEventSignup } from '../../_utils/_mailer.js'
 
 config(); // https://github.com/sveltejs/sapper/issues/122
@@ -41,6 +48,8 @@ export const registerSignup = async ({data}) => {
 
   const ticketgen = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)
   const ticketnumber = `${ticketgen()}`
+  const ticketprice = getTicketPrice(data)
+
   const cytosis = await Cytosis.save({
     apiKey: apiEditorKey,
     baseId: baseId,
@@ -59,9 +68,19 @@ export const registerSignup = async ({data}) => {
       'Ticket Number': ticketnumber,
       'Position': data['position'],
       'Ticket Type': data['tickettype'],
+      'Ticket Price': ticketprice,
       'Terms': data['terms'],
+
+      'Payment': 'Pending',
     }
   })
+
+  let stripeKey = await createPayment(ticketprice, {
+    ...data,
+    ticketnumber,
+    id: cytosis.id,
+  })
+
 
   return {
     ticketnumber,
@@ -69,8 +88,40 @@ export const registerSignup = async ({data}) => {
     data: {
       ...data,
       ticketnumber,
+      id: cytosis.id,
+      stripeKey,
     },
   }
+}
+
+
+
+// handles notifications and stuff after payment's gone through
+export const registerPostPayment = async ({data}) => {
+  console.log('[registerPostPayment] ', data, ' — — — — ' , data['signupData'].id)
+
+  try {
+    const cytosis = await Cytosis.save({
+      apiKey: apiEditorKey,
+      baseId: baseId,
+      recordId: data.signupData.id,
+      tableName: 'Attendees',
+      payload: {
+        'Payment': 'Stripe',
+        'Receipt': data.stripe_id
+      },
+      tableOptions: {
+        insertOptions: ['typecast'],
+      },
+    })
+    
+    return {
+      cytosis
+    }
+  } catch(e) {
+    console.error('[registerPostPayment] error:', e)
+  }
+
 }
 
 
@@ -78,6 +129,52 @@ export const registerSignup = async ({data}) => {
 
 
 
+
+
+
+
+
+
+
+// export async function logOrder(stripe, user, orderId, orders, totals) {
+// 	console.log('PAYMENT SUCCESSFUL / STRIPE DATA:', stripe, user, orderId)
+
+// 	const apiEditorKey = process.env.CHINOOK_AIRTABLE_PRIVATE_API
+// 	const baseId = process.env.CHINOOK_AIRTABLE_PRIVATE_BASE
+// 	// console.log(' >>>>>> totals >>>', totals)
+// 	// validate?
+
+//   const saveToCytosis = async () => {
+//     return Cytosis.save({
+//       apiKey: apiEditorKey,
+//       baseId: baseId,
+//       tableName: 'Orders',
+//       tableOptions: {
+//         insertOptions: ['typecast'],
+//       },
+//       payload: {
+//       	Name: stripe.paymentIntent.shipping.name,
+//         Email: user.fields.Email,
+//         OrderStatus: ['New'],
+//         Address: JSON.stringify(stripe.paymentIntent.shipping.address),
+//         StripeId: stripe.paymentIntent.id,
+//         Signup: user.id,
+//         orderId: orderId,
+//         Total: stripe.paymentIntent.amount / 100,
+//         Subtotal: totals.calcSubtotal,
+//         Discount: totals.calcDiscount,
+//         NumOrders: orders,
+//         ReferralCount: user.referrals ? user.referrals.length : 0,
+//         Referrals: user.referrals ? JSON.stringify(user.referrals) : 'no referrals',
+//       }
+//     })
+//   }
+
+//   return saveToCytosis().then((_res) => {
+//   	// console.log('saveToCytosis >>> ', _res)
+//   	return _res
+//   })
+// }
 
 
 
