@@ -3,7 +3,7 @@
   "description": "Evergreen 2021 — Phage Directory Network Event",
   "version": "0.0.1",
   "scripts": {
-    "dev": "sapper dev --port 2007",
+    "dev": "sapper dev --port 2009",
     "zeit-notes": "zeit has problems building on their end, but 'zeit prod' does it locally. Requires build to use export, but old sapper build is: sapper build --legacy",
     "build": "npm run load-content; ls && sapper build --legacy",
     "quickbuild": "ls && sapper build --legacy",
@@ -43,6 +43,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.0.0",
+    "@paypal/checkout-server-sdk": "^1.0.2",
     "@rollup/plugin-alias": "^3.1.2",
     "@rollup/plugin-commonjs": "11.0.2",
     "@rollup/plugin-node-resolve": "^7.0.0",

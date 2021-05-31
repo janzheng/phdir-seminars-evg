@@ -184,7 +184,7 @@ export const formData = {
       name: undefined,
       institution: undefined,
       email: undefined,
-      affiliation: undefined,
+      // affiliation: undefined,
       country: undefined,
       // attendance: undefined,
       position: undefined,

@@ -27,7 +27,7 @@ import Cytosis from 'cytosis';
 // import * as sapper from '@sapper/server';
 // import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
-import { registerSignup, registerPostPayment } from "@/_project/registration" 
+import { registerSignup, registerPostPayment, registerPostPaymentPaypal } from "@/_project/registration" 
 
 import { config } from "dotenv";
 
@@ -59,9 +59,19 @@ export async function post(req, res) {
     }
 
     if (type === 'post_payment') {
-			const { data } = await registerPostPayment(req.body)
+			let ok
+      if(process.env.PAYMENT_MODE == 'STRIPE')
+        ok = await registerPostPayment(req.body)
+      else {
+        let { data } = await registerPostPaymentPaypal(req.body)
+        return sendData({
+          data // send data back
+        }, res);
+
+      }
+
       sendData({
-        data // don't send cytosis back, just send empty data to confirm
+        success: ok // don't send cytosis back, just send empty data to confirm
       }, res);
     }
 

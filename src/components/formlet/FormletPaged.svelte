@@ -66,9 +66,9 @@
             
             {#if formData.settings && formData.settings.submitText && curPageNumber == formPages.length-1}
               {#if isSubmitting}
-                <button type="submit" class="_button __cta _ease _margin-bottom-none-i {formStyles['submittingButtonClasses'] || ''} ">{formData.settings&&formData.settings.submittingText || "Submitting..."}</button>
+                <button type="submit" class="submittingButtonClasses _button __cta _ease _margin-bottom-none-i {formStyles['submittingButtonClasses'] || ''} ">{formData.settings&&formData.settings.submittingText || "Submitting..."}</button>
               {:else}
-                <button type="submit" class="_button __action _ease _margin-bottom-none-i {formStyles['submitButtonClasses'] || ''} ">{formData.settings&&formData.settings.submitText || "Submit"}</button>
+                <button type="submit" class="submitButtonClasses _button __action _ease _margin-bottom-none-i {formStyles['submitButtonClasses'] || ''} ">{formData.settings&&formData.settings.submitText || "Submit"}</button>
               {/if}
             {/if}
 
@@ -179,7 +179,7 @@ let fieldComponents = {
 };
 
 // yup schema: https://www.npmjs.com/package/yup
-export let formData, formStore, surveysCompleted, showPageURL=true
+export let formData, formStore, surveysCompleted //, showPageURL=true
 export let formStyles = formData['styles'] || {}, isSubmitting=false, submitted=false
 
 export let form, errors, state, handleChange, handleSubmit, handleReset, touched, isValid, isValidating, validateField

@@ -20,7 +20,7 @@
             Your final ticket price is ${ticketPrice} USD
           </div>
 
-          {#if stripePK}
+          {#if paymentKey}
             <div class="_margin-bottom">
               <div>
                 <label class="_left" for="card-element">Credit Card</label>
@@ -76,7 +76,7 @@
   export let formState, isValid, touched
   let resetForm, formSubmitted, formSubmitting
   
-  let ticketPrice = -1, stripePK = null, errorMsg
+  let ticketPrice = -1, paymentKey = null, errorMsg
 
 
   const handleUpdate = async (data) => {
@@ -106,7 +106,7 @@
       })
       if(res.ok) {
         let json = await res.json()
-        stripePK = json['stripePK']
+        paymentKey = json['paymentKey']
         initStripe()
       }
       // formData['styles']['submitButtonClasses'] = '_button __action-outline _ease _margin-bottom-none-i __massive'
@@ -148,7 +148,7 @@
     if(_res.status == 200) {
       let json = await _res.json()
       signupData = json['data']
-      console.log('User registered:', signupData)
+      // console.log('User registered:', signupData)
     } else {
       console.error('submit error:', _res.status, _res)
       errorMsg = `Evergreen registration failed: ${_res.status}`
@@ -158,7 +158,7 @@
     
 
     // process Stripe payment here
-    const stripePayment = await stripe.confirmCardPayment(signupData.stripeKey.client_secret, {
+    const stripePayment = await stripe.confirmCardPayment(signupData.paymentKey.client_secret, {
       payment_method: {
         card: card,
       }
@@ -177,7 +177,8 @@
       const payConfirmRes = await fetchPost('/api/setters', { 
         data: {
           signupData, 
-          stripe_id: stripePayment.paymentIntent.id,
+          paymentMethod: 'Stripe',
+          paymentReceipt: stripePayment.paymentIntent.id,
         },
         type: 'post_payment'
       }, fetch)
@@ -193,7 +194,6 @@
     // submission complete; show thank you message
     // replace template text w/ state data
 
-    console.log('asdasd', signupData)
     formSubmitted=true
     formSubmitting=false
     const successText = textReplacer(signedup, {
@@ -222,6 +222,7 @@
   let stripe, elements, card
   const initStripe = () => {
     if(!stripe) {
+      stripe=true
       let script = document.createElement('script')
       script.setAttribute('src', 'https://js.stripe.com/v3/')
       // get stripe pk value 
@@ -235,7 +236,7 @@
     console.log('[Stripe] Loading')
     // Set your publishable key: remember to change this to your live publishable key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
-    stripe = Stripe(stripePK);
+    stripe = Stripe(paymentKey);
     elements = stripe.elements();
 
     // Set up Stripe.js and Elements to use in checkout form

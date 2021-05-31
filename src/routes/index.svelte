@@ -104,7 +104,8 @@
 	import { _content, _contents } from "@/stores/sitedata"
 
   import Separator from '../components/widgets/Separator.svelte'
-  import Signup from '../components/widgets/Signup.svelte'
+  // import Signup from '../components/widgets/SignupStripe.svelte'
+  import Signup from '../components/widgets/SignupPaypal.svelte'
 
   import CalDate from '@/components/CalDate.svelte'
   import ContentBlock from '@/components/ContentBlock.svelte'

@@ -14,16 +14,28 @@
 */
 
 
+
+import { config } from "dotenv";
+config(); // https://github.com/sveltejs/sapper/issues/122
+
+
+
 // Set your secret key. Remember to switch to your live secret key in production!
 // See your keys here: https://dashboard.stripe.com/account/apikeys
 import stripe from 'stripe'
-const _stripe = stripe(process.env.STRIPE_SK, {apiVersion: ''});
+// const _stripe = process.env.STRIPE_SK ? stripe(process.env.STRIPE_SK, {apiVersion: ''}) : null
+const _stripe = process.env.PAYMENT_MODE == 'STRIPE' ? stripe(process.env.STRIPE_SK, {apiVersion: ''}) : null
+
+
+
 
 
 // initiate a stripe payment intent
-export async function createPayment(price, metadata, currency='usd') {
-	if (price == 0)
+export async function createStripePayment(price, metadata, currency='usd') {
+	if (price == 0 || !_stripe) {
+    console.error('[createStripePayment] Could not create stripe payment')
 		return undefined
+  }
 
 	return await _stripe.paymentIntents.create({
 	  amount: price * 100, // turn into cents
@@ -59,10 +71,10 @@ export async function prePayment(state) {
   let ticketPrice = getTicketPrice(state)
   console.log('[prePayment] queries:', state, ticketPrice)
 
-  // if prices are correct, send Stripe public key
-  // this is required to generate the Stripe payments fields
+  // if prices are correct, send Stripe or Paypal public key
+  // this is required to generate the Stripe or Paypal payments fields
   if (ticketPrice > 0) {
-    return process.env.STRIPE_PK
+    return process.env.PAYMENT_MODE=='STRIPE' ? process.env.STRIPE_PK : process.env.PAYPAL_CLIENT
   }
 
   return null
