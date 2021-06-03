@@ -8,7 +8,6 @@
 		// session.update({
 		// 	...session, ...Content
 		// });
-    // console.log('_layout cytosis:', cytosis.results)
     return { _SiteData: results, Content, Schedule, Profiles };
   }
 </script>
@@ -18,17 +17,17 @@
 
 	import { SiteData, _content, _get } from "@/stores/sitedata"
 
-	import Nav from '../components/layout/Nav.svelte';
+	import Nav from '../components/layout/NavFull.svelte';
 	import Footer from '../components/layout/Footer.svelte';
 	import { head, site_url } from '@/_project/head.js';
 
 	// This trick passes down preloaded data to all modules
 	// https://stackoverflow.com/questions/60911171/how-to-pass-data-from-a-layout-to-a-page-in-sapper
-	export let segment
-	export let _SiteData, Content, Schedule, Profiles
+	// export let segment
+	export let _SiteData  //, Content, Schedule, Profiles
 
-  import { setContext } from 'svelte'
-  import { writable } from 'svelte/store'
+  // import { setContext } from 'svelte'
+  // import { writable } from 'svelte/store'
 
 
   // load site data into store
@@ -38,32 +37,29 @@
     // console.log(_get('_footer', 'Content'), _content('_footer'))
 	}
 
-
-
-
-  const Content$ = writable(Content)
-  const Schedule$ = writable(Schedule)
-  const Profiles$ = writable(Profiles)
+  // const Content$ = writable(Content)
+  // const Schedule$ = writable(Schedule)
+  // const Profiles$ = writable(Profiles)
   // this updates the store's value when `segment` changes
   // syntactic sugar for: segment$.set(segment)
-  $: $Content$ = Content
-  $: $Schedule$ = Schedule
-  $: $Profiles$ = Profiles
-  setContext('Content', Content$)
-  setContext('Schedule', Schedule$)
-  setContext('Profiles', Profiles$)
+  // $: $Content$ = Content
+  // $: $Schedule$ = Schedule
+  // $: $Profiles$ = Profiles
+  // setContext('Content', Content$)
+  // setContext('Schedule', Schedule$)
+  // setContext('Profiles', Profiles$)
 
 
-  let upcomingItems, site_image
-  $: upcomingItems = [...Schedule.filter(item => item.fields['Status'].includes('Upcoming')) , ...Schedule.filter(item => item.fields['Status'].includes('Preview'))]
-  $: if (upcomingItems && upcomingItems.length > 0 && 
-  		upcomingItems[0].fields['Attachments'] && 
-  		upcomingItems[0].fields['Attachments'][0]
-  		) {
-  	site_image = upcomingItems[0].fields['Attachments'][0]['url']
-  } else {
-		site_image = 'https://evergreen.phage.directory/share_img.png'
-	}
+  // let upcomingItems, site_image
+  // $: upcomingItems = [...Schedule.filter(item => item.fields['Status'].includes('Upcoming')) , ...Schedule.filter(item => item.fields['Status'].includes('Preview'))]
+  // $: if (upcomingItems && upcomingItems.length > 0 && 
+  // 		upcomingItems[0].fields['Attachments'] && 
+  // 		upcomingItems[0].fields['Attachments'][0]
+  // 		) {
+  // 	site_image = upcomingItems[0].fields['Attachments'][0]['url']
+  // } else {
+	// 	site_image = 'https://evergreen.phage.directory/share_img.png'
+	// }
 
   // $: console.log('content:', Content)
 </script>
@@ -77,10 +73,10 @@
 	{#if head}
 		<title>{ head.title }</title>
 
-		{#if upcomingItems}
+		<!-- {#if upcomingItems}
 			<meta data-hid='og-image' content={`${site_image}`} property='og:image' >
 			<meta data-hid='twitter-image' content={`${site_image}`} property='twitter:image' >
-	  {/if}
+	  {/if} -->
 
 		{#if head.link}
 			{#each head.meta as meta}
@@ -100,8 +96,10 @@
 </svelte:head>
 
 
+
 <div id="top" class="ContentFrame Layout">
-	<Nav Content={Content} segment={segment} />
+
+  <Nav />
 
 	<main class="ContentFrame-body __content-frame">
 		<slot ></slot>

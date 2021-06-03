@@ -1,8 +1,10 @@
+
+
 <script>
-  import Cytosis from 'cytosis'
+  // import Cytosis from 'cytosis'
   import marked from 'marked'
 
-  import { onMount, getContext, setContext } from 'svelte';
+  // import { onMount, getContext, setContext } from 'svelte';
 	import { _content } from "@/stores/sitedata"
   import { scrollToAnchor } from "@/_utils/scrollto.js";
 
@@ -11,6 +13,12 @@
   let top = _content('top') || ''
   let caldate = _content('_caldate') || ''
 
+
+
+
+  import { stores } from "@sapper/app";
+  let page = stores().page
+  // $:console.log('page:', $page)
 </script>
 
 
@@ -23,6 +31,8 @@
  
  -->
   
+{#if $page.path=='/'}
+
 <nav class="Header __antialiased __content-header">
   <!-- <div class="Nav Home-content _section-page _padding-top-2 _padding-bottom-2"> -->
   <div class="Nav Home-content _padding-top-2">
@@ -62,6 +72,7 @@
 	</div>
 </nav>
 
+{/if}
 
 
 <style type="text/scss">

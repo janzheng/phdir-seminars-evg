@@ -14,26 +14,10 @@
 
 
 
-<style type="text/scss">
+<style global type="text/scss">
 
-  .Separator-wrapper {
-      // height: 367px;
-  }
-	.Separator {
-		position: relative;
-    height: 67px;
-    background-color: #DBF4E9;
-	}
-	.diamondsvg {
-		position: absolute;
-		width: 100%;
-		height: 300px;
-    min-width: 600px;
-    text-align: center;;
-
-		image {
-			width: 100%;
-		}
-	}
+  // .Separator-wrapper {
+  //     // height: 367px;
+  // }
 
 </style>

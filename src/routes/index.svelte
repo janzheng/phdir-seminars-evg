@@ -7,18 +7,23 @@
 
   <div id="intro" class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
     <div class="_section-article _margin-center">
-      <div class="Content-box _margin-bottom-2">{@html marked(_intro||'')}</div>
+      <!-- <div class="Content-box _margin-bottom-2">{@html marked(_intro||'')}</div> -->
+      <div class="_margin-top-2 _margin-center _card _betty-card ">
+        <div class="betty-intro">{@html marked(bettyintro||'')}</div>
+        <div id="betty-letter" class="_betty-letter {showBetty ? '_betty-letter-expanded': '_betty-letter-shrunk'}">{@html marked(betty||'')}</div>
+        <Switch classes="_margin-top-2 __action-outline" showWhenTrue={false} bind:value="{showBetty}"  hideText="Shrink letter" showText="Expand letter" handler={()=>{showBetty != showBetty}} />
+      </div>
     </div>
   </div>
 
 
-  <div id="betty" class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
+  <!-- <div id="betty" class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
     <div class="_margin-center _card _betty-card">
       <div class="betty-intro">{@html marked(bettyintro||'')}</div>
       <div id="betty-letter" class="_betty-letter {showBetty ? '_betty-letter-expanded': '_betty-letter-shrunk'}">{@html marked(betty||'')}</div>
       <Switch classes="_margin-top-2 __action-outline" showWhenTrue={false} bind:value="{showBetty}"  hideText="Shrink letter" showText="Expand letter" handler={()=>{showBetty != showBetty}} />
     </div>
-  </div>
+  </div> -->
 
 
   <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
@@ -53,7 +58,7 @@
 
   <div class="Home-content _section-page _padding-top-2 _margin-center ">
 
-    <div id="signup" class="_section-page _margin-center">
+    <div id="signup"class="_section-page _margin-center">
       <div class="Content-box _padding-bottom-2">
         <Signup />
       </div>
@@ -104,7 +109,6 @@
 	import { _content, _contents } from "@/stores/sitedata"
 
   import Separator from '../components/widgets/Separator.svelte'
-  // import Signup from '../components/widgets/SignupStripe.svelte'
   import Signup from '../components/widgets/SignupPaypal.svelte'
 
   import CalDate from '@/components/CalDate.svelte'
@@ -149,11 +153,14 @@
 
   #betty-letter {
     max-width: 88ch;
+    
+    p { 
+      font-family: 'Noto Serif', 'Georgia', serif;
+    }
   }
   ._betty-card {
     background-color: white;
-    padding: 1rem 4rem;
-    padding-bottom: 2rem;
+    padding: 2rem 1rem;
   }
   ._betty-letter-shrunk {
     max-height: 24rem;

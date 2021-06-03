@@ -1,29 +1,24 @@
 
 
-
-
 <div class="Home-content _section-page _padding-top-2 _margin-center ">
 
-  <div class="_margin-bottom-2"><p>← <a href="/">Go back home</a></p></div>
-  {@html marked(terms)}
+  <div class="_section-article _margin-center _margin-bottom-2 _padding-bottom-2">
+    <div class="_margin-top-2 _margin-bottom-2">
+      <p>← <a rel="preload" href="/">Go back home</a></p>
+    </div>
+    {@html marked(terms)}
+    {@html marked(privacy)}
+  </div>
 </div>
 
 
-
-
 <script>
-  import { onMount, getContext, setContext } from 'svelte';
-
-  import Cytosis from 'cytosis'
+	import { _content } from "@/stores/sitedata"
   import marked from 'marked'
 
-  // export let segment
-  const Content$ = getContext('Content')
-  $: Content = $Content$
+  let terms = _content('_terms') || ''
+  let privacy = _content('_privacy') || ''
 
-  let terms
-  $: terms = Cytosis.findOne('terms', Content ).fields['Markdown']
-  // }
 </script>
 
 

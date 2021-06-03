@@ -173,7 +173,7 @@ export const registerPostPaymentPaypal = async ({data}) => {
   // return true
   return {
     ticketnumber,
-    cytosis,
+    // cytosis,
     data: {
       ...data,
       ticketnumber,
