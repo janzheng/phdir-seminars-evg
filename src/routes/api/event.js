@@ -4,12 +4,12 @@
 import { config } from "dotenv";
 import Cytosis from 'cytosis';
 // import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
-// import { sendData } from "@/_utils/sapper-helpers" 
+import { sendData } from "@/_utils/sapper-helpers" 
 import { getContent } from "@/_project/content" 
 
 import send from '@polka/send';
-// import { google, outlook, office365, yahoo, ics, eventify } from "calendar-link";
-import { eventify } from "calendar-link";
+import { google, outlook, office365, yahoo, ics, eventify } from "calendar-link";
+// import { eventify } from "calendar-link";
 
 config(); // https://github.com/sveltejs/sapper/issues/122
 
@@ -24,7 +24,7 @@ export async function getEvent() {
     start: Cytosis.findField('_datetime', content, 'DateTime GMT'),
     alarm: Cytosis.findField('_datetime', content, 'Alarm Trigger'),
     description: Cytosis.findField('_eventDescription', content, 'Markdown'),
-    tzid: Cytosis.findField('_dateTime', content, 'Timezone'),
+    // tzid: Cytosis.findField('_dateTime', content, 'Timezone'),
     duration: Cytosis.findField('_eventDuration', content, 'Markdown').split(','),
     url: Cytosis.findField('_eventUrl', content, 'Markdown') || Cytosis.findField('_url', content, 'Markdown'),
     location: Cytosis.findField('_eventLocation', content, 'Markdown'),
@@ -49,12 +49,22 @@ export async function getIcsDecoded() {
 
 
 export async function get(req, res) {
-	try {
+  try {
     let event = await getEvent()
-    send(res, 200, decodeURIComponent(customIcs(event).split("charset=utf8,")[1]), {
-      // 'Content-Type': 'text/calendar',
-      'Content-Type': 'text',
-    })
+
+    if(req.query.links) {
+      sendData({
+        googleLink: google(event),
+        yahooLink: yahoo(event),
+        officeLink: office365(event),
+        outlook: outlook(event),
+      }, res);
+    } else {
+      send(res, 200, decodeURIComponent(customIcs(event).split("charset=utf8,")[1]), {
+        // 'Content-Type': 'text/calendar',
+        'Content-Type': 'text',
+      })
+    }
 	} catch(err) {
 		console.error('[ics] api/get error:', err)
 		throw new Error('[ics] Error', err)

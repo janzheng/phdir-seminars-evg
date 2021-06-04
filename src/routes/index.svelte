@@ -33,7 +33,10 @@
 
       <div id="datetime" class="Content-box _margin-top-2 _margin-bottom-2 _grid-1-4 _grid-gap-large">
         <CalDate str={_caldate} showInsert={false} styles="width: 10rem; height: 8rem;" />
-        <div>{@html marked(_datetime||'')}</div>
+        <div>
+          {@html marked(_datetime||'')}
+          <Calendars />
+        </div>
       </div>
 
       <div id="location" class="Content-box _margin-top-2 _margin-bottom-2 ">
@@ -110,6 +113,7 @@
 
   import Separator from '../components/widgets/Separator.svelte'
   import Signup from '../components/widgets/SignupPaypal.svelte'
+  import Calendars from '../components/widgets/Calendars.svelte'
 
   import CalDate from '@/components/CalDate.svelte'
   import ContentBlock from '@/components/ContentBlock.svelte'

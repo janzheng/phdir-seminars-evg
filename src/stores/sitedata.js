@@ -13,9 +13,9 @@ export const _get = (name, table='Content') => {
 } 
 
 // shortcut: Content Table > Content Field
-export const _content = (name) => {
+export const _content = (name, fieldName='Content') => {
   // return empty text if loading / prepping for markdown
-  return _get(name) && _get(name).fields && _get(name).fields['Content']  || ''
+  return _get(name) && _get(name).fields && _get(name).fields[fieldName] || ''
 } 
 export const _contents = (names) => {
   let obj = {}
