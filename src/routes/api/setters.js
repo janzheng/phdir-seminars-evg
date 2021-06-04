@@ -27,7 +27,7 @@ import Cytosis from 'cytosis';
 // import * as sapper from '@sapper/server';
 // import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
-import { registerSignup, registerPostPayment, registerPostPaymentPaypal } from "@/_project/registration" 
+import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal } from "@/_project/registration" 
 
 import { config } from "dotenv";
 
@@ -52,7 +52,7 @@ export async function post(req, res) {
 		console.log('[api/setters] post', type, req.body)
 		
     if (type === 'signup') {
-			const { data } = await registerSignup(req.body)
+			const { data } = await registerSignupStripe(req.body)
       sendData({
         data
       }, res);
@@ -61,7 +61,7 @@ export async function post(req, res) {
     if (type === 'post_payment') {
 			let ok
       if(process.env.PAYMENT_MODE == 'STRIPE')
-        ok = await registerPostPayment(req.body)
+        ok = await registerPostPaymentStripe(req.body)
       else {
         let { data } = await registerPostPaymentPaypal(req.body)
         return sendData({

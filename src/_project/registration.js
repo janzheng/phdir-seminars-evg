@@ -9,7 +9,7 @@ import { config } from "dotenv";
 import { customAlphabet } from 'nanoid';
 
 import { createStripePayment, getTicketPrice } from './payments';
-
+import { sendReceiptToCustomer, sendInfoToAdmin } from './notifiers';
 
 
 
@@ -25,7 +25,7 @@ const baseId = process.env.AIRTABLE_PRIVATE_BASE
 
 
 
-export const registerSignup = async ({data}) => {
+export const registerSignupStripe = async ({data}) => {
 	// need to get attendee data first and merge data if required
 
 	// const user = await checkAttendee(json['email'])
@@ -101,7 +101,7 @@ export const registerSignup = async ({data}) => {
 
 
 // handles notifications and stuff after payment's gone through
-export const registerPostPayment = async ({data}) => {
+export const registerPostPaymentStripe = async ({data}) => {
   // console.log('[registerPostPayment] ', data, ' — — — — ' , data['signupData'].id)
 
   try {
@@ -119,7 +119,7 @@ export const registerPostPayment = async ({data}) => {
         insertOptions: ['typecast'],
       },
     })
-    
+
     return true
     // return {
     //   cytosis
@@ -156,7 +156,7 @@ export const registerPostPaymentPaypal = async ({data}) => {
     	'Institution': data['institution'],
     	'Country': data['country'],
     	// 'Abstract': data['abstract'],
-			'Authors': data['authors'],
+			// 'Authors': data['authors'],
 			'Data': JSON.stringify(data),
       'Ticket Number': ticketnumber,
       'Position': data['position'],
@@ -170,12 +170,19 @@ export const registerPostPaymentPaypal = async ({data}) => {
     }
   })
 
+  await Promise.all([
+      sendReceiptToCustomer({...data, ticketprice, ticketnumber}), 
+      sendInfoToAdmin({...data, ticketprice, ticketnumber}),
+  ]);
+
+
   // return true
   return {
     ticketnumber,
     // cytosis,
     data: {
       ...data,
+      ticketprice,
       ticketnumber,
       id: cytosis.id,
     },

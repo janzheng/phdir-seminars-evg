@@ -45,6 +45,8 @@ export const getContent = async () => {
     console.log('[Content] -- Loader Mode Off -- using Airtable Mode')
   }
     
+  // could get from notion or other places here
+  
   // console.log('[Content] -- Airtable Mode')
   return getContentFromAirtable()
 }

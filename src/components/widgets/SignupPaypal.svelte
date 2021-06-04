@@ -21,11 +21,13 @@
           </div>
 
           {#if paymentKey}
-            <div class="_margin-bottom">
-              <div>
-                <div id="paypal-button-container"></div>
-              </div>
-            </div>
+            {#if !hasPaypal}
+              <div class="_margin-bottom">Loading PayPal checkout</div>
+            {:else if confirmingPayment}
+              <div class="_margin-bottom">Confirming PayPal payment</div>
+            {:else}
+              <div class="_margin-bottom" id="paypal-button-container"></div>
+            {/if}
           {/if}
 
          {:else}
@@ -129,15 +131,16 @@
 
   // })
 
-  let hasPaypal, elements, card
+  let hasPaypal, elements, card, confirmingPayment=false, confirmedPayment=false
   const initPaypal = () => {
     if(!hasPaypal) {
-      hasPaypal=true
+      console.log('[starting paypal...]')
       let script = document.createElement('script')
       script.setAttribute('src', `https://www.paypal.com/sdk/js?client-id=${paymentKey}`)
       // get stripe pk value 
       script.onload = loadPayPal
       document.head.appendChild(script)
+      hasPaypal=true
     }
   }
 
@@ -158,9 +161,13 @@
         });
       },
       onApprove: function(data, actions) {
+        // console.log('[paypal...]')
+
         // This function captures the funds from the transaction.
         return actions.order.capture().then(async function(details) {
           // This function shows a transaction success message to your buyer.
+
+          confirmingPayment = true
 
           // register completed payment w/ Airtable 
           const payConfirmRes = await fetchPost('/api/setters', { 
@@ -193,6 +200,8 @@
             ticketnumber: signupData.ticketnumber,
           })
           formData['settings']['successText'] = successText
+          confirmingPayment = false
+          confirmedPayment = true
           zzz(scrollToAnchor, 'signup-container', 200)
           
         })
