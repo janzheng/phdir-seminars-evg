@@ -69,12 +69,14 @@ export let getTicketPrice = (state) => {
 // get prices and Stripe secret for starting Stripe payment
 export async function prePayment(state) {
   let ticketPrice = getTicketPrice(state)
-  console.log('[prePayment] queries:', state, ticketPrice)
+  // console.log('[prePayment] queries:', state, ticketPrice)
 
   // if prices are correct, send Stripe or Paypal public key
   // this is required to generate the Stripe or Paypal payments fields
-  if (ticketPrice > 0) {
-    return process.env.PAYMENT_MODE=='STRIPE' ? process.env.STRIPE_PK : process.env.PAYPAL_CLIENT
+  if (process.env.PAYMENT_MODE=='STRIPE' && ticketPrice > 0) {
+    return process.env.STRIPE_PK
+  } else {
+    return process.env.PAYPAL_CLIENT
   }
 
   return null

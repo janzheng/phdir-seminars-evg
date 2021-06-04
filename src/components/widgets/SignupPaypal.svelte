@@ -26,13 +26,15 @@
             {:else if confirmingPayment}
               <div class="_margin-bottom">Confirming PayPal payment</div>
             {:else}
-              <div class="_margin-bottom" id="paypal-button-container"></div>
+              <!-- do nothing — paypal button should be hidden until needed -->
             {/if}
           {/if}
 
          {:else}
           Fill out the form to see your final price and complete checkout.
         {/if}
+
+        <div class=" {ticketPrice > 0 && $isValid == true? '':'_none'}" id="paypal-button-container"></div>
       </div>
     </div>
 
@@ -50,7 +52,7 @@
 
 <script>
 
-  // import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
 
   import { formData } from "@/_data/formEvergreen.js";
   import Formlet from '@/components/formlet/FormletPaged.svelte'
@@ -97,20 +99,21 @@
     else if(state.position === 'Industry'  && state.tickettype === 'Virtual' )
       ticketPrice = 300
 
-    if (ticketPrice > 0 && $isValid == true) {
+    // this checker required for Stripe, but not for Paypal
+    // if (ticketPrice > 0 && $isValid == true) {
 
-      const res = await fetch(
-        `/api/payments/getters?position=${state.position}&tickettype=${state.tickettype}`, {
-        method: 'GET',
-      })
-      if(res.ok) {
-        let json = await res.json()
-        paymentKey = json['paymentKey']
-        initPaypal()
-      }
+      // const res = await fetch(
+      //   `/api/payments/getters?position=${state.position}&tickettype=${state.tickettype}`, {
+      //   method: 'GET',
+      // })
+      // if(res.ok) {
+      //   let json = await res.json()
+      //   paymentKey = json['paymentKey']
+      //   initPaypal()
+      // }
       // formData['styles']['submitButtonClasses'] = '_button __action-outline _ease _margin-bottom-none-i __massive'
       // creates infinite loop: formData['settings']['successText'] = `Buy your ticket for ${ticketPrice} USD`
-    }
+    // }
   }
 
   const handleSubmit = async (data) => {
@@ -125,11 +128,20 @@
 
 
 
+  onMount(async () => {
+    // load payment key on site load — speeds things up
+    const res = await fetch(
+      `/api/payments/getters`, {
+      method: 'GET',
+    })
+    if(res.ok) {
+      let json = await res.json()
+      paymentKey = json['paymentKey']
+      initPaypal()
+    }
+  })
 
 
-  // onMount(async () => {
-
-  // })
 
   let hasPaypal, elements, card, confirmingPayment=false, confirmedPayment=false
   const initPaypal = () => {
