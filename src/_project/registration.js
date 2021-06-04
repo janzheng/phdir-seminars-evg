@@ -172,7 +172,7 @@ export const registerPostPaymentPaypal = async ({data}) => {
 
   await Promise.all([
       sendReceiptToCustomer({...data, ticketprice, ticketnumber}), 
-      sendInfoToAdmin({...data, ticketprice, ticketnumber}),
+      // sendInfoToAdmin({...data, ticketprice, ticketnumber}),
   ]);
 
 
