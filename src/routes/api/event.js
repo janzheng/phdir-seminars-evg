@@ -22,6 +22,7 @@ export async function getEvent() {
   let event = {
     title: Cytosis.findField('_eventName', content, 'Markdown'),
     start: Cytosis.findField('_datetime', content, 'DateTime GMT'),
+    end: Cytosis.findField('_datetime', content, 'DateTimeEnd GMT'),
     alarm: Cytosis.findField('_datetime', content, 'Alarm Trigger'),
     description: Cytosis.findField('_eventDescription', content, 'Markdown'),
     // tzid: Cytosis.findField('_dateTime', content, 'Timezone'),
@@ -61,8 +62,8 @@ export async function get(req, res) {
       }, res);
     } else {
       send(res, 200, decodeURIComponent(customIcs(event).split("charset=utf8,")[1]), {
-        // 'Content-Type': 'text/calendar',
-        'Content-Type': 'text',
+        'Content-Type': 'text/calendar',
+        // 'Content-Type': 'text',
       })
     }
 	} catch(err) {
