@@ -15,8 +15,8 @@ export const site_color = '#DBF4E9';
 export const site_description = 'Evergreen Phage Meeting 2021';
 
 // const site_ico = '/ico_dull.png'; // site icon
-export const site_ico = '/icon.png';
-export const site_image = '/share_img.png';
+export const site_ico = '/evg-logo.png';
+export const site_image = '/share_img.jpg';
 export const site_search = 'index,follow';
 export const site_author = 'Jan Zheng';
 export const page_name = ''; // placeholder for the copy+paste

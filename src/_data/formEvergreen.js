@@ -25,34 +25,34 @@ export const formData = {
   fields: [
     {
       name: "name",
-      label: `__First and Last Name__ *`,
+      label: `__First and Last Name *__`,
       placeholder: `Betty Kutter`,
       fieldType: "Input",
       type: "text",
       styles: {
-        formletClasses: "_margin-top-2 _margin-bottom-2",
+        formletClasses: "_margin-top-2 _margin-bottom-2 _padding-bottom-2",
         fieldClasses: "_width-full"
       }
     },
     {
       name: "email",
-      label: `__Email address__ *`,
+      label: `__Email *__`,
       placeholder: `betty.kutter@evergreen.edu`,
       fieldType: "Input",
       type: "email",
       styles: {
-        formletClasses: "_margin-top-2 _margin-bottom-2",
+        formletClasses: "_margin-top-2 _margin-bottom-2 _padding-bottom-2",
         fieldClasses: "_width-full"
       }
     },
     {
       name: "institution",
-      label: `__Institution / Affiliation__ *`,
+      label: `__Institution / Affiliation *__`,
       placeholder: `e.g. Evergreen State College`,
       fieldType: "Input",
       type: "text",
       styles: {
-        formletClasses: "_margin-top-2 _margin-bottom-2",
+        formletClasses: "_margin-top-2 _margin-bottom-2 _padding-bottom-2",
         fieldClasses: "_width-full"
       }
     },
@@ -69,64 +69,64 @@ export const formData = {
     // },
     {
       name: "country",
-      label: `__Country__ *`,
+      label: `__Country *__`,
       placeholder: `e.g. United States`,
       fieldType: "Input",
       type: "text",
       styles: {
-        formletClasses: "_margin-top-2 _margin-bottom-2",
+        formletClasses: "_margin-top-2 _margin-bottom-2 _padding-bottom-2",
         fieldClasses: "_width-full"
       }
     },
       {
         name: "position",
-        label: `Career Position *`,
+        label: `__Career Position *__`,
         fieldType: "Radiogroup",
         styles: {
-          formletClasses: "_margin-bottom-2",
+          formletClasses: "_margin-bottom-2 _padding-bottom-2",
           fieldClasses: "_width-full",
           labelClasses: "__bold",
         },
         options: [
           {
             value: "Industry",
-            label: "Industry"
+            label: "__Industry__"
           },
           {
             value: "Academic",
-            label: "Academic Professional"
+            label: "__Academic Professional__"
           },
           {
             value: "Student",
-            label: "Student"
+            label: "__Student__ \n\n Only available to currently enrolled undergraduate and graduate students",
           }
         ]
       },
       {
         name: "tickettype",
-        label: `Ticket Type *`,
-        description: "Are you attending in-person or virtually?",
+        label: `__Ticket Type *__`,
+        description: "Are you attending virtually or in-person?",
         fieldType: "Radiogroup",
         styles: {
-          formletClasses: "_margin-bottom-2",
+          formletClasses: "_margin-bottom-2 _padding-bottom-2",
           fieldClasses: "_width-full",
           labelClasses: "__bold",
         },
         options: [
           {
             value: "Virtual",
-            label: "Virtually"
+            label: "__Virtually__"
           },
           {
             value: "In-Person",
-            label: "In-Person"
+            label: "__In-Person__ \n\n To attend in-person, you must agree to our <a target='_blank' href='/terms#covid-19-travel-acknowledgment'>COVID-19 Travel Acknowledgment</a>"
           }
         ]
       },
       {
         name: "terms",
         label: ``,
-        description: "By checking this box, you agree to our [terms & conditions](/terms)",
+        description: "By checking this box, you have read and agree to our <a target='_blank' href='/terms'>Covid-19 policy and data privacy policy</a>",
         fieldType: "Checkbox",
         styles: {
           formletClasses: "_margin-bottom-2 _md-pfix _padding-none",

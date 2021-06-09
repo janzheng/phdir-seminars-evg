@@ -227,12 +227,6 @@
 <style type="text/scss">
 
   // hide submit button for Paypal
- :global(.submitButtonClasses) {
-    padding: 0;
-    display: none;
-    margin: none;
-  }
-
   // .Stripe {
   //   padding-top: 0.6rem;
   // }

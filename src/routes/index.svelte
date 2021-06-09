@@ -147,6 +147,10 @@
     padding-top: 0;
   }
 
+  .Content-box table {
+    width: 100%;
+  }
+  
   // table stuff for pricing
   th, td {
     padding: 0.25rem 0.5rem;
@@ -154,39 +158,4 @@
   }
 
 
-
-  #betty-letter {
-    max-width: 88ch;
-    
-    p { 
-      font-family: 'Noto Serif', 'Georgia', serif;
-    }
-  }
-  ._betty-card {
-    background-color: white;
-    padding: 2rem 1rem;
-  }
-  ._betty-letter-shrunk {
-    max-height: 24rem;
-    overflow: hidden;
-    position: relative;
-
-    &:after {
-      position: absolute;
-      bottom: 0;  
-      height: 100%;
-      width: 100%;
-      content: "";
-      background: linear-gradient(to top,
-        rgba(255,255,255, 1) 0%, 
-        rgba(255,255,255, 0) 40%
-      );
-      pointer-events: none; /* so the text is still selectable */
-    }
-  }
-  :global(._betty-profile-img) {
-    width: 64px; height: 64px;
-    margin-right: 0.75rem;
-    border-radius: 100%;
-  }
 </style>

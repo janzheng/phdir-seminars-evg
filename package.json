@@ -39,6 +39,7 @@
     "sirv": "^0.4.0",
     "stripe": "^8.150.0",
     "svelte-forms-lib": "^1.1.1",
+    "tinify": "^1.6.0-beta.2",
     "yup": "^0.29.1"
   },
   "devDependencies": {
