@@ -1,7 +1,9 @@
 
 
 {#if !submitted}
-  <form id="formlet-top" class={`Formlet-container __paged ${formStyles['formletContainer']||''}`} 
+  <form id="formlet-top" class={`Formlet-container __paged ${formStyles['formletContainer']||''}`}
+    action='{formData['formAction']?formData['formAction']:null}' 
+    method='{formData['formAction']?'POST':null}' 
     on:submit={async (e)=>{
       validateAllPages()
       handleSubmit(e)
@@ -35,7 +37,7 @@
               </div>
             {/if}
           </div>
-          <div class="Formlet-page-form">
+          <div class="Formlet-page-form {formStyles['pageFormClasses']}">
             {#each curPage.fields as field (`${field.name}-${$touched[field.id] || $touched[field.name]}`)}
               <div class={`${formStyles['formletFieldContainer'] || '_margin-bottom'}`}>
                 <svelte:component this={isReset ? undefined : fieldComponents[field.fieldType]} 

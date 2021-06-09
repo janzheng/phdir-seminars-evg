@@ -30,7 +30,7 @@ export const formData = {
       fieldType: "Input",
       type: "text",
       styles: {
-        formletClasses: "_margin-top-2 _margin-bottom-2 _padding-bottom-2",
+        formletClasses: "_margin-top-2 _margin-bottom-2",
         fieldClasses: "_width-full"
       }
     },
@@ -41,7 +41,7 @@ export const formData = {
       fieldType: "Input",
       type: "email",
       styles: {
-        formletClasses: "_margin-top-2 _margin-bottom-2 _padding-bottom-2",
+        formletClasses: "_margin-top-2 _margin-bottom-2",
         fieldClasses: "_width-full"
       }
     },
@@ -52,7 +52,7 @@ export const formData = {
       fieldType: "Input",
       type: "text",
       styles: {
-        formletClasses: "_margin-top-2 _margin-bottom-2 _padding-bottom-2",
+        formletClasses: "_margin-top-2 _margin-bottom-2",
         fieldClasses: "_width-full"
       }
     },
@@ -74,7 +74,7 @@ export const formData = {
       fieldType: "Input",
       type: "text",
       styles: {
-        formletClasses: "_margin-top-2 _margin-bottom-2 _padding-bottom-2",
+        formletClasses: "_margin-top-2 _margin-bottom-2",
         fieldClasses: "_width-full"
       }
     },
@@ -83,7 +83,7 @@ export const formData = {
         label: `__Career Position *__`,
         fieldType: "Radiogroup",
         styles: {
-          formletClasses: "_margin-bottom-2 _padding-bottom-2",
+          formletClasses: "_margin-bottom-2",
           fieldClasses: "_width-full",
           labelClasses: "__bold",
         },
@@ -108,7 +108,7 @@ export const formData = {
         description: "Are you attending virtually or in-person?",
         fieldType: "Radiogroup",
         styles: {
-          formletClasses: "_margin-bottom-2 _padding-bottom-2",
+          formletClasses: "_margin-bottom-2",
           fieldClasses: "_width-full",
           labelClasses: "__bold",
         },

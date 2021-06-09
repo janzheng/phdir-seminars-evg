@@ -11,7 +11,7 @@
       <div class="_margin-top-2 _margin-center _card _betty-card ">
         <div class="betty-intro">{@html marked(bettyintro||'')}</div>
         <div id="betty-letter" class="_betty-letter {showBetty ? '_betty-letter-expanded': '_betty-letter-shrunk'}">{@html marked(betty||'')}</div>
-        <Switch classes="_margin-top-2 __action-outline" showWhenTrue={false} bind:value="{showBetty}"  hideText="Shrink letter" showText="Expand letter" handler={()=>{showBetty != showBetty}} />
+        <Switch classes="_margin-top-2 __action-outline _width-full" showWhenTrue={false} bind:value="{showBetty}" hideText="Shrink letter" showText="Read the full letter" handler={()=>{showBetty != showBetty}} />
       </div>
     </div>
   </div>
@@ -29,7 +29,10 @@
   <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
     <div class="_section-article _margin-center">
 
+      <SignupNews />
+
       <ContentBlock id="sponsors" name="_sponsors" classes="_card _padding _margin-center _center" />
+
 
       <div id="datetime" class="Content-box _margin-top-2 _margin-bottom-2 _grid-1-4 _grid-gap-large">
         <CalDate str={_caldate} showInsert={false} styles="width: 10rem; height: 8rem;" />
@@ -113,6 +116,7 @@
 
   import Separator from '../components/widgets/Separator.svelte'
   import Signup from '../components/widgets/SignupPaypal.svelte'
+  import SignupNews from '../components/widgets/SignupEvgNews.svelte'
   import Calendars from '../components/widgets/Calendars.svelte'
 
   import CalDate from '@/components/CalDate.svelte'

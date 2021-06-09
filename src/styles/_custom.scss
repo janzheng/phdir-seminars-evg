@@ -327,8 +327,8 @@ button {
 
 
   // hide submit button for Paypal
- .submitButtonClasses {
-    padding: 0;
-    display: none;
-    margin: none;
-  }
+#signup .submitButtonClasses {
+  padding: 0;
+  display: none;
+  margin: none;
+}
