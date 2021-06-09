@@ -1,3 +1,9 @@
+
+// sitedata should be populated by _layout on page load
+
+
+
+
 // import { get } from 'svelte/store';
 // import * as localStorage from "svelte-local-storage-store";
 import { writable, get } from 'svelte/store';
