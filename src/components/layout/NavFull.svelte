@@ -61,11 +61,11 @@
   <div class="Nav-content _section-page _margin-center ">
     <div class="_section-article _margin-center ">
       <div class="_section-narrow _margin-center _center _margin-bottom-2">{@html marked(top||'')}</div>
-			<div class="_margin-top-2 _center _padding-top-2">
+			<!-- <div class="_margin-top-2 _center _padding-top-2">
 				<a href="#intro" class="_button __action-outline _font-display" style="width: 10rem;" on:click={()=>{scrollToAnchor('intro')}} >Get a ticket</a>
-			</div>
+			</div> -->
 
-      <div class="_margin-top-2 _margin-bottom-2 _center">
+      <div class="_margin-top-2 _padding-top-2 _margin-bottom-2 _center">
         <CalDate str={caldate} classes="_margin-center" styles="max-width: 10rem;" />
       </div>
 		</div>

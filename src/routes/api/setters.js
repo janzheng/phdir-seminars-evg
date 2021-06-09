@@ -28,11 +28,10 @@ import Cytosis from 'cytosis';
 // import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
 import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal } from "@/_project/registration" 
+import { addComment, unsubscribe } from "@/_project/app-helpers" 
+
 
 import { config } from "dotenv";
-
-// import { checkAttendee } from './_api-helpers'
-import { customAlphabet } from 'nanoid';
 
 // import { notifyAdmins, notifySubscribe, notifyEventSignup } from '../../_utils/_mailer.js'
 
@@ -53,8 +52,23 @@ export async function post(req, res) {
 		
     if (type === 'signup') {
 			const { data } = await registerSignupStripe(req.body)
-      sendData({
+      return sendData({
         data
+      }, res);
+    }
+
+    if (type === 'comment') {
+			const status = await addComment(req.body)
+      return sendData({
+        status
+      }, res);
+    }
+
+
+    if (type === 'unsubscribe') {
+			const status = await unsubscribe(req.body)
+      return sendData({
+        status
       }, res);
     }
 
@@ -75,147 +89,10 @@ export async function post(req, res) {
       }, res);
     }
 
+    res.end('The server encountered an error during signup. Please contact jan@phage.directory.')
 
-    res.end('Something happened, and you’re not signed up.')
-
-    // super old, just in case
-		// if(type === 'speaker') {
-		// 	const registered = await registerSpeaker(req.body)
-		// 	if(registered) {
-		// 		res.end() // registered
-		// 	}
-		// } else if (type === 'subscribe') {
-		// 	const registered = await registerSubscriber(req.body)
-		// 	// if(registered === true) {
-		// 	// 	// if already registered, we don't email them or notify anyone
-		// 	// 	res.end('exists') // registered
-		// 	// } else if(registered) {
-		// 		// await notifyAdmins({registered, type, json: req.body})
-		// 		await notifySubscribe({registered, type, json: req.body})
-		// 		res.end() // registered
-		// 	// }
-		// } else if (type === 'session') { // session
-		// 	// console.log('session!?!?')
-		// 	const registered = await registerAttendee(req.body)
-		// 	// if(registered === true) {
-		// 	// 	// if already registered, we don't email them or notify anyone
-		// 	// 	// res.end('exists') // registered
-		// 	//  update: they get email even if they've registered before
-		// 	// } else if(registered) {
-		// 		// await notifyAdmins({registered, type, json: req.body})
-		// 		await notifyEventSignup({registered, type, json: req.body})
-		// 		res.end() // registered
-		// 	// }
-		// } else 
-    
 	} catch(e) {
 		console.error('[api/setters]', e)
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const registerAttendee = async (json) => {
-// 	// need to get attendee data first and merge data if required
-// 	const user = await checkAttendee(json['email'])
-
-	
-// 	// already registered
-// 	// so they  email even if they've registered before
-// 	if(user && user.fields['Sessions'] && user.fields['Sessions'].includes(json.session['id'])){
-// 		// return true
-// 		console.log('json ::', json)
-// 		return { // this mimics the output of an airtable result, for chaining
-// 			fields: {
-// 				Email: json.email,
-// 				Name: json.name,
-// 			}
-// 		}
-// 	}
-
-
-
-// 	const regData = {
-// 		regDate: new Date(),
-// 		title: json.session.fields['Name'],
-// 		session: json.session['id']
-// 	}
-	
-// 	let userData 
-// 	if(user && user.fields['Data']) {
-// 		userData = JSON.stringify([ ... JSON.parse(user.fields['Data']), regData])
-// 	} else {
-// 		userData = JSON.stringify([ regData ])
-// 	}
-
-
-//   const cytosis = await Cytosis.save({
-//     apiKey: apiEditorKey,
-//     baseId: baseId,
-//     tableName: 'Attendees',
-//     tableOptions: {
-//       insertOptions: ['typecast'],
-//     },
-//     recordId: user ? user.id : undefined,
-//     payload: {
-//     	'Name': json['name'],
-//     	'Email': json['email'],
-//     	'Sessions': user && user.fields['Sessions'] ? [ ...user.fields['Sessions'], json.session['id']] : [json.session['id']],
-//     	'Data': userData,
-//     }
-//   })
-
-//   return cytosis
-// }
-
-
-
-
-// const registerSubscriber = async (json) => {
-// 	// need to get attendee data first and merge data if required
-// 	const user = await checkAttendee(json['email'])
-
-// 	// already subscribed, but we still let them register
-// 	// so they get the message
-// 	if(user && user.fields['Subscribed']) {
-// 		// return true
-// 		return { // this mimics the output of an airtable result, for chaining
-// 			fields: {
-// 				Email: json.email,
-// 				Name: json.name,
-// 			}
-// 		}
-// 	}
-
-//   const cytosis = await Cytosis.save({
-//     apiKey: apiEditorKey,
-//     baseId: baseId,
-//     tableName: 'Attendees',
-//     tableOptions: {
-//       insertOptions: ['typecast'],
-//     },
-//     recordId: user ? user.id : undefined,
-//     payload: {
-//     	'Subscribed': true,
-//     	'Name': json['name'],
-//     	'Email': json['email'],
-//     }
-//   })
-
-//   return cytosis
-// }
 
