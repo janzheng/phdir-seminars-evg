@@ -30,28 +30,39 @@
   
   // import Ajv from 'ajv' // json schema
   import Ajv from 'ajv/dist/jtd'
+  import JSON5 from 'json5'
 
   const ajv = new Ajv()
   let validate, valid = false, errors
 
   export let schema = `{
-    "properties": {
-      "id": { "type": "string" },
-      "score": { "type": "int32" },
-      "isAdmin": { "type": "boolean" }
-    }
-  }`
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": "int32" },
+    "GPA": { "type": "float32" },
+    "university": { "enum": ["U of A", "U of C", "UGA"]}
+  }, 
+  "optionalProperties": {
+    "isTheBest": { "type": "boolean" },
+    "faveFoods": { "elements": { "type": "string" }},
+    "faveNumbers": { "elements": { "type": "int32" }}
+  }
+}`
 
   export let json = `{
-    "id": "user-id-here",
-    "score": 25,
-    "isAdmin": true
-  }`
+  "name": "Jessica Sacher",
+  "age": 32,
+  "GPA": 4.0,
+  "university": "UGA",
+  "isTheBest": true,
+  "faveFoods": ["banana","tacos"],
+}`
 
   $: {
     try {
-      let _schema = JSON.parse(schema)
-      let _json = JSON.parse(json)
+      errors = ''
+      let _schema = JSON5.parse(schema)
+      let _json = JSON5.parse(json)
       console.log('out:', _schema, json)
       validate = ajv.compile(_schema)
       valid = validate(_json)
@@ -70,8 +81,8 @@
 
 <style type="text/scss">
 
-  :global(h3 > p) {
-    font-size: 1.3rem;
+  textarea {
+    font-family: monospace
   }
 
 </style>
