@@ -47,6 +47,7 @@
     "faveFoods": { "elements": { "type": "string" }},
     "faveNumbers": { "elements": { "type": "int32" }}
   }
+  "additionalProperties": true
 }`
 
   export let json = `{
