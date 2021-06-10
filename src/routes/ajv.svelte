@@ -46,7 +46,7 @@
     "isTheBest": { "type": "boolean" },
     "faveFoods": { "elements": { "type": "string" }},
     "faveNumbers": { "elements": { "type": "int32" }}
-  }
+  },
   "additionalProperties": true
 }`
 

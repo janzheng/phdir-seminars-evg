@@ -18,12 +18,13 @@
 	import { SiteData, _content, _get } from "@/stores/sitedata"
 
 	import Nav from '../components/layout/NavFull.svelte';
+	// import Nav from '../components/layout/NavTabs.svelte';
 	import Footer from '../components/layout/Footer.svelte';
 	import { head, site_url } from '@/_project/head.js';
 
 	// This trick passes down preloaded data to all modules
 	// https://stackoverflow.com/questions/60911171/how-to-pass-data-from-a-layout-to-a-page-in-sapper
-	// export let segment
+	export let segment
 	export let _SiteData  //, Content, Schedule, Profiles
 
   // import { setContext } from 'svelte'
@@ -99,7 +100,7 @@
 
 <div id="top" class="ContentFrame Layout">
 
-  <Nav />
+  <Nav {segment} />
 
 	<main class="ContentFrame-body __content-frame">
 		<slot ></slot>
