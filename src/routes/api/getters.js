@@ -28,7 +28,7 @@ export async function get(req, res) {
 
 		const _result = await getContent()
 		sendData(_result, res, 200, {
-			'Cache-Control': `max-age=${30 * 60 * 1000}`
+			// 'Cache-Control': `max-age=${30 * 60 * 1000}`
 		});
 
 	} catch(err) {
