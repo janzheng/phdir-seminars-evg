@@ -5,8 +5,8 @@ export const formData = {
   name: "## Sign Up For Evergreen",
   description: "",
   settings: {
-    submitText: "Buy your ticket",
-    submittingText: "Buying your ticket...",
+    submitText: "Register for Evergreen...",
+    submittingText: "Registering for Evergreen...",
     successText: `
     \n\n ## Welcome to Evergreen 2021!
     \n\n We are excited to have you onboard. A confirmation email has been sent to {{email}}.
@@ -78,104 +78,125 @@ export const formData = {
         fieldClasses: "_width-full"
       }
     },
-      {
-        name: "position",
-        label: `__Career Position *__`,
-        fieldType: "Radiogroup",
-        styles: {
-          formletClasses: "_margin-bottom-2",
-          fieldClasses: "_width-full",
-          labelClasses: "__bold",
-        },
-        options: [
-          {
-            value: "Industry",
-            label: "__Industry__"
-          },
-          {
-            value: "Academic",
-            label: "__Academic Professional__"
-          },
-          {
-            value: "Student",
-            label: "__Student__ \n\n Only available to currently enrolled undergraduate and graduate students",
-          }
-        ]
+    {
+      name: "interest",
+      label: `__Primary Research Interest *__`,
+      fieldType: "Radiogroup",
+      styles: {
+        formletClasses: "_margin-bottom-2",
+        fieldClasses: "_width-full",
+        labelClasses: "__bold",
       },
-      {
-        name: "tickettype",
-        label: `__Ticket Type *__`,
-        description: "Are you attending virtually or in-person?",
-        fieldType: "Radiogroup",
-        styles: {
-          formletClasses: "_margin-bottom-2",
-          fieldClasses: "_width-full",
-          labelClasses: "__bold",
+      options: [
+        {
+          value: "Structure and Molecular mechanisms",
+          label: "Structure and Molecular mechanisms"
         },
-        options: [
-          {
-            value: "Virtual",
-            label: "__Virtually__"
-          },
-          {
-            value: "In-Person",
-            label: "__In-Person__ \n\n To attend in-person, you must agree to our <a target='_blank' href='/terms#covid-19-travel-acknowledgment'>COVID-19 Travel Acknowledgment</a>"
-          }
-        ]
-      },
-      {
-        name: "terms",
-        label: ``,
-        description: "By checking this box, you have read and agree to our <a target='_blank' href='/terms'>Covid-19 policy and data privacy policy</a>",
-        fieldType: "Checkbox",
-        styles: {
-          formletClasses: "_margin-bottom-2 _md-pfix _padding-none",
-          fieldClasses: "_width-full",
-          labelClasses: "__bold",
-          descriptionClasses: "_padding-none"
+        {
+          value: "Phage-based biotech",
+          label: "Phage-based biotech"
+        },
+        {
+          value: "Temperate Phage",
+          label: "Temperate Phage",
+        },
+        {
+          value: "Genomics",
+          label: "Genomics",
+        },
+        {
+          value: "Agriculture and Food Safety",
+          label: "Agriculture and Food Safety",
+        },
+        {
+          value: "Ecology and Evolution",
+          label: "Ecology and Evolution",
+        },
+        {
+          value: "Phage Therapy",
+          label: "Phage Therapy",
         }
+      ]
+    },
+    {
+      name: "position",
+      label: `__Career Position *__`,
+      fieldType: "Radiogroup",
+      styles: {
+        formletClasses: "_margin-bottom-2",
+        fieldClasses: "_width-full",
+        labelClasses: "__bold",
       },
-//     {
-//       name: "attendance",
-//       label: `__Apply to attend in-person?__`,
-//       description: `Yes, I’m interested in attending Evergreen in-person. 
-
-// We are still working out the details, and pricing, and we will require all guests to be fully vaccinated.`,
-//       fieldType: "Checkbox",
-//       styles: {
-//         formletClasses: "_margin-bottom-2",
-//         inputClasses: "_width-full"
-//       }
-//     },
-
-
-
-
-    // {
-    //   name: "abstract",
-    //   label: `__Short Abstract__ (optional)`,
-    //   placeholder: `(Optional) Add your abstract here. Please keep your abstract below 400 words.`,
-    //   description: `If you don't have an abstract right now, don't worry! Sign up anyway. You're welcome to add your abstract any time before June.`,
-    //   rows: 6,
-    //   fieldType: "Textarea",
-    //   styles: {
-    //     formletClasses: "_margin-top-2 _margin-bottom-2",
-    //     fieldClasses: "_width-full"
-    //   }
-    // },
-    // {
-    //   name: "authors",
-    //   label: `__Abstract Authors__ (optional)`,
-    //   placeholder: `Jan Zheng, Jessica Sacher`,
-    //   description: `If you add an abstract, please list all authors with affiliations in a way you'd like them to be displayed in the abstract book. Please include each author's first and last name, institution, and affiliation country.`,
-    //   fieldType: "Input",
-    //   type: "text",
-    //   styles: {
-    //     formletClasses: "_margin-top-2 _margin-bottom-2",
-    //     fieldClasses: "_width-full"
-    //   }
-    // },
-
+      options: [
+        {
+          value: "Industry",
+          label: "Industry"
+        },
+        {
+          value: "Academic",
+          label: "Academic Professional"
+        },
+        {
+          value: "Student",
+          label: "Student \n\n Only available to currently enrolled undergraduate and graduate students",
+        }
+      ]
+    },
+    {
+      name: "tickettype",
+      label: `__Registration Type *__`,
+      description: "Are you attending virtually or in-person?",
+      fieldType: "Radiogroup",
+      styles: {
+        formletClasses: "_margin-bottom-2",
+        fieldClasses: "_width-full",
+        labelClasses: "__bold",
+      },
+      options: [
+        {
+          value: "Virtual",
+          label: "Virtually"
+        },
+        {
+          value: "In-Person",
+          label: "In-Person \n\n To attend in-person, you must read, agree, and adhere <br>to our <a target='_blank' href='/terms#covid-19-travel-policy'>COVID-19 Travel Policy</a>"
+        }
+      ]
+    },
+    {
+      name: "visa",
+      label: `Will you need visa support letter?`,
+      fieldType: "Checkbox",
+      styles: {
+        formletClasses: "_margin-bottom-2 _md-pfix _padding-none",
+        fieldClasses: "_width-full",
+        labelClasses: "_padding-none",
+        descriptionClasses: "_padding-none"
+      },
+    },
+    {
+      name: "diet",
+      label: `Do you have any dietary restrictions?`,
+      placeholder: `ex: Peanuts`,
+      fieldType: "Input",
+      type: "text",
+      styles: {
+        formletClasses: "_margin-top-2 _margin-bottom-2",
+        fieldClasses: "_width-full"
+      }
+    },
+    {
+      name: "terms",
+      label: `Read and agree to our travel and data policies`,
+      description: "By checking this box, you have read and agreed to our <a target='_blank' href='/terms'>COVID-19 Travel Policy, and Data Privacy Policy</a>",
+      fieldType: "Checkbox",
+      styles: {
+        formletClasses: "_margin-bottom-2 _md-pfix _padding-none",
+        fieldClasses: "_width-full",
+        labelClasses: "__bold",
+        descriptionClasses: "_padding-none"
+      }
+    },
   ],
   yup: {
     initialValues: {
@@ -189,6 +210,9 @@ export const formData = {
       // attendance: undefined,
       position: undefined,
       tickettype: undefined,
+      diet: undefined,
+      interest: undefined,
+      visa: undefined,
       terms: undefined,
     },
     validators: {
@@ -213,9 +237,17 @@ export const formData = {
         .required("Position required"),
       tickettype: yup
         .string()
-        .required("Ticket type required"),
+        .required("Registration type required"),
+      diet: yup
+        .string(),
+      interest: yup
+        .string()
+        .required("Please choose an area of interest"),
+      visa: yup
+        .boolean(),
       terms: yup
         .boolean()
+        .notOneOf([false], "You must read and agree to the terms and conditions before finalizing your Evergreen registration.") // force to be true
         .required("Please read and agree to the terms and conditions before finalizing your Evergreen registration.")
 
       // attendance: yup.boolean(),s

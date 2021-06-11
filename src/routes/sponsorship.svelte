@@ -1,13 +1,12 @@
 
 
-<div class="Terms _section-page _padding-top-2 _margin-center ">
+<div class="Sponsorship _section-page _padding-top-2 _margin-center ">
 
   <div class="_section-article _margin-center _margin-bottom-2 _padding-bottom-2">
     <div class="_margin-top-2 _margin-bottom-2">
       <p>← <a rel="preload" href="/">Go back home</a></p>
     </div>
-    {@html marked(terms)}
-    {@html marked(privacy)}
+    {@html marked(sponsorship)}
   </div>
 </div>
 
@@ -16,8 +15,7 @@
 	import { _content } from "@/stores/sitedata"
   import marked from 'marked'
 
-  let terms = _content('_terms') || ''
-  let privacy = _content('_privacy') || ''
+  let sponsorship = _content('sponsor-message') || ''
 
 </script>
 

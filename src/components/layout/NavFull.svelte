@@ -72,6 +72,24 @@
 	</div>
 </nav>
 
+{:else}
+
+  <!-- skinny header for other pages -->
+  
+  <nav class="Header __antialiased __content-header">
+    <div class="Nav Home-content _padding-top">
+      <!-- {@html marked(content)} -->
+      <div class="_section-article _margin-center _padding-xs">
+        <!-- <div class="_md-pfix">{@html marked(content)}</div> -->
+        <div class="_center _padding-bottom _margin-top-2">
+          <a rel=prefetch href="/">
+            <img class="Header-img" src="evg-full-logo.png" alt="Evergreen 2021" style="width: 350px;">
+          </a>
+        </div>
+      </div>
+    </div>  
+  </nav>
+
 {/if}
 
 

@@ -241,6 +241,10 @@ button {
     padding: $size/2 $size;
     background-color: usetheme(brand-green-white);
   }
+
+  &.__white {
+    background-color: white;
+  }
 }
 
 
@@ -331,4 +335,15 @@ button {
   padding: 0;
   display: none;
   margin: none;
+}
+
+
+.SponsorSection {
+  h2 {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  p {
+    margin-bottom: 0;
+  }
 }

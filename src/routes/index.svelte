@@ -29,16 +29,16 @@
   <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
     <div class="_section-article _margin-center">
 
-      <SignupNews />
+      <!-- <SignupNews /> -->
 
-      <ContentBlock id="sponsors" name="_sponsors" classes="_card _padding _margin-center _center" />
+      <ContentBlock id="sponsors" name="_sponsors" classes="SponsorSection _card _padding _margin-center _center _padding-top-none" />
 
 
       <div id="datetime" class="Content-box _margin-top-2 _margin-bottom-2 _grid-1-4 _grid-gap-large">
         <CalDate str={_caldate} showInsert={false} styles="width: 10rem; height: 8rem;" />
         <div>
           {@html marked(_datetime||'')}
-          <Calendars />
+          <Calendars classes="_margin-top _card __flat _padding" />
         </div>
       </div>
 

@@ -23,7 +23,8 @@
   import { _content, _get } from "@/stores/sitedata"
 
   export let id
-  let join = _get('_join-'+id)
+  // uses _join/some-page record as a base for data
+  let join = _get('_join/'+id)
   let content
 
   $: if(join) {

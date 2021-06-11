@@ -133,7 +133,7 @@ export const compose = async (mailData) => {
     };
 
     mg.messages().sendMime(dataToSend, function(sendError, body) {
-      console.log('[compose] Sent:', sendError, body)
+      console.log('[compose] Sent:', body, "[errors?]", sendError)
       if (sendError) {
         console.log(sendError);
         return;

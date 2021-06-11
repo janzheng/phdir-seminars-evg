@@ -1,4 +1,16 @@
 
+<!-- 
+
+
+
+
+   THIS CODE IS OUT OF DATE
+
+
+
+
+ -->
+
 
 <div id="signup-container" class="_section-article _margin-center"> 
   <Formlet
@@ -109,8 +121,6 @@
         paymentKey = json['paymentKey']
         initStripe()
       }
-      // formData['styles']['submitButtonClasses'] = '_button __action-outline _ease _margin-bottom-none-i __massive'
-      // creates infinite loop: formData['settings']['successText'] = `Buy your ticket for ${ticketPrice} USD`
     }
   }
 

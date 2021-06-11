@@ -1,5 +1,6 @@
 
-<div class="Calendars">
+<div class="Calendars {classes}">
+  <div class="_font-small">{header}</div>
   <div class=""><a class="_font-small" target="_blank" href="{iCalLink}">iCal (Apple / Outlook)</a></div>
   <div class=""><a class="_font-small" target="_blank" href="{googleLink}">Google Calendar</a></div>
   <div class=""><a class="_font-small" target="_blank" href="{yahooLink}">Yahoo</a></div>
@@ -9,6 +10,7 @@
 <script>
   import { onMount } from 'svelte';
 
+  export let classes="_margin-top-2", header="Add to your calendar"
   let iCalLink = '/api/event'
   let googleLink, outlookLink, yahooLink
 

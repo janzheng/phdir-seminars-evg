@@ -1,5 +1,6 @@
 
 
+
 <div id="signup-container" class="_section-article _margin-center"> 
   <Formlet
     formData={formData} 
@@ -17,7 +18,14 @@
       <div class="pricing _card _padding _color-bg-white">
         {#if ticketPrice > 0 && $isValid == true}
           <div class="_margin-bottom">
-            Your final ticket price is ${ticketPrice} USD
+            <div class="_card _padding __flat">
+              <p>
+                <strong>Your final registration fee is ${ticketPrice} USD</strong>
+              </p><p>
+                Please note that this price does not include your hotel room or abstract poster printing fees.
+              </p>
+
+            </div>
           </div>
 
           {#if paymentKey}
@@ -202,10 +210,9 @@
           formSubmitted=true
           formSubmitting=false
 
-
           let json = await payConfirmRes.json(), signupData
           signupData = json['data']
-          console.log('>>>', signupData)
+          // console.log('>>>', signupData)
 
           const successText = textReplacer(signedup, {
             ...signupData,

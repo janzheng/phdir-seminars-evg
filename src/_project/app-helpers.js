@@ -33,16 +33,9 @@ export const dict = (obj)  => {
     ticketnumber: obj && obj['ticketnumber'],
     position: obj && obj['position'],
     tickettype: obj && obj['tickettype'],
-
-		// name: `${order.fields['Name']}`,
-		// orderId: `${order.fields['orderId']}`,
-		// total: `${order.fields['Total']} CAD`,
-		// discs: `${order.fields['NumOrders']}`,
-		// refDiscount: `${order.fields['Discount'] }`,
-		// address: `${getNiceAddress(stripe.paymentIntent.shipping.address)}`,
-		// userLink: `https://chinookaerosports.com/andromeda?email=${user.fields['Email']}`,
-		// refCode: `${user.fields['refCode']}`,
-		// refLink: `https://chinookaerosports.com?refBy=${user.fields['refCode']}`,
+    diet: obj && obj['diet'],
+    interest: obj && obj['interest'],
+    visa: obj && obj['visa'] ? 'Yes': 'No',
 	}
 }
 
