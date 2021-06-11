@@ -1,7 +1,7 @@
 
 import Cytosis from 'cytosis';
 // import * as sapper from '@sapper/server';
-// import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
+import { cacheGet, cacheSet} from "@/_utils/cache"
 
 import { config } from "dotenv";
 
@@ -44,7 +44,6 @@ export const registerSignupStripe = async ({data}) => {
 
 	// allow for duplicates!!!
 
-	// console.log('json --->', data)
 
   const ticketgen = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)
   const ticketnumber = `${ticketgen()}`
@@ -201,4 +200,60 @@ export const registerPostPaymentPaypal = async ({data}) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// gets user reg data from ticket number / reg code
+export const getUserFromCode = async (code) => {
+
+	const _cacheStr = `user-${code}`
+	if(cacheGet(_cacheStr))
+		return cacheGet(_cacheStr)
+    
+  const cytosis = await new Cytosis({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    bases:  [
+      {
+        tables: ['Attendees'],
+        options: {
+          "maxRecords": 1,
+          keyword: code,
+          matchKeywordWithField: 'Ticket Number',
+          matchStyle: 'exact',
+        }
+      },
+    ],
+    routeDetails: '[getUserFromCode]',
+  })
+
+  if(cytosis.results['Attendees'] && cytosis.results['Attendees'][0]) {
+    let result = cytosis.results['Attendees'][0]
+
+	  delete result.fields['Receipt Data']
+	  delete result.fields['Data']
+
+  	cacheSet(_cacheStr, result)
+    return result
+  }
+
+	return {}
+
+}
 

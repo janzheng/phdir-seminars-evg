@@ -28,7 +28,7 @@
   let content
 
   $: if(join) {
-    console.log('___', join)
+    // console.log('___', join)
 
     if(join.fields['Status'] === 'Content') {
       content = join.fields['Markdown']

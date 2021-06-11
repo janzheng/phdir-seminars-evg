@@ -165,7 +165,7 @@ export const formData = {
     },
     {
       name: "visa",
-      label: `Will you need visa support letter?`,
+      label: `Will you need a visa support letter?`,
       fieldType: "Checkbox",
       styles: {
         formletClasses: "_margin-bottom-2 _md-pfix _padding-none",
@@ -210,9 +210,9 @@ export const formData = {
       // attendance: undefined,
       position: undefined,
       tickettype: undefined,
-      diet: undefined,
+      diet: null,
       interest: undefined,
-      visa: undefined,
+      visa: null,
       terms: undefined,
     },
     validators: {
@@ -239,12 +239,16 @@ export const formData = {
         .string()
         .required("Registration type required"),
       diet: yup
-        .string(),
+        .string()
+        .notRequired()
+        .nullable(),
       interest: yup
         .string()
         .required("Please choose an area of interest"),
       visa: yup
-        .boolean(),
+        .boolean()
+        .notRequired()
+        .nullable(),
       terms: yup
         .boolean()
         .notOneOf([false], "You must read and agree to the terms and conditions before finalizing your Evergreen registration.") // force to be true

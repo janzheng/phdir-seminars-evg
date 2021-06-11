@@ -1,4 +1,11 @@
 
+<!-- 
+
+
+  renders __join record's content
+
+
+ -->
 
 <div class="Join">
 
@@ -20,8 +27,6 @@
   let content
 
   $: if(join) {
-    console.log('___', join)
-
     if(join.fields['Status'] === 'Content') {
       content = join.fields['Markdown']
     } else if(join.fields['Status'] === 'Redirect') {

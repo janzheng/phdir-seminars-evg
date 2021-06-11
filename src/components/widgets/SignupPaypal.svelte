@@ -70,6 +70,7 @@
 	import { textReplacer } from "@/_project/app-helpers"
   import { scrollToAnchor } from "@/_utils/scrollto.js";
   import { zzz } from "@/_utils/helpers.js";
+  import { goto } from '@sapper/app';
 
 
   // grab content from Airtable
@@ -212,7 +213,6 @@
 
           let json = await payConfirmRes.json(), signupData
           signupData = json['data']
-          // console.log('>>>', signupData)
 
           const successText = textReplacer(signedup, {
             ...signupData,
@@ -221,7 +221,9 @@
           formData['settings']['successText'] = successText
           confirmingPayment = false
           confirmedPayment = true
-          zzz(scrollToAnchor, 'signup-container', 200)
+          // zzz(scrollToAnchor, 'signup-container', 200)
+
+          goto(`/start/${signupData.ticketnumber}`)
           
         })
       }
