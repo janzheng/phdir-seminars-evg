@@ -163,7 +163,6 @@ export const registerPostPaymentPaypal = async ({data}) => {
       'Ticket Price': ticketprice,
       'Terms': data['terms'],
 
-
       'Diet': data['diet'],
       'Research Interest': data['interest'],
       'Visa Letter': data['visa'],

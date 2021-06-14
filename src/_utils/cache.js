@@ -1,14 +1,11 @@
-/*
+/* last updated: 10/8/2020
 
 	Simple wrapper around caching
 	- file-based or fauna-based caching later
 	- wrapper makes swapping easier
 
-
 	- consider using node-persist
 	- merging a compile-time loader into node-persist on init might be cool
-
-	last updated: 10/8/2020
 
 */
 

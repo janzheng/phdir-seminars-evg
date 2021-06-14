@@ -32,13 +32,15 @@ export const dict = (obj)  => {
     name: obj && obj['name'] || "",
     country: obj && obj['country'],
     ticketnumber: obj && obj['ticketnumber'],
+    ticketprice: obj && obj['ticketprice'],
     institution: obj && obj['institution'],
     country: obj && obj['country'],
     position: obj && obj['position'],
     tickettype: obj && obj['tickettype'],
-    diet: obj && obj['diet'],
+    diet: obj && obj['diet'] ? obj['diet'] : 'None',
     interest: obj && obj['interest'],
     visa: obj && obj['visa'] ? 'Yes': 'No',
+    paymentReceipt: obj && obj['paymentReceipt'] ? obj['paymentReceipt']: 'No Receipt',
 	}
 }
 

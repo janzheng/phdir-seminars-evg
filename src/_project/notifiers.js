@@ -21,20 +21,21 @@ import { mailto } from "@/_utils/mailer.js"
 
 import { getContent } from "./content.js"
 import { keyReplace } from "@/_utils/helpers.js"
+import { dict, textReplacer } from "./app-helpers.js"
 import { getIcsDecoded } from "@/routes/api/event.js"
 
 
 
 
 // key replacer dictionary / translator for filling in template data
-const keyDict = (data)  => {
-  // console.log('[keyDict]', data)
-	return {
-    ...data
-		// name: `${data['name']}`,
-		// email: `${data['email']}`,
-	}
-}
+// const keyDict = (data)  => {
+//   console.log('[keyDict]', data)
+// 	return {
+//     ...data
+// 		// name: `${data['name']}`,
+// 		// email: `${data['email']}`,
+// 	}
+// }
 
 
 
@@ -47,15 +48,17 @@ const keyDict = (data)  => {
 // send receipt to customer
 export const sendReceiptToCustomer = async (data, templateName='_email-receipt') => {
   try {
-    const dict = keyDict(data)
+    console.log('[sendReceiptToCustomer] data:', data)
+    const _dict = dict(data)
     const content = await getContent()
     const template = content['Content'].find(e => e.fields['Name'] == templateName)
     let ics = await getIcsDecoded()
 
-    const replaced = keyReplace(template.fields['Markdown'], dict)
+    const replaced = textReplacer(template.fields['Markdown'], _dict)
     const md = marked(replaced)
   
     // console.log('[sendReceiptToCustomer]', md)
+
     mailto({
       subject: `You’re Registered for Evergreen 2021!`,
       to: data['email'],
@@ -68,7 +71,6 @@ export const sendReceiptToCustomer = async (data, templateName='_email-receipt')
       }
     })
 
-
     return true
   } catch (err) {
     console.error('[sendReceiptToCustomer] error:', err)
@@ -80,11 +82,11 @@ export const sendReceiptToCustomer = async (data, templateName='_email-receipt')
 // notify admins that someone purchased
 export const sendInfoToAdmin = async (data, templateName='_email-admin') => {
   try {
-    const dict = keyDict(data)
+    const _dict = dict(data)
     const content = await getContent()
     const template = content['Content'].find(e => e.fields['Name'] == templateName)
 
-    const replaced = keyReplace(template.fields['Markdown'], dict)
+    const replaced = textReplacer(template.fields['Markdown'], _dict)
     const md = marked(replaced)
   
     // console.log('[sendInfoToAdmin]', md)
@@ -131,7 +133,7 @@ export const sendGroupEmailToAttendees = async (templateName) => {
     
     // build template and send to each person
     attendees.map(user => {
-      const replaced = keyReplace(template.fields['Markdown'], {
+      const replaced = textReplacer(template.fields['Markdown'], {
         name: user.fields['Name']
       })
       const md = marked(replaced)

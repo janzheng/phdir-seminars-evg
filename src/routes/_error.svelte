@@ -41,6 +41,11 @@
 
 		<p>{error.message}</p>
 
+    {#if status === 500}
+
+      You might need to refresh your cache. Go to Developer Tools by clicking on the three dots in the top right &lt; Developer tools, then go to the Networking Tab, and click "Disable Cache" — and then refresh. That should do the trick.
+    {/if}
+
 		{#if dev && error.stack}
 			<pre>{error.stack}</pre>
 		{/if}
