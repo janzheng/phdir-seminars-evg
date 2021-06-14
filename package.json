@@ -14,7 +14,7 @@
     "test": "run-p --race dev cy:run",
     "prod": "npm run load-content; now",
     "load-content": "node src/_project/content-loader.js",
-    "commit": "git add . -A ; git commit ; git push origin main "
+    "commit": "git add . -A ; git commit ; git push origin preview "
   },
   "browser": {
     "airtable": "./node_modules/airtable/build/airtable.browser"
