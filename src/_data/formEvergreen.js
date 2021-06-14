@@ -138,7 +138,7 @@ export const formData = {
         },
         {
           value: "Student",
-          label: "Student \n\n Only available to currently enrolled undergraduate and graduate students",
+          label: "Student \n\n Only available to currently enrolled undergraduate and graduate students, and retirees",
         }
       ]
     },
