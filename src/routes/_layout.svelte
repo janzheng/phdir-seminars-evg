@@ -15,6 +15,8 @@
 
 <script>
 
+  console.log('[Evergreen] v1.01')
+
 	import { SiteData, _content, _get } from "@/stores/sitedata"
 
 	import Nav from '../components/layout/NavFull.svelte';

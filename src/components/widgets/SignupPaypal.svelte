@@ -195,7 +195,6 @@
           state['institution'] = state['institution'].trim()
           state['name'] = state['name'].trim()
           state['diet'] = state['diet'].trim()
-          console.log('state:', state)
           
           // register completed payment w/ Airtable 
           const payConfirmRes = await fetchPost('/api/setters', { 
