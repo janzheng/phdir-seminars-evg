@@ -189,7 +189,14 @@
           // This function shows a transaction success message to your buyer.
 
           confirmingPayment = true
-
+          
+          state['country'] = state['country'].trim()
+          state['email'] = state['email'].trim()
+          state['institution'] = state['institution'].trim()
+          state['name'] = state['name'].trim()
+          state['diet'] = state['diet'].trim()
+          console.log('state:', state)
+          
           // register completed payment w/ Airtable 
           const payConfirmRes = await fetchPost('/api/setters', { 
             data: {

@@ -1,5 +1,5 @@
 
-/*
+/* upd: 6/17/2021
 
   Fetch Helpers
 
@@ -29,9 +29,6 @@
     - currently only supports one file
     - use 'formidable' to handle the files
 
-
-  Last updated: 4/29/2021
-
 */
 
 
@@ -48,6 +45,27 @@ export const fetchPost = async (url, data, fetch, headers) => {
     },
     method: 'POST',
     body: JSON.stringify(data)
+  })
+
+  return response
+}
+
+
+
+// like fetchPost but uses GET w/ a obj body
+// uses 'data' header w/ stringified json body
+// don't pass too much data, as headers are usually tiny
+export const fetchGet = async (url, data, fetch) => {
+  if (!fetch || !url || !data) // server-side won't have access to fetch object
+    throw new Error('fetchGet needs access to the fetch object, data, and a url!')
+
+
+  const response = await fetch(
+    url, {
+    headers: {
+      'data': JSON.stringify(data)
+    },
+    method: 'GET',
   })
 
   return response
