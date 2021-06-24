@@ -190,11 +190,11 @@
 
           confirmingPayment = true
           
-          state['country'] = state['country'].trim()
-          state['email'] = state['email'].trim()
-          state['institution'] = state['institution'].trim()
-          state['name'] = state['name'].trim()
-          state['diet'] = state['diet'].trim()
+          state['country'] = state['country'] ? state['country'].trim() : ''
+          state['email'] = state['email'] ? state['email'].trim() : ''
+          state['institution'] = state['institution'] ? state['institution'].trim() : ''
+          state['name'] = state['name'] ? state['name'].trim() : ''
+          state['diet'] = state['diet'] ? state['diet'].trim() : ''
           
           // register completed payment w/ Airtable 
           const payConfirmRes = await fetchPost('/api/setters', { 
