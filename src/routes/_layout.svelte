@@ -102,13 +102,15 @@
 
 <div id="top" class="ContentFrame Layout">
 
-  <Nav {segment} />
-
-	<main class="ContentFrame-body __content-frame">
-		<slot ></slot>
-	</main>
-
-	<Footer />
+  {#key segment}
+    <Nav {segment} />
+    
+    <main class="ContentFrame-body __content-frame">
+      <slot ></slot>
+    </main>
+    
+    <Footer />
+  {/key}
 </div>
 
 

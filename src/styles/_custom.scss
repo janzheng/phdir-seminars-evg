@@ -1,5 +1,7 @@
 
 
+
+// Home / Index page
 .Home, .ContentFrame-body {
 	background-color: usetheme(background-white);
 }
@@ -9,6 +11,56 @@
 	position: relative;
 	z-index: 30;
 }
+    .Home-content-extra img {
+      @media (min-width: 767px) {
+        float: right;
+        max-width: 300px;
+        margin-left: 1rem;
+        margin-bottom: 0.5rem;
+
+      }
+    }
+
+    .Home {
+      background-color: #F5FAF8;
+    }
+
+
+    .Content-box h2 {
+      padding-top: 0;
+    }
+
+    .Content-box table {
+      width: 100%;
+    }
+    
+    // table stuff for pricing
+    th, td {
+      padding: 0.25rem 0.5rem;
+      padding-left: 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
 
 
 
@@ -177,7 +229,7 @@ input.__massive, button.__massive, ._button.__massive {
 	padding: $size-3 $size-3;
 	font-size: $size-3;
   line-height: $size-3 * 1.1;
-	border-radius: $size-1;
+	border-radius: $radius;
   border: solid $border-thin;
   @extend ._font-display;
 
@@ -336,6 +388,12 @@ button {
   display: none;
   margin: none;
 }
+  // force show checkout button
+  ._showCheckout .submitButtonClasses{
+    padding: $size-3 $size-3 !important;
+    margin: inherit !important;
+    display: block !important;
+  }
 
 
 .SponsorSection {

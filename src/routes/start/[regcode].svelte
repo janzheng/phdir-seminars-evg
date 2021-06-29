@@ -1,65 +1,70 @@
 
 <script context="module">
   export async function preload(page, session) {
-    const user = await this.fetch(`/api/getters?code=${page.params.regcode}`).then(r => r.json())
-
-    if(!user || !user.fields) {
-      return { id: page.params.regcode, user: null }
-    }
-    
-    // redefine user object on the server for security and templating
-    return { id: page.params.regcode, user: {
-      email: user.fields['Email'],
-      name: user.fields['Name'],
-      ticketnumber: user.fields['Ticket Number'],
-      country: user.fields['Country'],
-      institution: user.fields['Institution'],
-      position: user.fields['Position'],
-      tickettype: user.fields['Ticket Type'],
-      diet: user.fields['Diet'],
-      interest: user.fields['Research Interest'],
-      visa: user.fields['Visa Letter'],
-    } };
+    return { id: page.params.regcode }
   }
 </script>
 
 
-
-
-<div class="Join">
+{#if loading}
   <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
     <div class="_section-article _margin-center">
-
-      {#if !user}
-        {@html marked(nouser||'')}
-      {:else}
-        {@html marked(signedup||'')}
-      {/if}
-
+        <div class="_card _padding __white">
+          Loading ticket number: {id}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+{:else}
+  <EventContainer {id} {user} />
+{/if}
 
 
 <script>
-  import marked from 'marked'
+  
+  import { onMount } from 'svelte';
+
 
   import { _content, _get } from "@/stores/sitedata"
 	import { textReplacer } from "@/_project/app-helpers"
+  
+  import EventContainer from '@/components/EventContainer.svelte'
 
-  export let id, user = {}
-  let content = _content('start')
+  export let user = null, id, loading=true
 
-  // replace id from markdown
-  let nouser = textReplacer(_content('start-nouser'), {
-    ticketnumber: id
+
+
+  // load data onmount to support refreshing
+  // and syncing w/ store
+  onMount(async () => {
+    let _user = await fetch(`/api/getters?code=${id}`).then(r => r.json())
+
+    if(!_user || !_user.fields) {
+      user = null
+    }
+
+    
+    // redefine user object on the server for security and templating
+    user = {
+      email: _user.fields['Email'],
+      name: _user.fields['Name'],
+      ticketnumber: _user.fields['Ticket Number'],
+      country: _user.fields['Country'],
+      institution: _user.fields['Institution'],
+      position: _user.fields['Position'],
+      tickettype: _user.fields['Ticket Type'],
+      diet: _user.fields['Diet'],
+      interest: _user.fields['Research Interest'],
+      visa: _user.fields['Visa Letter'],
+      regstatus: _user.fields['Reg Status'],
+    }
+
+    loading = false
+    // console.log('onmount user: ', user)
   })
 
-  // grab content from Airtable
-  const signedup = user ? textReplacer(_content('signedup'), {
-    ...user
-  }) : ''
 
+
+  // let content = _content('start')
   // $: console.log(id, user)
 
 </script>

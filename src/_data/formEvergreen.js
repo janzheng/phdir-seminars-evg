@@ -1,3 +1,4 @@
+
 import * as yup from "yup";
 
 export const formData = {
@@ -5,7 +6,7 @@ export const formData = {
   name: "## Sign Up For Evergreen",
   description: "",
   settings: {
-    submitText: "Register for Evergreen...",
+    submitText: "Register for Evergreen",
     submittingText: "Registering for Evergreen...",
     successText: `
     \n\n ## Welcome to Evergreen 2021!
@@ -164,19 +165,9 @@ export const formData = {
       ]
     },
     {
-      name: "visa",
-      label: `Will you need a visa support letter?`,
-      fieldType: "Checkbox",
-      styles: {
-        formletClasses: "_margin-bottom-2 _md-pfix _padding-none",
-        fieldClasses: "_width-full",
-        labelClasses: "_padding-none",
-        descriptionClasses: "_padding-none"
-      },
-    },
-    {
       name: "diet",
-      label: `Do you have any dietary restrictions?`,
+      label: `__Dietary Restrictions__`,
+      description: "For those attending in-person, do you have any dietary restrictions?",
       placeholder: `ex: Peanuts`,
       fieldType: "Input",
       type: "text",
@@ -186,8 +177,20 @@ export const formData = {
       }
     },
     {
+      name: "visa",
+      label: `__Visa Support Letter__`,
+      description: "For those attending in-person and are traveling from outside the U.S., will you need a visa support letter?",
+      fieldType: "Checkbox",
+      styles: {
+        formletClasses: "_margin-bottom-2 _md-pfix _padding-none",
+        fieldClasses: "_width-full",
+        labelClasses: "_padding-none",
+        descriptionClasses: "_padding-none"
+      },
+    },
+    {
       name: "terms",
-      label: `Read and agree to our travel and data policies`,
+      label: `Read and agree to our travel and data policies *`,
       description: "By checking this box, you have read and agreed to our <a target='_blank' href='/terms'>COVID-19 Travel Policy, and Data Privacy Policy</a>",
       fieldType: "Checkbox",
       styles: {

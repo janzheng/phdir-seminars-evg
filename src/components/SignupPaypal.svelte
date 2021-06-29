@@ -67,6 +67,8 @@
   import { fetchPost } from '@/_utils/fetch-helpers'
 
 	import { _contents } from "@/stores/sitedata"
+	import { Profile } from "@/stores/profile"
+
 	import { textReplacer } from "@/_project/app-helpers"
   import { scrollToAnchor } from "@/_utils/scrollto.js";
   import { zzz } from "@/_utils/helpers.js";
@@ -203,14 +205,15 @@
               paymentMethod: 'PayPal',
               paymentReceipt: details.id,
               paymentReceiptData: details,
+              regStatus: ['Attendee'],
             },
             type: 'post_payment'
           }, fetch)
 
           if(!payConfirmRes.ok) {
             console.error('Payment confirmation error:', payConfirmRes.status, payConfirmRes)
-            errorMsg = `Evergreen payment failed, but your payment went through: ${payConfirmRes.status}`
-            throw new Error('Evergreen payment failed, but your payment went through')
+            errorMsg = `Evergreen registration failed, but your payment went through. Please notify evergreen@phage.directory of this error. Error: ${payConfirmRes.status}`
+            throw new Error('Evergreen registration failed, but your payment went through')
             return
           }
 
@@ -220,15 +223,20 @@
           let json = await payConfirmRes.json(), signupData
           signupData = json['data']
 
-          const successText = textReplacer(signedup, {
-            ...signupData,
-            ticketnumber: signupData.ticketnumber,
-          })
-          formData['settings']['successText'] = successText
+
+          
+          // const successText = textReplacer(signedup, {
+          //   ...signupData,
+          //   ticketnumber: signupData.ticketnumber,
+          // })
+          // formData['settings']['successText'] = successText
+
           confirmingPayment = false
           confirmedPayment = true
           // zzz(scrollToAnchor, 'signup-container', 200)
 
+          // store this for login
+          Profile.set(signupData)
           goto(`/start/${signupData.ticketnumber}`)
           
         })
