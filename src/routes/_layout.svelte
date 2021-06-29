@@ -102,8 +102,9 @@
 
 <div id="top" class="ContentFrame Layout">
 
+  <Nav {segment} />
+  
   {#key segment}
-    <Nav {segment} />
     
     <main class="ContentFrame-body __content-frame">
       <slot ></slot>
