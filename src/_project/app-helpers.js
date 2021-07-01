@@ -72,6 +72,7 @@ export const addComment = async (data) => {
     	'Name': data['name'],
     	'Email': data['email'],
     	'Comment': data['comment'],
+    	'Attendee': data['recordId'],
     }
   })
 

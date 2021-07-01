@@ -25,6 +25,304 @@ const baseId = process.env.AIRTABLE_PRIVATE_BASE
 
 
 
+
+
+const sendEmails = async (_data) => {
+  return await Promise.all([
+    sendReceiptToCustomer(_data), 
+    sendInfoToAdmin(_data),
+  ]);
+}
+
+
+
+
+
+
+
+
+// handles notifications and stuff after payment's gone through
+export const registerPostPaymentPaypal = async ({data}) => {
+
+  const ticketgen = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)
+  const ticketnumber = `${ticketgen()}`
+  const ticketprice = getTicketPrice(data)
+
+  const cytosis = await Cytosis.save({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    tableName: 'Attendees',
+    tableOptions: {
+      insertOptions: ['typecast'],
+    },
+    payload: {
+    	'Name': data['name'],
+    	'Email': data['email'],
+    	'Institution': data['institution'],
+    	'Country': data['country'],
+    	// 'Abstract': data['abstract'],
+			// 'Authors': data['authors'],
+			'Data': JSON.stringify(data),
+      'Ticket Number': ticketnumber,
+      'Position': data['position'],
+      'Ticket Type': data['tickettype'],
+      'Ticket Price': ticketprice,
+      'Terms': data['terms'],
+
+      'Diet': data['diet'],
+      'Research Interest': data['interest'],
+      'Visa Letter': data['visa'],
+      'Registration': 'Site Registration',
+
+      'Payment': data.paymentMethod,
+      'Reg Status': data.regStatus || ['Free'], // default to ['Attendee'] if paid
+
+      'Receipt': data.paymentReceipt,
+      'Receipt Data': data.paymentReceiptData,
+    }
+  })
+
+  await sendEmails({...data, ticketprice, ticketnumber})
+
+  // return true
+  return {
+    ticketnumber,
+    // cytosis, // do NOT pass this back — contains Paypal info
+    data: {
+      ...data,
+      ticketprice,
+      ticketnumber,
+      id: cytosis.id,
+    },
+  }
+}
+
+
+
+
+// updates a free user to a paid user
+// user should already have info at this point
+export const updatePaymentPaypal = async ({data}) => {
+
+  // console.log('[updatePaymentPaypal] data:', data)
+  
+  // verify user from data
+  let user = await getUserFromCode(data['ticketnumber'])
+  
+  if(!user || user.status == false) {
+    return {
+      message: `Unknown ticket number: ${data['ticketnumber']}`
+    }
+  }
+  
+  const ticketnumber = user.fields['Ticket Number']
+  const ticketprice = getTicketPrice(data)
+
+  // console.log('[updatePaymentPaypal] user:' , user, ticketnumber, ticketprice)
+
+  const cytosis = await Cytosis.save({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    tableName: 'Attendees',
+    recordId: user.id,
+    tableOptions: {
+      insertOptions: ['typecast'],
+    },
+    payload: {
+      'Registration': 'Site Registration',
+
+      'Payment': data.paymentMethod,
+      'Reg Status': data.regStatus || ['Attendee'], // default to ['Attendee'] if paid
+
+      'Receipt': data.paymentReceipt,
+      'Receipt Data': data.paymentReceiptData,
+    }
+  })
+
+  // await sendEmails({...data, ticketprice, ticketnumber})
+
+  // return true
+  return {
+    ticketnumber,
+    // cytosis, // do NOT pass this back — contains Paypal info
+    data: {
+      ...data,
+      ticketprice,
+      ticketnumber,
+      regstatus: data.regStatus,
+      id: cytosis.id,
+    },
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// gets user reg data from ticket number / reg code
+export const getUserFromCode = async (code, useCache=false) => {
+
+	const _cacheStr = `user-${code}`
+	if(useCache && cacheGet(_cacheStr))
+		return cacheGet(_cacheStr)
+    
+  const cytosis = await new Cytosis({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    bases:  [
+      {
+        tables: ['Attendees'],
+        options: {
+          "maxRecords": 1,
+          keyword: code,
+          matchKeywordWithField: 'Ticket Number',
+          matchStyle: 'exact',
+        }
+      },
+    ],
+    routeDetails: '[getUserFromCode]',
+  })
+
+  if(cytosis.results['Attendees'] && cytosis.results['Attendees'][0]) {
+    let result = cytosis.results['Attendees'][0]
+
+	  delete result.fields['Receipt Data']
+	  delete result.fields['Data']
+    
+    // console.log('[getUserFromCode] ????', result.fields)
+  	cacheSet(_cacheStr, result)
+
+
+    
+    return {
+      fields: result.fields,
+      id: result.id
+    }
+  }
+
+	return {status: false}
+
+}
+
+
+
+
+
+
+
+
+
+
+// gets user reg data from ticket number / reg code
+export const getRegCount = async (useCache=false) => {
+
+
+	const _cacheStr = `regCount`
+	if(useCache && cacheGet(_cacheStr))
+		return cacheGet(_cacheStr)
+
+  const cytosis = await new Cytosis({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    bases:  [
+      {
+        tables: ['Attendees'],
+        options: {
+          view: 'Registrants',
+        }
+      },
+    ],
+    routeDetails: '[getRegCount]',
+  })
+
+  if(cytosis.results['Attendees']) {
+  	cacheSet(_cacheStr, cytosis.results['Attendees'].length)
+    return cytosis.results['Attendees'].length
+  }
+
+	return undefined
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+  Unused for now
+
+*/
+
+
+
 export const registerSignupStripe = async ({data}) => {
 	// need to get attendee data first and merge data if required
 
@@ -43,7 +341,6 @@ export const registerSignupStripe = async ({data}) => {
 	// }
 
 	// allow for duplicates!!!
-
 
   const ticketgen = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)
   const ticketnumber = `${ticketgen()}`
@@ -126,133 +423,5 @@ export const registerPostPaymentStripe = async ({data}) => {
   } catch(e) {
     console.error('[registerPostPayment] error:', e)
   }
-}
-
-
-
-
-
-
-
-// handles notifications and stuff after payment's gone through
-export const registerPostPaymentPaypal = async ({data}) => {
-  
-
-  const ticketgen = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)
-  const ticketnumber = `${ticketgen()}`
-  const ticketprice = getTicketPrice(data)
-
-  const cytosis = await Cytosis.save({
-    apiKey: apiEditorKey,
-    baseId: baseId,
-    tableName: 'Attendees',
-    tableOptions: {
-      insertOptions: ['typecast'],
-    },
-    payload: {
-    	'Name': data['name'],
-    	'Email': data['email'],
-    	'Institution': data['institution'],
-    	'Country': data['country'],
-    	// 'Abstract': data['abstract'],
-			// 'Authors': data['authors'],
-			'Data': JSON.stringify(data),
-      'Ticket Number': ticketnumber,
-      'Position': data['position'],
-      'Ticket Type': data['tickettype'],
-      'Ticket Price': ticketprice,
-      'Terms': data['terms'],
-
-      'Diet': data['diet'],
-      'Research Interest': data['interest'],
-      'Visa Letter': data['visa'],
-      'Registration': 'Site Registration',
-
-      'Payment': data.paymentMethod,
-      'Receipt': data.paymentReceipt,
-      'Receipt Data': data.paymentReceiptData,
-    }
-  })
-
-  await Promise.all([
-      sendReceiptToCustomer({...data, ticketprice, ticketnumber}), 
-      sendInfoToAdmin({...data, ticketprice, ticketnumber}),
-  ]);
-
-
-  // return true
-  return {
-    ticketnumber,
-    // cytosis,
-    data: {
-      ...data,
-      ticketprice,
-      ticketnumber,
-      id: cytosis.id,
-    },
-  }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// gets user reg data from ticket number / reg code
-export const getUserFromCode = async (code) => {
-
-	const _cacheStr = `user-${code}`
-	if(cacheGet(_cacheStr))
-		return cacheGet(_cacheStr)
-    
-  const cytosis = await new Cytosis({
-    apiKey: apiEditorKey,
-    baseId: baseId,
-    bases:  [
-      {
-        tables: ['Attendees'],
-        options: {
-          "maxRecords": 1,
-          keyword: code,
-          matchKeywordWithField: 'Ticket Number',
-          matchStyle: 'exact',
-        }
-      },
-    ],
-    routeDetails: '[getUserFromCode]',
-  })
-
-  if(cytosis.results['Attendees'] && cytosis.results['Attendees'][0]) {
-    let result = cytosis.results['Attendees'][0]
-
-	  delete result.fields['Receipt Data']
-	  delete result.fields['Data']
-
-  	cacheSet(_cacheStr, result)
-    return result
-  }
-
-	return {}
-
 }
 

@@ -1,6 +1,6 @@
 
 {#if content}
-<div class="_section-page _padding-top-2 _margin-center _margin-bottom-2 {classes}" styles="{styles}">
+<div class="{classes}" styles="{styles}">
   <div class=" _margin-center">
     <div class="">{@html marked(content||'')}</div>
   </div>
@@ -13,7 +13,7 @@
 import marked from 'marked';
 import { _content } from "@/stores/sitedata"
 
-export let name = '', classes = '', styles = ''
+export let name = '', classes = '_section-page _padding-top-2 _margin-center _margin-bottom-2 ', styles = ''
 let content = _content(name)
 
 </script>

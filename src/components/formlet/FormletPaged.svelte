@@ -1,7 +1,7 @@
 
 
 {#if !submitted}
-  <form id="formlet-top" class={`Formlet-container __paged ${formStyles['formletContainer']||''}`}
+  <form id="formlet-top" class={`Formlet-container __paged ${classes} ${formStyles['formletContainer']||''}`}
     action='{formData['formAction']?formData['formAction']:null}' 
     method='{formData['formAction']?'POST':null}' 
     on:submit={async (e)=>{
@@ -186,6 +186,7 @@ export let formStyles = formData['styles'] || {}, isSubmitting=false, submitted=
 
 export let form, errors, state, handleChange, handleSubmit, handleReset, touched, isValid, isValidating, validateField
 export let formPages = [], curPageNumber = 0, furthestPageNumber = 0, curPage
+export let classes
 
 let hasPageErrors=false, isReset=false, pageErrorCount=0
 const { page } = stores();

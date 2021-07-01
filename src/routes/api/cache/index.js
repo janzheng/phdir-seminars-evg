@@ -16,12 +16,6 @@ config(); // https://github.com/sveltejs/sapper/issues/122
 let json
 
 
-
-
-
-
-
-// gets a collection based on a slug that looks like basedId-recordId
 export const get = async (req, res, next) => {
 
 	const { cacheslug, type } = req.params
@@ -36,30 +30,6 @@ export const get = async (req, res, next) => {
 			throw new Error(err)
   }
 }
-
-
-
-
-// export async function post(req, res) {
-
-// 	try {
-// 		const { cmd, baseId, recordId, data } = req.body
-
-// 		// console.log('[api/getters] post', type, req.body)
-		
-// 		if(cmd === 'DELETE') {
-// 	    const fave = await deleteFave(req.body)
-// 	    return sendData(fave, res)
-
-// 		} else if (cmd === 'SAVE') {
-// 	    const fave = await saveFave(req.body)
-// 	    return sendData(fave, res)
-// 		}
-// 	} catch(e) {
-// 		console.error('[api/fave]', e)
-// 	}
-// }
-
 
 
 

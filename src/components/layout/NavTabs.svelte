@@ -33,7 +33,6 @@
 				<nav>
 					<ul>
 						<li class="_align-vertically"><a rel=prefetch class='{segment === undefined ? "__active" : ""}' aria-current='{segment === undefined ? "page" : undefined}' href='.'>Agenda</a></li>
-						<li class="_align-vertically"><a rel=prefetch class='{segment === "ajv" ? "__active" : ""}' aria-current='{segment === "ajv" ? "page" : undefined}' href='ajv'>Schema Editor</a></li>
 						<!-- <li class="_align-vertically"><a rel=prefetch class='{segment === "past-events" ? "__active" : ""}' aria-current='{segment === "past-events" ? "page" : undefined}' href='past-events'>Past Events</a></li> -->
 						<!-- <li class="_align-vertically"><a rel=prefetch class='{segment === "organizers" ? "__active" : ""}' aria-current='{segment === "organizers" ? "page" : undefined}' href='organizers'>Organizers</a></li> -->
 					</ul>

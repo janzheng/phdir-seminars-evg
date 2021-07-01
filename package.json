@@ -14,7 +14,8 @@
     "test": "run-p --race dev cy:run",
     "prod": "npm run load-content; now",
     "load-content": "node src/_project/content-loader.js",
-    "commit": "git add . -A ; git commit ; git push origin preview "
+    "commit": "git add . -A ; git commit ; git push origin preview ",
+    "commitprod": "git add . -A ; git commit ; git push origin main --force "
   },
   "browser": {
     "airtable": "./node_modules/airtable/build/airtable.browser"
@@ -25,23 +26,17 @@
     "@polka/send": "^0.4.0",
     "@polka/send-type": "^0.5.2",
     "airtable": "^0.8.1",
-    "ajv": "^8.6.0",
     "body-parser": "^1.19.0",
     "calendar-link": "^2.1.1",
     "compression": "^1.7.1",
     "cytosis": "^0.0.416",
-    "faunadb": "^4.3.0",
-    "json5": "^2.2.0",
     "mailgun-js": "^0.22.0",
-    "mailgun.js": "^2.0.1",
     "node-cache": "^5.1.1",
     "nodemailer": "^6.6.1",
     "polka": "next",
-    "shortid": "^2.2.16",
     "sirv": "^0.4.0",
     "stripe": "^8.150.0",
     "svelte-forms-lib": "^1.1.1",
-    "tinify": "^1.6.0-beta.2",
     "yup": "^0.29.1"
   },
   "devDependencies": {
@@ -53,6 +48,7 @@
     "@rollup/plugin-commonjs": "11.0.2",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "@rollup/plugin-replace": "^2.2.0",
+    "@yawnxyz/svelte-notion": "^0.0.9",
     "autoprefixer": "^9.7.6",
     "babel-plugin-transform-node-env-inline": "^0.4.3",
     "coeur": "^0.2.292",
@@ -63,8 +59,9 @@
     "lodash.memoize": "^4.1.2",
     "marked": "^1.0.0",
     "nanoid": "^3.1.23",
+    "node-fetch": "^2.6.1",
     "node-sass": "^4.14.0",
-    "npm-run-all": "^4.1.5",
+    "prismjs": "1.20.0",
     "rollup": "^1.20.0",
     "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-babel": "^4.4.0",
@@ -77,9 +74,9 @@
     "rollup-plugin-terser": "^4.0.4",
     "sapper": "^0.28.0",
     "svelte": "^3.24.1",
+    "svelte-local-storage-store": "^0.2.3",
     "svelte-masonry": "^0.0.18",
     "svelte-preprocess": "^3.7.4",
-    "svelte-select": "^3.16.1",
-    "unique-names-generator": "^4.5.0"
+    "svelte-select": "^3.16.1"
   }
 }

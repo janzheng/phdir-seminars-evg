@@ -31,7 +31,7 @@
 
       <!-- <SignupNews /> -->
 
-      <ContentBlock id="sponsors" name="_sponsors" classes="SponsorSection _card _padding _margin-center _center _padding-top-none" />
+      <ContentBlock id="sponsors" name="_sponsors" classes="SponsorSection _section-page _margin-center _center _divider-top _divider-bottom" />
 
 
       <div id="datetime" class="Content-box _margin-top-2 _margin-bottom-2 _grid-1-4 _grid-gap-large">
@@ -64,7 +64,7 @@
 
   <div class="Home-content _section-page _padding-top-2 _margin-center ">
 
-    <div id="signup"class="_section-page _margin-center">
+    <div id="signup" class="_section-page _margin-center">
       <div class="Content-box _padding-bottom-2">
         <Signup />
       </div>
@@ -114,9 +114,12 @@
   import marked from 'marked';
 	import { _content, _contents } from "@/stores/sitedata"
 
-  import Separator from '../components/widgets/Separator.svelte'
-  import Signup from '../components/widgets/SignupPaypal.svelte'
-  import SignupNews from '../components/widgets/SignupEvgNews.svelte'
+  import Separator from '../components/Separator.svelte'
+
+  // import Signup from '../components/project/signup/SignupPaypal.svelte'
+  import Signup from '../components/project/signup/SignupFreemium.svelte'
+
+  import SignupNews from '../components/project/signup/SignupEvgNews.svelte'
   import Calendars from '../components/widgets/Calendars.svelte'
 
   import CalDate from '@/components/CalDate.svelte'
@@ -130,36 +133,3 @@
 
   let showBetty = false
 </script>
-
-<style global type="text/scss">
-  :global(.Home-content-extra img) {
-    @media (min-width: 767px) {
-      float: right;
-      max-width: 300px;
-      margin-left: 1rem;
-      margin-bottom: 0.5rem;
-
-    }
-  }
-
-  .Home {
-    background-color: #F5FAF8;
-  }
-
-
-  .Content-box h2 {
-    padding-top: 0;
-  }
-
-  .Content-box table {
-    width: 100%;
-  }
-  
-  // table stuff for pricing
-  th, td {
-    padding: 0.25rem 0.5rem;
-    padding-left: 0;
-  }
-
-
-</style>

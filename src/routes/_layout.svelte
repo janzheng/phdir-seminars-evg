@@ -15,6 +15,8 @@
 
 <script>
 
+  console.log('[Evergreen] v1.02')
+
 	import { SiteData, _content, _get } from "@/stores/sitedata"
 
 	import Nav from '../components/layout/NavFull.svelte';
@@ -101,12 +103,15 @@
 <div id="top" class="ContentFrame Layout">
 
   <Nav {segment} />
-
-	<main class="ContentFrame-body __content-frame">
-		<slot ></slot>
-	</main>
-
-	<Footer />
+  
+  {#key segment}
+    
+    <main class="ContentFrame-body __content-frame">
+      <slot ></slot>
+    </main>
+    
+    <Footer />
+  {/key}
 </div>
 
 
