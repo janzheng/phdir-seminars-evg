@@ -411,3 +411,111 @@ button {
 hr {
   border-color:usetheme(brand-active-green);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.notion-list-todo {
+  input {
+    vertical-align: middle;
+    margin-right: 0.25rem;
+    margin-bottom: 0.01rem;
+  }
+}
+
+
+
+
+.notion-collection {
+  figure {
+    max-width: 100%;
+    overflow-x: scroll;
+    position: relative;
+  }
+  .notion-collection-table {
+
+    width: 100%;
+    
+    .__stack-xs td {
+      padding-left: 1rem !important;
+    }
+    
+    @extend ._table;
+    @extend .__stack-xs;
+  }
+}
+.notion-text {
+  white-space: pre-line
+}
+.notion-row .notion-render,
+.notion-row .Notion-render {
+  // for columns to split equally
+  flex-grow: 1;
+  flex-basis: 0;
+
+  .notion-column {
+    width: 100% !important; 
+    padding-right: $size;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+  Poster stuff
+
+*/
+
+.PosterGrid-category {
+  color: usetheme(brand);
+  @extend ._tag;
+  @extend ._font-small;
+  display: inline-block;
+}

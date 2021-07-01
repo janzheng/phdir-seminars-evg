@@ -13,15 +13,14 @@
  
 @import '../../node_modules/coeur/styles/_head-reset.scss';
 
-
 @import 'settings.scss';
 @import 'design.scss';
 @import 'layout'; // typography, basic design & whitespace
 
 @import '../../node_modules/coeur/styles/_body-starter.scss';
     
-
-
+@import 'profile.scss';
+ 
   
 /*       
 
@@ -75,7 +74,10 @@ $radius: $unit/4;
 
  
 @import 'custom.scss';
-@import 'forms.scss'; 
+
+// ._forms {
+  @import 'forms.scss'; 
+// }
 
  
 img {

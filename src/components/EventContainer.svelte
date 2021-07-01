@@ -4,7 +4,7 @@
 
 <div id="event-top">
 
-  {#if !user}
+  {#if !user || !user.ticketnumber}
     <div class="Start _no-user">
       <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
         <div class="_section-article _margin-center">
@@ -62,7 +62,7 @@
   import { _content, _get } from "@/stores/sitedata"
 	import { textReplacer } from "@/_project/app-helpers"
 
-  import Finalize from '@/components/SignupFinalizePaypal.svelte'
+  import Finalize from '@/components/project/signup/SignupFinalizePaypal.svelte'
 
   export let id, user = {}, isFree
   let content = _content('start')
@@ -73,10 +73,10 @@
   let signedup, almostsignedup
   const info = user ? textReplacer(_content('signedup-info'), {...user}) : ''
 
-  // $: console.log('EventContainer:', id, user)
+  $: console.log('EventContainer:', id, user)
 
 
-  $: if(user) {
+  $: if(user && user.ticketnumber) {
     signedup = user ? textReplacer(_content('signedup'), {...user}) : ''
     almostsignedup = user ? textReplacer(_content('signedup-almost'), {...user}) : ''
     

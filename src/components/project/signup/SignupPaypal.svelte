@@ -67,7 +67,7 @@
   import { fetchPost } from '@/_utils/fetch-helpers'
 
 	import { _contents } from "@/stores/sitedata"
-	import { Profile } from "@/stores/profile"
+	import { UpdateProfile } from "@/stores/profile"
 
 	import { textReplacer } from "@/_project/app-helpers"
   import { scrollToAnchor } from "@/_utils/scrollto.js";
@@ -236,7 +236,7 @@
           // zzz(scrollToAnchor, 'signup-container', 200)
 
           // store this for login
-          Profile.set(signupData)
+          UpdateProfile(signupData)
           goto(`/start/${signupData.ticketnumber}`)
           
         })

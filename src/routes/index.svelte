@@ -116,10 +116,10 @@
 
   import Separator from '../components/Separator.svelte'
 
-  // import Signup from '../components/SignupPaypal.svelte'
-  import Signup from '../components/SignupFreemium.svelte'
+  // import Signup from '../components/project/signup/SignupPaypal.svelte'
+  import Signup from '../components/project/signup/SignupFreemium.svelte'
 
-  import SignupNews from '../components/SignupEvgNews.svelte'
+  import SignupNews from '../components/project/signup/SignupEvgNews.svelte'
   import Calendars from '../components/widgets/Calendars.svelte'
 
   import CalDate from '@/components/CalDate.svelte'

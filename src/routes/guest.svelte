@@ -27,7 +27,7 @@
 	import { _content, _contents } from "@/stores/sitedata"
 
   import Separator from '../components/Separator.svelte'
-  import Signup from '../components/SignupGuest.svelte'
+  import Signup from '../components/project/signup/SignupGuest.svelte'
   
   import ContentBlock from '@/components/ContentBlock.svelte'
 

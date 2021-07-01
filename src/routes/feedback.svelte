@@ -18,7 +18,8 @@
 
 
 <script>
-  import Comment from '../components/widgets/Comment.svelte'
+  // import Comment from '../components/widgets/Comment.svelte'
+  import Comment from '../components/EvgComment.svelte'
 
   export let name, email
 </script>

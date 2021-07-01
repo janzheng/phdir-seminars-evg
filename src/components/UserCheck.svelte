@@ -1,11 +1,4 @@
 
-<script context="module">
-  export async function preload(page, session) {
-    return { id: page.params.regcode }
-  }
-</script>
-
-
 
 {#if loading}
   <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
@@ -16,33 +9,34 @@
       </div>
     </div>
 {:else}
-  <EventContainer {id} user={$Profile} />
+    <slot />
 {/if}
 
 
 <script>
-  import { onMount } from 'svelte';
-
-  import { Profile, checkUser } from "@/stores/profile"
-  import { _content, _get } from "@/stores/sitedata"
   
-  import EventContainer from '@/components/EventContainer.svelte'
+  import { onMount } from 'svelte';
+  import { goto } from '@sapper/app';
+
+
+  import { Profile, checkUser, ID } from "@/stores/profile"
+  import { _content, _get } from "@/stores/sitedata"
 
   export let id, loading=true
-
-
 
   // load data onmount to support refreshing
   // and syncing w/ store
   onMount(async () => {
-    if(!$Profile || $Profile.ticketnumber != id) {
-      await checkUser(id)
+
+    await checkUser(id)
+    if((!$Profile && !id) || !$Profile.ticketnumber) {
+      console.error('No ticket number')
+      goto('/start')
+      return
     }
+
     loading = false
   })
-
-  // let content = _content('start')
-  // $: console.log(id, user)
 
 </script>
 

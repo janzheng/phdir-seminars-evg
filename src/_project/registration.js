@@ -256,6 +256,42 @@ export const getUserFromCode = async (code, useCache=false) => {
 
 
 
+// gets user reg data from ticket number / reg code
+export const getRegCount = async (useCache=false) => {
+
+
+	const _cacheStr = `regCount`
+	if(useCache && cacheGet(_cacheStr))
+		return cacheGet(_cacheStr)
+
+  const cytosis = await new Cytosis({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    bases:  [
+      {
+        tables: ['Attendees'],
+        options: {
+          view: 'Registrants',
+        }
+      },
+    ],
+    routeDetails: '[getRegCount]',
+  })
+
+  if(cytosis.results['Attendees']) {
+  	cacheSet(_cacheStr, cytosis.results['Attendees'].length)
+    return cytosis.results['Attendees'].length
+  }
+
+	return undefined
+}
+
+
+
+
+
+
+
 
 
 

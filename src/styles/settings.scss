@@ -228,10 +228,15 @@ $button-color-disabled-text: usetheme(gray-light, $colors_);
 
 // @import '../../node_modules/coeur/styles/_body.scss';
 @import '../../node_modules/coeur/styles/_body-card.scss';
-@import '../../node_modules/coeur/styles/_body-forms';  
+// @import '../../node_modules/coeur/styles/_body-forms';  
 @import '../../node_modules/coeur/styles/_body-tag';  
 @import '../../node_modules/coeur/styles/_body-table';  
 @import '../../node_modules/coeur/styles/_body-buttonGroups';  
+
+// ._forms{
+  @import '../../node_modules/coeur/styles/_body-forms';  
+// }
+
 
 // re-cascade
 @import '../../node_modules/coeur/styles/_head-helpers.scss';

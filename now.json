@@ -17,5 +17,11 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/submit",
+      "destination": "https://docs.google.com/forms/d/e/1FAIpQLSdLVcsoc198G1iVuBh1ToVc5x7UNyDNuuaPcnF2cd4h8-4e5w/viewform"
+    }
   ]
 }

@@ -9,6 +9,8 @@
   import { scrollToAnchor } from "@/_utils/scrollto.js";
 
   import CalDate from '@/components/CalDate.svelte'
+  import EventLogin from '@/components/EventLogin.svelte'
+  import EventCounter from '@/components/EventCounter.svelte'
 
   let top = _content('top') || ''
   let caldate = _content('_caldate') || ''
@@ -61,16 +63,32 @@
   <div class="Nav-content _section-page _margin-center ">
     <div class="_section-article _margin-center ">
       <div class="_section-narrow _margin-center _center _margin-bottom-2">{@html marked(top||'')}</div>
-			<!-- <div class="_margin-top-2 _center _padding-top-2">
-				<a href="#intro" class="_button __action-outline _font-display" style="width: 10rem;" on:click={()=>{scrollToAnchor('intro')}} >Get a ticket</a>
-			</div> -->
+
+			<div class="_margin-top-2 _center _padding-top-2">
+				<EventCounter classes='_card _padding __flat' />
+			</div>
 
       <div class="_margin-top-2 _padding-top-2 _margin-bottom-2 _center">
         <CalDate str={caldate} classes="_margin-center" styles="max-width: 10rem;" />
       </div>
+
+			<div class="_margin-top-2 _center _padding-top-2">
+				<EventLogin classes='_card _padding __white' />
+			</div>
+
+			<div class="_margin-top-2 _center _padding-top-2">
+        <p>Not yet registered for Evergreen? It’s never too late!</p>
+				<a href="#signup" class="_button __action-outline _font-display" style="width: 16rem;" on:click={(e)=>{scrollToAnchor('signup','smooth',e)}} >Register for Evergreen</a>
+			</div>
+
 		</div>
 	</div>
 </nav>
+
+
+
+
+
 
 {:else}
 

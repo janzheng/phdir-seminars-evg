@@ -56,9 +56,9 @@ h2 {
   line-height: $size-5;
   @extend %font-display;
 
-  &.--large {
-    font-size: $size-4;
-    padding-bottom: $size-4 * 3/2;
+  &.__large {
+    font-size: $size-6 !important;
+    padding-bottom: $size-4 !important;
   }
 }
 
@@ -72,8 +72,8 @@ h3 {
   @extend %font-display;
   color: usetheme(brand);
 
-  &.--large {
-    font-size: $font-h2;
+  &.__large {
+    font-size: $font-h2 !important;
     line-height: $lineheight-h2;
     font-weight: normal;
   }
@@ -86,7 +86,7 @@ h4 {
   font-size: $font-h4;
   line-height: $font-h4 * 3/2;
 
-  &.--large {
+  &.__large {
     font-size: $font-h3;
     line-height: $lineheight-h3;
   }
@@ -96,7 +96,7 @@ h5 {
   font-size: $size + 2px;
 }
 
-h6.--tight, %tight {
+h6.__tight, %tight {
   font-size: usetheme(font--2);
   line-height: usetheme(font--2-lh);
   letter-spacing: 1px;
@@ -130,7 +130,7 @@ h6.--tight, %tight {
   position: relative;
 
   // prevent scrolling the page when mobile nav is open
-  &.--open {
+  &.__open {
     @include screen-xs {
       overflow: hidden;
       height: 100%;
@@ -193,7 +193,7 @@ p, ul, li, {
   }
 }
 
-.--underline {
+.__underline {
   text-decoration: underline;
   &-i {
     text-decoration: underline !important;
@@ -229,11 +229,11 @@ a, ._link {
     text-decoration: none;
   }
 
-  &.--disabled {
+  &.__disabled {
     color: usetheme(disabled);
   }
 
-  &.--quiet {
+  &.__quiet {
     // color: usetheme(pink-active);
     padding-bottom: $size;
     font-size: $size--1;
@@ -243,7 +243,7 @@ a, ._link {
 
   }
 
-  &.--nolink {
+  &.__nolink {
     font-weight: normal;
     text-decoration: none;
     color: usetheme(copy);
