@@ -31,7 +31,7 @@
 
       <!-- <SignupNews /> -->
 
-      <ContentBlock id="sponsors" name="_sponsors" classes="SponsorSection _card _padding _margin-center _center _padding-top-none" />
+      <ContentBlock id="sponsors" name="_sponsors" classes="SponsorSection _section-page _margin-center _center _divider-top _divider-bottom" />
 
 
       <div id="datetime" class="Content-box _margin-top-2 _margin-bottom-2 _grid-1-4 _grid-gap-large">

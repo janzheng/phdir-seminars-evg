@@ -1,7 +1,7 @@
 
 {#if regCount}
   <div class="{classes}">
-    <h2 class="_color-brand __large">{regCount}</h2> <h3 class="_color-brand">Phage phans have already registered!</h3>
+    <h2 class="_color-brand __large _padding-bottom-none-i">{regCount}</h2> <h3 class="_color-brand">Phage phans have already registered!</h3>
   </div>
 {/if}
 

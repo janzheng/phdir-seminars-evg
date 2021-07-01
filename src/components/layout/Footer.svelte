@@ -28,7 +28,7 @@
   </div>
 </div> -->
 
-<ContentBlock name="_sponsors" classes="SponsorSection _margin-center _center" />
+<ContentBlock name="_sponsors" classes="SponsorSection _section-page _padding-top-2 _margin-center _center _divider-bottom " />
 
 <footer class="Footer __antialiased __content-footer">
   <div class="Footer-content _section-page _margin-center _padding-top-2 _padding-bottom-2">

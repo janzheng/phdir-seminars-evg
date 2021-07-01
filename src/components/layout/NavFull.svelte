@@ -43,7 +43,7 @@
     	<!-- <div class="_md-pfix">{@html marked(content)}</div> -->
     	<div class="_center _padding-top-2 _padding-bottom-2 _margin-top-2">
     		<a rel=prefetch href="/">
-    			<img class="Header-img" src="evg-full-logo.png" alt="Evergreen 2021" style="width: 350px;">
+    			<img class="Header-img" src="evg-full-logo.png" alt="Evergreen 2021" style="">
     		</a>
     	</div> 
     	<!-- <div class=" _margin-center _padding-bottom-2">
@@ -101,7 +101,7 @@
         <!-- <div class="_md-pfix">{@html marked(content)}</div> -->
         <div class="_center _padding-bottom _margin-top-2">
           <a rel=prefetch href="/">
-            <img class="Header-img" src="evg-full-logo.png" alt="Evergreen 2021" style="width: 350px;">
+            <img class="Header-img" src="evg-full-logo-350.png" alt="Evergreen 2021" style="width: 350px;">
           </a>
         </div>
       </div>
