@@ -6,20 +6,14 @@
 </script>
 
 
-<div class="Comments">
-
-  <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
-    <div class="_section-article _margin-center">
-      <Comment isTiny={true} {name} {email} />
-    </div>
-  </div>
-
+<div class="Comment">
+  <Comment isTiny={true} {name} {email} />
 </div>
 
 
 <script>
   // import Comment from '../components/widgets/Comment.svelte'
-  import Comment from '../components/EvgComment.svelte'
+  import Comment from '../../components/EvgComment.svelte'
 
   export let name, email
 </script>

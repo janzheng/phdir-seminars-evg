@@ -19,10 +19,18 @@
   
     <div class="Start">
       <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
-        <div class="_section-article _margin-center">
+        <div class=" _margin-center">
           
-          {@html marked(almostsignedup||'')}
-          <Finalize bind:user={user} classes=" _divider-bottom" />
+          <div class="_grid-2-1 _grid-gap-large">
+            <div>
+              {@html marked(almostsignedup||'')}
+            </div>
+            <div>
+              <Finalize bind:user={user} classes=" _divider-bottom" />
+            </div>
+          </div>
+          
+
           {@html marked(info||'')}
           
         </div>
@@ -73,7 +81,8 @@
   let signedup, almostsignedup
   const info = user ? textReplacer(_content('signedup-info'), {...user}) : ''
 
-  $: console.log('EventContainer:', id, user)
+  // $: console.log('EventContainer:', id, user)
+  $: console.log('EventContainer:', id)
 
 
   $: if(user && user.ticketnumber) {

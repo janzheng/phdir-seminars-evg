@@ -26,14 +26,15 @@ const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
 const preprocess = sveltePreprocess({
-  scss: {
-    includePaths: ['src'],
-  },
-  postcss: {
-    plugins: [require('autoprefixer')],
-    includePaths: ["./src/styles", "node_modules"],
-    output: "static/core.css"
-  },
+  // scss: {
+  //   includePaths: ['src'],
+  // },
+  // postcss: {
+  //   plugins: [require('autoprefixer')],
+  //   // includePaths: ["node_modules", "./src/styles", ],
+  //   includePaths: [ "./src/styles", ],
+  //   output: "static/core.css"
+  // },
 });
 
 
@@ -76,12 +77,13 @@ export default {
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
-	    sass({
-	     // update includePaths to what suits.
-	    // node_modules is probably only necessary if you need to import from a css library
-	      includePaths: ["./src/styles", "node_modules"],
-	      output: "static/global.css"
-	    }),
+	    // sass({
+	    //  // update includePaths to what suits.
+	    //  // node_modules is probably only necessary if you need to import from a css library
+	    //   // includePaths: ["node_modules", "./src/styles", ],
+	    //   includePaths: [ "./src/styles", ],
+	    //   output: "static/global.css"
+	    // }),
 
 			commonjs(),
 			globals(),
@@ -147,12 +149,13 @@ export default {
 				'process.browser': false,
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
-	    sass({
-	     // update includePaths to what suits.
-	    // node_modules is probably only necessary if you need to import from a css library
-	      includePaths: ["./src/styles", "node_modules"],
-	      output: "static/global.css"
-	    }),
+	    // sass({
+	    //  // update includePaths to what suits.
+	    // // node_modules is probably only necessary if you need to import from a css library
+	    //   // includePaths: ["node_modules", "./src/styles", ],
+	    //   includePaths: ["./src/styles", ],
+	    //   output: "static/global.css"
+	    // }),
 	    
 			commonjs(),
 			

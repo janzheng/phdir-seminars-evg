@@ -28,7 +28,7 @@ import Cytosis from 'cytosis';
 // import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
 import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal, updatePaymentPaypal } from "@/_project/registration" 
-import { addComment, unsubscribe } from "@/_project/app-helpers" 
+import { addComment, addQuestion, addMessage, unsubscribe } from "@/_project/app-helpers" 
 
 
 import { config } from "dotenv";
@@ -59,6 +59,20 @@ export async function post(req, res) {
 
     if (type === 'comment') {
 			const status = await addComment(req.body)
+      return sendData({
+        status
+      }, res);
+    }
+
+    if (type === 'message') {
+			const status = await addMessage(req.body)
+      return sendData({
+        status
+      }, res);
+    }
+
+    if (type === 'question') {
+			const status = await addQuestion(req.body)
       return sendData({
         status
       }, res);

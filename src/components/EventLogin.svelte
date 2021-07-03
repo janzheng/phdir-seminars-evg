@@ -25,7 +25,7 @@
 <script>
   // import marked from 'marked'
   import { Profile, checkUser } from "@/stores/profile"
-  import { goto } from '@sapper/app';
+  import { goto, prefetch } from '@sapper/app';
 
   export let classes = '_card _padding'
   // import { _content, _get } from "@/stores/sitedata"
@@ -37,17 +37,25 @@
     e.preventDefault()
     
     if(!$Profile || $Profile.ticketnumber != code) {
-      await checkUser(code)
+      let user = await checkUser(code)
 
-      // this forwards to the page regardless of user 
-      // this allows showing the "no user" page
-      goto(`/start/${$Profile.ticketnumber || code}`)
+      console.log('::: ')
+      if(user && user.ticketnumber && (user.ticketnumber == code)) {
+        prefetch(`/start/live`)
+        goto(`/start/live`)
+      } else {
+        // this forwards to the page regardless of user 
+        // this allows showing the "no user" page
+        goto(`/start/${code}`)
+      }
+
     }
   }
 
   $: if(process.browser && $Profile.ticketnumber && ($Profile.ticketnumber == code)) {
     // goto(`/start/${$Profile.ticketnumber}`)
-    // goto(`/start`)
+  } else {
+    
   }
 
 </script>

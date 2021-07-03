@@ -12,8 +12,39 @@ export const UpdateProfile = (signupData) => {
   // console.log('Profile:', signupData.ticketnumber, signupData)
 }
 
+// checks whether person is attending
+export const isAttending = (profile) => {
+  if(profile && profile.ticketnumber && profile.regstatus) {
+    return profile.regstatus.includes('Attendee')
+  }
+  return false
+}
+
+// checks if allowed to visit "backstage"
+export const isVIP = (profile) => {
+  if(profile && profile.ticketnumber && profile.regstatus) {
+    return profile.regstatus.includes('Staff') || 
+           profile.regstatus.includes('Speaker') ||
+           profile.regstatus.includes('Chair')
+  }
+  return false
+}
+
+
+
+
+
+export const logOut = () => {
+  Profile.set({})
+  ID.set({id: ''})
+  // console.log('Profile:', signupData.ticketnumber, signupData)
+}
+
 export const checkUser = async(id) => {
   let user = null
+
+  if(get(Profile) && get(Profile).ticketnumber)
+    return get(Profile)
 
   if(!id)
     id = get(ID) ? get(ID).id : null // if no id provided, get it from the store (e.g. auto-checker)

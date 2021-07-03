@@ -10,7 +10,7 @@ import { keyReplace } from '@/_utils/helpers';
 
 import Cytosis from 'cytosis';
 // import * as sapper from '@sapper/server';
-// import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
+import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 
 import { config } from "dotenv";
 config(); // https://github.com/sveltejs/sapper/issues/122
@@ -39,7 +39,7 @@ export const dict = (obj)  => {
     tickettype: obj && obj['tickettype'],
     diet: obj && obj['diet'] ? obj['diet'] : 'None',
     interest: obj && obj['interest'],
-    visa: obj && obj['visa'] ? 'Yes': 'No',
+    visa: obj && obj['visa'] == true ? 'Yes': 'No',
     paymentReceipt: obj && obj['paymentReceipt'] ? obj['paymentReceipt']: 'No Receipt',
 	}
 }
@@ -57,9 +57,6 @@ export const textReplacer = (text, obj) => {
 
 
 
-
-
-
 export const addComment = async (data) => {
   const cytosis = await Cytosis.save({
     apiKey: apiEditorKey,
@@ -72,12 +69,84 @@ export const addComment = async (data) => {
     	'Name': data['name'],
     	'Email': data['email'],
     	'Comment': data['comment'],
-    	'Attendee': data['recordId'],
+    	'Attendee': data['recordId'] ? [data['recordId']] : null,
     }
   })
 
   return true
 }
+
+export const addQuestion = async (data) => {
+
+  const cytosis = await Cytosis.save({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    tableName: 'Questions',
+    tableOptions: {
+      insertOptions: [],
+    },
+    payload: {
+    	'Name': data['name'],
+    	'Type': data['questiontype'],
+    	'Reference': data['reference'],
+    	'Email': data['email'],
+    	'Question': data['comment'],
+    	'Attendee': data['recordId'] ? [data['recordId']] : null,
+    }
+  })
+
+  return true
+}
+
+export const addMessage = async (data) => {
+  const cytosis = await Cytosis.save({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    tableName: 'Messages',
+    tableOptions: {
+      insertOptions: [],
+    },
+    payload: {
+    	'Message': data['comment'],
+    	'Attendee': data['recordId'] ? [data['recordId']] : null,
+    }
+  })
+
+  return true
+}
+
+// messages are for fun short term, so we only show the last 20 msgs
+export const getMessages = async () => {
+
+  const cacheStr = `getMessages`
+  if (cacheGet(cacheStr)) {
+    return cacheGet(cacheStr)
+  }
+
+  const cytosis = await new Cytosis({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    bases:  [
+      {
+        tables: ['Messages'],
+        options: {
+          "maxRecords": 20,
+          view: 'Messages'
+        }
+      },
+    ],
+    routeDetails: '[api/getters/getMessages]',
+  })
+
+  if(cytosis.results.Messages.length > 0){
+    // very short, 10 second cache meant to be like SWR
+    cacheSet(cacheStr, cytosis.results.Messages, 3)
+  	return cytosis.results.Messages
+  }  
+  return undefined
+}
+
+
 
 
 

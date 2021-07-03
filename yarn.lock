@@ -959,10 +959,10 @@
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
   integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
-"@yawnxyz/svelte-notion@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@yawnxyz/svelte-notion/-/svelte-notion-0.0.9.tgz#b800606f6d1b22b586fad2c35505d54b7fb1596e"
-  integrity sha512-rbxO4OfmILdW+vQXXx/FpsRxHXutK577kbUdLEjQIkG1wSjseDvgQz1TDpKVXtj7cWJ1j3y+2NWmyc0VzMoz7w==
+"@yawnxyz/svelte-notion@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@yawnxyz/svelte-notion/-/svelte-notion-0.0.14.tgz#401a6ad6ef5f6ad69fc5817b3f636b342b42dfa6"
+  integrity sha512-lpy/vdU7fND0bYYd58XioEauYWm6HZrTXvu7VoD/ogJQr0K5ZbO9s9Z1TgadU0LBd4ZCybGShq9dAZZwK6sVoQ==
   dependencies:
     clipboard "^2.0.6"
     prism-solarized-dark "^1.0.1"

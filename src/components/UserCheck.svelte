@@ -4,7 +4,11 @@
   <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
     <div class="_section-article _margin-center">
         <div class="_card _padding __white">
-          Loading ticket number: {id}
+          {#if id}
+            Loading registration number: {id}
+          {:else}
+            Loading ...
+          {/if}
         </div>
       </div>
     </div>
@@ -37,6 +41,8 @@
 
     loading = false
   })
+
+  // $: console.log('[UserCheck]', $Profile)
 
 </script>
 
