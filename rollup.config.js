@@ -26,15 +26,15 @@ const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
 const preprocess = sveltePreprocess({
-  // scss: {
-  //   includePaths: ['src'],
-  // },
-  // postcss: {
-  //   plugins: [require('autoprefixer')],
-  //   // includePaths: ["node_modules", "./src/styles", ],
-  //   includePaths: [ "./src/styles", ],
-  //   output: "static/core.css"
-  // },
+  scss: {
+    includePaths: ['src'],
+  },
+  postcss: {
+    plugins: [require('autoprefixer')],
+    // includePaths: ["node_modules", "./src/styles", ],
+    includePaths: [ "./src/styles", ],
+    output: "static/core.css"
+  },
 });
 
 

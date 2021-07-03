@@ -1,7 +1,7 @@
 
 {#if $Messages.messages}
   <div class="MessageList {classes}">
-    {#each $Messages.messages as msg}
+    {#each $Messages.messages.reverse() as msg}
       <div class="MessageList-message {messageClasses} _flex">
         <div class="MessageList-author _margin-right">{msg.fields['Name']}</div>
         <div class="MessageList-message _margin-right _flex-1">{msg.fields['Message']}</div>
@@ -19,12 +19,13 @@
 
   import { Messages, _fetchMessages } from "@/stores/messages"
 
-  export let classes = '', messageClasses = '_font-small _margin-bottom'
+  export let classes = '', messageClasses = '_font-small _margin-bottom', messages = []
   
   let _poll = poll(async function fetchData() {
     // implementation goes here
     _fetchMessages()
   }, 1000);
+
 
   // $: console.log('hey hey messages:', $Messages)
 

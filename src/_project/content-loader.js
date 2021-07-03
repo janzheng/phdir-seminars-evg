@@ -71,17 +71,19 @@ const getContent = async () => {
 	  options: {
 	    "view": view,
 	  }
-  },{
-	  tables: ["Schedule"],
-	  options: {
-	    "view": view,
-	  }
-  },{
-	  tables: ["Profiles"],
-	  options: {
-	    "view": view,
-	  }
-  }
+  },
+  // {
+	//   tables: ["Schedule"],
+	//   options: {
+	//     "view": view,
+	//   }
+  // },
+  // {
+	//   tables: ["Profiles"],
+	//   options: {
+	//     "view": view,
+	//   }
+  // }
   ]
 
 	// console.log('loading cytosis...', bases)
@@ -95,11 +97,11 @@ const getContent = async () => {
 	delete _result['apiKey']
 	delete _result['baseId']
 
-	const schedule = _result.results['Schedule']
-	schedule.map((sched) => {
-		if(sched)
-			delete sched.fields['Presenter Email']
-	})
+	// const schedule = _result.results['Schedule']
+	// schedule.map((sched) => {
+	// 	if(sched)
+	// 		delete sched.fields['Presenter Email']
+	// })
 
 	return _result
 
