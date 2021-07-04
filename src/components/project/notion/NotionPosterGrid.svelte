@@ -1,7 +1,7 @@
 <div class='PosterGrid {classes}' >
   
   {#if isLoading}
-    Loading ...
+    Loading Posters...
   {:else}
     <FilterList bind:filterString={filterString} bind:filterOptions={filterOptions} bind:options={options}>
       {#if $Blocks && $Blocks.posters}

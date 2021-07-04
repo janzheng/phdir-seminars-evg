@@ -1,16 +1,13 @@
 
-<script context="module">
-  export async function preload(page, session) {
-    return { id: page.params.regcode }
-  }
-</script>
 
-
-<UserCheck {id}>
+<UserCheck>
   <div class="Posters _section-page _padding-top-2 _margin-center ">
     <div class="_section-article _margin-center _margin-bottom-2 _padding-bottom-2">
-      <!-- <NotionPosterGrid /> -->
       <h1>People Directory</h1>
+      <div class="_card _padding __white">
+        Want to be listed in this directory? It’s easy: <a href="/start/{$Profile.ticketnumber}">add your profile to your account.</a>
+      </div>
+      <PeopleGrid />
     </div>
   </div>
 </UserCheck>
@@ -18,15 +15,14 @@
 <script>
   
   import { onMount } from 'svelte';
-
-  import { Profile, checkUser } from "@/stores/profile"
   import { _content, _get } from "@/stores/sitedata"
+  import { Profile, checkUser } from "@/stores/profile"
   
   import UserCheck from '@/components/UserCheck.svelte'
 
-  import NotionPosterGrid from '@/components/project/notion/NotionPosterGrid.svelte'
+  import PeopleGrid from '@/components/project/PeopleGrid.svelte'
 
-  export let id
+  checkUser()
 
 </script>
 

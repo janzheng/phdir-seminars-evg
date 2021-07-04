@@ -27,7 +27,7 @@ import Cytosis from 'cytosis';
 // import * as sapper from '@sapper/server';
 // import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
-import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal, updatePaymentPaypal } from "@/_project/registration" 
+import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal, updatePaymentPaypal, updateProfile} from "@/_project/registration" 
 import { addComment, addQuestion, addMessage, unsubscribe } from "@/_project/app-helpers" 
 
 
@@ -73,6 +73,13 @@ export async function post(req, res) {
 
     if (type === 'question') {
 			const status = await addQuestion(req.body)
+      return sendData({
+        status
+      }, res);
+    }
+
+    if (type === 'update_profile') {
+			const status = await updateProfile(req.body)
       return sendData({
         status
       }, res);

@@ -141,6 +141,7 @@ export const Profiles = writable({})
 
 // slugs is a csv, e.g. "jan-zheng,jessica-sacher"
 export const _fetchProfiles = async (slugs) => {
+
   // filter out existing slugs
   let _profiles = get(Profiles)
   if(slugs && Array.isArray(slugs)) {
@@ -171,3 +172,23 @@ export const _profile = (slug) => {
   return get(Profiles)[slug]
 } 
 
+
+
+
+
+
+
+// get all slugs from all Profiles on Airtable
+// then grab them using fetchProfiles
+export const _fetchAllProfiles = async () => {
+
+  if(process.browser) {
+    let res = await fetch(`/api/getters?type=profiles`)
+    let json = await res.json()
+
+    // console.log('_fetchAllProfiles', json)
+    _fetchProfiles(json.profiles) // updates $Profiles
+    return true
+  }
+  return false
+}

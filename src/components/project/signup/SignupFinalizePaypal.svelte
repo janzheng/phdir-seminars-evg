@@ -1,5 +1,4 @@
 
-
 {#if ticketPrice > 0}
   <div id="signup-finalize" class="{classes}">
 
@@ -77,6 +76,9 @@
 
 
   $: if(user) {
+
+    console.log('user:', user)
+
 
     // ticket prices should be hard coded
     // should also be coded again separately on server

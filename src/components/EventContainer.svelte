@@ -42,10 +42,17 @@
   
     <div class="Start">
       <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
-        <div class="_section-article _margin-center">
-          
-          {@html marked(signedup||'')}
-          {@html marked(info||'')}
+        <div class=" _margin-center">
+
+          <div class="_grid-2-1 _grid-gap-large">
+            <div>
+              {@html marked(signedup||'')}
+              {@html marked(info||'')}
+            </div>
+            <div>
+              <UpdateProfile classes=" _divider-bottom" />
+            </div>
+          </div>
           
         </div>
       </div>
@@ -71,6 +78,8 @@
 	import { textReplacer } from "@/_project/app-helpers"
 
   import Finalize from '@/components/project/signup/SignupFinalizePaypal.svelte'
+  import UpdateProfile from '@/components/project/UpdateProfile.svelte'
+
 
   export let id, user = {}, isFree
   let content = _content('start')
@@ -81,7 +90,7 @@
   let signedup, almostsignedup
   const info = user ? textReplacer(_content('signedup-info'), {...user}) : ''
 
-  // $: console.log('EventContainer:', id, user)
+  $: console.log('EventContainer:', id, user)
   // $: console.log('EventContainer:', id)
 
 

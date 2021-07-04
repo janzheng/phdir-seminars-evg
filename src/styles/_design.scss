@@ -259,3 +259,9 @@ a, ._link {
 
 
 
+._font-small-i {
+  * {
+    font-size: usetheme(font-small) !important;
+    line-height: usetheme(lineheight-small) !important;
+  }
+}

@@ -3,12 +3,12 @@
 
 
 <div class="FilterList {classes}">
-  <div class="FilterList-sidebar">
+  <div class="FilterList-sidebar {sidebarClasses}">
     <div class="FilterList-sidebar-content _sticky _top-0">
       <form id="formlet-top" class="Formlet-container">
         <div id="formlet--filterstring" class="Formlet Formlet-input ">
           <div class="_md-pfix"><label class="Formlet-label" for="filterString"><p>Search</p></label> </div> 
-          <input id="filterString" name="filterString" bind:value={filterString} placeholder="phage" type="search" class="_form-input _width-full "> 
+          <input id="filterString" name="filterString" bind:value={filterString} placeholder="{placeholder}" type="search" class="_form-input _width-full "> 
         </div> 
 
 
@@ -45,7 +45,7 @@
 
 <script>
 
-export let classes = '_grid-1-2 _grid-gap-large'
+export let classes = '_grid-1-2 _grid-gap-large', sidebarClasses = '', placeholder='phage'
 export let filterString
 export let filterOptions = []
 
