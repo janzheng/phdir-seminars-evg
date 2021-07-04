@@ -8,7 +8,7 @@
 
 <UserCheck {id}>
   <div class="Posters _section-page _padding-top-2 _margin-center ">
-    <div class="_section-article _margin-center _margin-bottom-2 _padding-bottom-2">
+    <div class=" _margin-center _margin-bottom-2 _padding-bottom-2">
       
       <h1>Abstracts &amp; Posters</h1>
       <NotionPosterGrid classes="_divider-top" />

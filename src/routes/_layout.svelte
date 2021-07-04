@@ -8,7 +8,8 @@
 		// session.update({
 		// 	...session, ...Content
 		// });
-    return { _SiteData: results, Content, Schedule, Profiles };
+    // return { _SiteData: results, Content, Schedule, Profiles };
+    return { _SiteData: results };
   }
 </script>
 

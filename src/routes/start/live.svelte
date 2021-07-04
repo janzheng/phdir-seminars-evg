@@ -7,7 +7,7 @@
 
 
 <UserCheck {id}>
-  <div class="Live _padding-2 _margin-center _grid-2-1-md _grid-gap-none">
+  <div class="Live _padding-2 _section-superwide _margin-center _grid-2-1-md _grid-gap-none">
     <div class="_section-page _margin-center _margin-bottom-2 _padding-bottom-2">
       <NotionLive />
     </div>

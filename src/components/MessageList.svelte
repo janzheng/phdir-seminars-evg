@@ -46,17 +46,22 @@
   let profiles
 
   $: if ($Messages && Array.isArray($Messages)) {
-    // console.log('msg:', $Messages, msglist)
-    if(msglist)
-      msglist.scrollTop = msglist.scrollHeight;
-
     let authors = {}
     $Messages.forEach((m)=> authors[m.author] = true)
-    console.log('authors:', Object.keys(authors))
+    // console.log('authors:', Object.keys(authors))
     _fetchProfiles(Object.keys(authors))
+
+    if(msglist) {
+      msglist.scrollTop = 1000000 // msglist.scrollHeight + 10000
+    }
   }
 
-  // $: console.log('Profiles:', $Profiles)
+  $: if ($Profiles) {
+    // console.log('Profiles:', $Profiles)
+    if(msglist) {
+      msglist.scrollTop = 1000000 // msglist.scrollHeight + 10000
+    }
+  }
 
 </script>
 

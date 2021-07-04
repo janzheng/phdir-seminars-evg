@@ -81,10 +81,9 @@ async function processPoster(poster) {
   poster._affiliations = affiliations
 
   if(poster.Profiles) {
-    await _fetchProfiles(poster.Profiles)
+    await _fetchProfiles(poster.Profiles.split(','))
   }
 
-  console.log('poster:', poster)
 }
 
 
@@ -142,9 +141,15 @@ export const Profiles = writable({})
 
 // slugs is a csv, e.g. "jan-zheng,jessica-sacher"
 export const _fetchProfiles = async (slugs) => {
-  // filter out the slugs?
+  // filter out existing slugs
+  let _profiles = get(Profiles)
+  if(slugs && Array.isArray(slugs)) {
+    slugs.forEach((slug, i) => {
+      if(_profiles[slug]) slugs.splice(i,1)
+    })
+  }
 
-  if(process.browser) {
+  if(process.browser && slugs && Array.isArray(slugs) && slugs.length > 0) {
     let res = await fetch(`//content.phage.directory/api/members?slugs=${slugs}`)
     let json = await res.json()
 

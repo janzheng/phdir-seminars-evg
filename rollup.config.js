@@ -73,10 +73,17 @@ const useBabel = {
 
 
 // const onwarn = (warning, onwarn) => (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) || onwarn(warning);
-const onwarn = (warning, onwarn) =>
-	(warning.code === 'MISSING_EXPORT' && /'preload'/.test(warning.message)) ||
+
+const onwarn = (warning, onwarn) => {
+  // console.log('warning code:', warning.code)
+	return (warning.code === 'MISSING_EXPORT' && /'preload'/.test(warning.message)) ||
 	(warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) ||
+	(warning.code === 'CIRCULAR_DEPENDENCY' ) ||
+	(warning.code === 'PLUGIN_WARNING' ) ||
+	(warning.code === 'THIS_IS_UNDEFINED') ||
 	onwarn(warning);
+}
+
 
 
 export default {
@@ -146,6 +153,8 @@ export default {
 			// babel({
 			legacy && babel(useBabel),
 
+      terser(), // support optional chaining
+      
 			!dev && terser({
 				module: true
 			})
@@ -185,6 +194,7 @@ export default {
 			
 			// babel({
 			legacy && babel(useBabel),
+      terser(), // support optional chaining
 
 			svelte({
 				compilerOptions: {

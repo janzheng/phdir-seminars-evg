@@ -334,6 +334,11 @@ input.__massive, button.__massive, ._button.__massive {
 }
 
 
+._section-superwide { 
+  max-width: 128rem;
+}
+
+
 
 
 
@@ -625,9 +630,10 @@ $notion-page-icon: $size-7;
   // max-height: 100%;
   position: sticky;
   height: 100%;
-  max-height: 100vh;
+  max-height: 96vh;
   top: $size;
   margin-bottom: $size;
+  padding-bottom: $size-half;
 }
 
 .MessageList {
@@ -635,7 +641,7 @@ $notion-page-icon: $size-7;
 }
 
 .MessageSender {
-
+  padding-bottom: $size-half;
 }
 
 

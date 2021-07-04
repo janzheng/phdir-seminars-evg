@@ -41,9 +41,10 @@
   import * as yup from "yup";
   import { getContext } from 'svelte';
 
-  export let name, email
+  // export let name, email
+  export let classes = '_margin-top _margin-bottom'
 
-  let submitted, exists, isSubmitting = false, classes = '_margin-top _margin-bottom'
+  let submitted, exists, isSubmitting = false
   const Content$ = getContext('Content')
   $: Content = $Content$
 
@@ -56,16 +57,16 @@
 
   const { form, errors, state, handleChange, handleSubmit, touched } = createForm({
     initialValues: {
-      name: name,
-      email: email,
+      // name: name,
+      // email: email,
       comment: undefined,
     },
     validationSchema: yup.object().shape({
-      name: yup
-        .string(),
-      email: yup
-        .string()
-        .email('Email must be valid'),
+      // name: yup
+      //   .string(),
+      // email: yup
+      //   .string()
+      //   .email('Email must be valid'),
       comment: yup
         .string()
         .required('Add a message!')
