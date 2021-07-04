@@ -68,7 +68,8 @@ export const checkUser = async(id) => {
         interest: _user.fields['Research Interest'],
         visa: _user.fields['Visa Letter'],
         regstatus: _user.fields['Reg Status'],
-        recordId: _user.id
+        recordId: _user.id,
+        profile: _user.fields['Profile']
       }
       UpdateProfile(user)
     }

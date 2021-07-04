@@ -1,4 +1,4 @@
-
+<!-- for Airtable
 {#if $Messages.messages}
   <div class="MessageList {classes}">
     {#each $Messages.messages.reverse() as msg}
@@ -9,44 +9,32 @@
       </div>
     {/each}
   </div>
-{/if}
+{/if} 
+-->
 
+<!-- supabase -->
+{#if $Messages && Array.isArray($Messages) && $Messages.length > 0}
+  <div class="MessageList {classes}">
+    {#each $Messages as msg}
+      <div class="MessageList-message {messageClasses} _flex">
+        <div class="MessageList-author _margin-right">{msg['author']}</div>
+        <div class="MessageList-message _margin-right _flex-1">{msg['content']}</div>
+        <div class="MessageList-timestamp _right">{niceTimeDate(msg['updatedAt'])}</div>
+      </div>
+    {/each}
+  </div>
+{/if} 
 
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { niceTimeDate } from '@/_utils/date'
   import { poll } from '@/_utils/poll'
 
-  import { Messages, _fetchMessages } from "@/stores/messages"
+  import { Messages } from "@/stores/messages"
 
-  export let classes = '', messageClasses = '_font-small _margin-bottom', messages = []
-  
-  let _poll = poll(async function fetchData() {
-    // implementation goes here
-    _fetchMessages()
-  }, 1000);
+  export let classes = '', messageClasses = '_font-small _margin-bottom'
 
-
-  // $: console.log('hey hey messages:', $Messages)
-
-
-
-
-
-  // onDestroy(() => _poll()) // close the polling on removal
-
-
-  // onMount(async () => {
-  //   // load payment key on site load — speeds things up
-  //   const res = await fetch(
-  //     `/api/getters?type=messages`, {
-  //     method: 'GET',
-  //   })
-  //   if(res.ok) {
-  //     let json = await res.json()
-  //     messages = json['messages']
-  //   }
-  // })
+  // $: console.log('msg:', $Messages)
 
 </script>
 

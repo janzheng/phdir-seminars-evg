@@ -20,6 +20,10 @@
           </figure>
         {/if}
       </button> 
+
+      {#if !$Profile.profile}
+        <div>Please <a href="/start/{$Profile.ticketnumber}">set up a profile first</a></div>
+      {/if}
     </div>
   </form>
 
@@ -28,7 +32,7 @@
 
 <script>
   import { Profile, checkUser } from "@/stores/profile"
-  import { Messages, _fetchMessages } from "@/stores/messages"
+  import { Messages, _fetchMessages, sendMessage } from "@/stores/messages"
 
   import { createForm } from "svelte-forms-lib";
   import * as yup from "yup";
@@ -66,8 +70,9 @@
     onSubmit: async (_data) => {
 
       // real users only
-      if(!$Profile.recordId || isSubmitting) {
+      if(!$Profile.profile || isSubmitting) {
         console.error('No profile!')
+        isSubmitting = false
         return
       }
 
@@ -77,29 +82,46 @@
       
       await checkUser() // sync user if exists
 
+      // supabase
       const data = {
-        type: 'message',
-        comment: _data.comment,
-        recordId: $Profile.recordId
+        content: _data.comment,
+        author: $Profile.profile
       }
 
-      const reg = fetch(
-        `/api/setters`, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify(data)
-      }).then( async (res) => {
+      if(!$Profile.profile) {
         isSubmitting = false
-        const text = await res.text()
-        // console.log('reg finished: ', text)
-        if(res.status == 200) {
-          submitted = true
-          $form.comment = ''
-          _fetchMessages()
-        }
-      });
+        return
+      }
+      // console.log('sending:', data)
+      sendMessage(data)
+      $form.comment = ''
+      submitted = true
+      isSubmitting = false
+
+      // airtable / server
+      // const data = {
+      //   type: 'message',
+      //   comment: _data.comment,
+      //   recordId: $Profile.recordId
+      // }
+
+      // const reg = fetch(
+      //   `/api/setters`, {
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   method: 'POST',
+      //   body: JSON.stringify(data)
+      // }).then( async (res) => {
+      //   isSubmitting = false
+      //   const text = await res.text()
+      //   // console.log('reg finished: ', text)
+      //   if(res.status == 200) {
+      //     submitted = true
+      //     $form.comment = ''
+      //     _fetchMessages()
+      //   }
+      // });
     }
   });
 
