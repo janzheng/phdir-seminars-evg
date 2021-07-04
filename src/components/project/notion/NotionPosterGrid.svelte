@@ -57,11 +57,11 @@
     $Blocks.posters.rows.forEach(poster => {categories[poster.Category]=true})
     // console.log('derp', _poster('third'))
     options = Object.keys(categories)
-    console.log('posters / blocks:', posters, options)
+    console.log('posters / blocks:', posters, options, filterString, filterOptions)
   }
 
-  // filter by string
   $: if($Blocks.posters) {
+    // first filter by string
     if(!filterString || filterString == '') {
       posters = $Blocks.posters.rows
     } else {
@@ -74,6 +74,18 @@
                 (poster.Correspondence ? poster.Correspondence.toLowerCase().includes(_lowerStr) : false) ||
                 (poster.Profiles ? poster.Profiles.toLowerCase().includes(_lowerStr) : false) ||
                 (poster.Youtube ? poster.Youtube.toLowerCase().includes(_lowerStr) : false)
+      })
+    }
+
+
+    // then filter by options / category
+    if(filterOptions && filterOptions.length > 0) {
+      posters = []
+      filterOptions.forEach(option => {
+        // get all options
+        posters = [...posters, ...$Blocks.posters.rows.filter(poster => {
+          return poster.Category == option
+        })]
       })
     }
 
