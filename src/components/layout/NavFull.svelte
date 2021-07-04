@@ -103,7 +103,7 @@
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/schedule" ? "__active" : ""}' aria-current='{segment === "/start/schedule" ? "page" : undefined}' href='/start/schedule'>Schedule</a></li>
               <li class="_align-vertically" ><a rel=prefetch target="_blank" class='{$page.path === "/start/zoom" ? "__active" : ""}' aria-current='{segment === "/start/zoom" ? "page" : undefined}' href='/start/zoom'>Zoom ↗️</a></li>
               <!-- <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/posters" ? "__active" : ""}' aria-current='{segment === "/start/posters" ? "page" : undefined}' href='/start/posters'>Posters</a></li> -->
-              <!-- <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/people" ? "__active" : ""}' aria-current='{segment === "/start/people" ? "page" : undefined}' href='/start/people'>People</a></li> -->
+              <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/people" ? "__active" : ""}' aria-current='{segment === "/start/people" ? "page" : undefined}' href='/start/people'>People</a></li>
               <li class="_align-vertically" ><a rel=prefetch href='https://phagedirectory.slack.com/archives/C026XQ7HH5Z' target="_blank">#evergreen Slack ↗️</a></li>
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/sponsors" ? "__active" : ""}' aria-current='{segment === "/sponsors" ? "page" : undefined}' href='/sponsors'>Sponsors</a></li>
               {#if isVIP($Profile)}

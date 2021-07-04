@@ -2,9 +2,9 @@
 <script context="module">
   export async function preload(page, session) {
     const results = await this.fetch(`/api/getters`).then(r => r.json())
-    const Content = results['Content']
-    const Schedule = results['Schedule']
-    const Profiles = results['Profiles']
+    // const Content = results['Content']
+    // const Schedule = results['Schedule']
+    // const Profiles = results['Profiles']
 		// session.update({
 		// 	...session, ...Content
 		// });

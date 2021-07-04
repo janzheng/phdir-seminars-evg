@@ -43,7 +43,7 @@
 
   import { onMount } from 'svelte';
   import { _content, _get, Profiles, _fetchAllProfiles } from "@/stores/sitedata"
-  import ProfileThumb from '@/components/widgets/ProfileThumb.svelte'
+  import ProfileThumb from '@/components/widgets/profile/ProfileThumb.svelte'
 
 
   import { Profile, checkUser, refreshUser } from "@/stores/profile"

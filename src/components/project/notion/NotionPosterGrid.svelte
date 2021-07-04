@@ -35,7 +35,7 @@
   import marked from 'marked'
 
   import FilterList from '@/components/widgets/FilterList.svelte'
-  import ProfileThumb from '@/components/widgets/ProfileThumb.svelte'
+  import ProfileThumb from '@/components/widgets/profile/ProfileThumb.svelte'
 	import { _content, Blocks, _fetchPosters, _poster, Profiles } from "@/stores/sitedata"
   
   let blockId = _content('_notion-posters') || ''
