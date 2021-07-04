@@ -39,7 +39,6 @@
     if(!$Profile || $Profile.ticketnumber != code) {
       let user = await checkUser(code)
 
-      console.log('::: ')
       if(user && user.ticketnumber && (user.ticketnumber == code)) {
         prefetch(`/start/live`)
         goto(`/start/live`)

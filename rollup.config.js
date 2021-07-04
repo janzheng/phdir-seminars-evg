@@ -6,8 +6,8 @@ import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
-// import builtins from 'rollup-plugin-node-builtins';
-// import globals from 'rollup-plugin-node-globals';
+import builtins from 'rollup-plugin-node-builtins';
+import globals from 'rollup-plugin-node-globals';
 
 import alias from "@rollup/plugin-alias";
 import path from "path";
@@ -103,8 +103,8 @@ export default {
 	    }),
 
 			commonjs(),
-			// globals(),
-	    // builtins(),
+			globals(),
+	    builtins(),
     	json(),
 
 	    // autoExternal({

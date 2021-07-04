@@ -59,7 +59,8 @@
 	// padding-bottom: 140px; // $size-9;
   position: relative;
   z-index: 10;
-  overflow: hidden;   
+  // overflow: hidden;   // using this prevents sticky
+  // overflow: auto;
 }
 
    
@@ -119,4 +120,25 @@ html, body, * {
 
 
 
+
+
+
+
+
+
+
+
+
+._padder-top {
+  padding-top: $size-10;
+}
+._padder-bottom {
+  padding-bottom: $size-10;
+}
+._padder-top-half {
+  padding-top: $size-6;
+}
+._padder-bottom-half {
+  padding-bottom: $size-6;
+}
 

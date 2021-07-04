@@ -51,7 +51,7 @@ export const getMessages = async () => {
     .from('pdn-messages')
     .select('id, slug, content, author, isPinned, isPublished, updatedAt')
     .order('updatedAt', { ascending: false })
-    .limit(10)
+    // .limit(20) // use array fns to limit
     // .subscribe()
   return supa.data.reverse()
 }

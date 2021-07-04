@@ -82,7 +82,7 @@
   const info = user ? textReplacer(_content('signedup-info'), {...user}) : ''
 
   // $: console.log('EventContainer:', id, user)
-  $: console.log('EventContainer:', id)
+  // $: console.log('EventContainer:', id)
 
 
   $: if(user && user.ticketnumber) {

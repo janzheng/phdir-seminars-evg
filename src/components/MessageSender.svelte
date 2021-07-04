@@ -1,11 +1,17 @@
 
-<div class="Message _margin-top _margin-bottom">
-  <form class="Formlet" on:submit={handleSubmit}>
+<div class="MessageSender {classes}">
 
+  {#if !$Profile.profile}
+    <div class=' _card __white _padding-half _font-small'>To send a message, <a class="_font-small" href="/start/{$Profile.ticketnumber}">link your profile to your account.</a></div>
+  {:else}
+    <div class=' _card __white _padding-half _font-small'>Join our <a class="_font-small" href="https://phagedirectory.slack.com/archives/C026XQ7HH5Z" target="_blank">community Slack channel</a> for more conversations</div>
+  {/if}
+  <form class="Formlet" autocomplete="off" on:submit={handleSubmit}>
     <div class="_flex">
       <div class="Formlet Formlet-input _flex-1">
-        <input style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
-          id="comment" name="comment" bind:value={$form.comment} required="required" class="_form-input __width-full" placeholder="What’s on your mind?">
+        <!-- using "search" forces autocomplete to go away -->
+        <input type="search" autocomplete="off" style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
+          id="comment" name="comment" bind:value={$form.comment} required="required" class="_form-input __width-full" placeholder="Say hello!">
       </div>
       
       <button type="submit" style="width: 2.4rem; border-top-left-radius: 0; border-bottom-left-radius: 0;" class="_center _button __action _margin-bottom-none _padding-none-i" >
@@ -21,9 +27,6 @@
         {/if}
       </button> 
 
-      {#if !$Profile.profile}
-        <div>Please <a href="/start/{$Profile.ticketnumber}">set up a profile first</a></div>
-      {/if}
     </div>
   </form>
 
@@ -40,7 +43,7 @@
 
   export let name, email
 
-  let submitted, exists, isSubmitting = false, showEmail = true
+  let submitted, exists, isSubmitting = false, classes = '_margin-top _margin-bottom'
   const Content$ = getContext('Content')
   $: Content = $Content$
 

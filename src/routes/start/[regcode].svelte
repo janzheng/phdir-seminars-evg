@@ -22,6 +22,7 @@
 
 <script>
   import { onMount } from 'svelte';
+import { goto } from '@sapper/app';
 
   import { Profile, checkUser } from "@/stores/profile"
   import { _content, _get } from "@/stores/sitedata"
@@ -35,10 +36,14 @@
   // load data onmount to support refreshing
   // and syncing w/ store
   onMount(async () => {
+    if(id == 'undefined')
+      goto('/start')
+
     if(!$Profile || $Profile.ticketnumber != id) {
       await checkUser(id)
     }
     loading = false
+
   })
 
   // let content = _content('start')

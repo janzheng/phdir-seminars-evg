@@ -56,8 +56,8 @@
   import { scrollToAnchor } from "@/_utils/scrollto.js";
   import { zzz } from "@/_utils/helpers.js";
 
-	import { textReplacer } from "@/_project/app-helpers"
-  import { prefetch, goto } from '@sapper/app';
+	// import { textReplacer } from "@/_project/app-helpers"
+  // import { prefetch, goto } from '@sapper/app';
 
 
 
