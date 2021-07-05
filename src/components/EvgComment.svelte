@@ -1,7 +1,7 @@
 
 
 
-<div class="Comment _margin-top _margin-bottom">
+<div class="Comment">
   {#if isTiny}
     <form class="Formlet _grid-3-1-sm" on:submit={handleSubmit}>
 

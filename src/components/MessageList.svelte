@@ -19,7 +19,7 @@
       <div class="MessageList-message {messageClasses} _flex">
         <!-- <div class="MessageList-author _margin-right">{msg['author']}</div> -->
         {#if $Profiles[msg['author']] && $Profiles[msg['author']].fields['ProfileImage']}
-          <div class="MessageList-pic _margin-right _align-vertically"><img style="border-radius: 100%" width="32" height="32" src="{$Profiles[msg['author']].fields['ProfileImage'][0].thumbnails.small.url}" alt="{msg['author']}"/></div>
+          <div class="MessageList-pic _margin-right _align-vertically"><img style="border-radius: 100%; min-width: 32px; min-height: 32px; background-size: cover;" width="32" height="32" src="{$Profiles[msg['author']].fields['ProfileImage'][0].thumbnails.small.url}" alt="{msg['author']}"/></div>
         {/if}
         <div class="MessageList-message _margin-right _flex-1 _align-vertically">{msg['content']}</div>
         <div class="MessageList-timestamp _right _align-vertically">{niceTimeDate(msg['updatedAt'], 'h:mm a')}</div>

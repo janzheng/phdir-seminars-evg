@@ -1,5 +1,5 @@
 
-<div class="Question _margin-top _margin-bottom">
+<div class="Question">
   <form class="Formlet" on:submit={handleSubmit}>
 
     {#if !submitted && !isSubmitting}

@@ -7,8 +7,9 @@
 
 
 <UserCheck {id}>
-  <div class="Live _padding-2 _section-superwide _margin-center _grid-2-1-md _grid-gap-none">
-    <div class="_section-page _margin-center _margin-bottom-2 _padding-bottom-2">
+  <div class="Live _padding-2 _section-superwide _margin-center _grid-2-1-md _grid-2-1-lg _grid-gap">
+    <!-- prevent blowouts from embeds -->
+    <div class=" _margin-center _margin-bottom-2 _padding-bottom-2" style="min-width: 0; max-width: 100%;">
       <NotionLive />
     </div>
     <div class="Live-messages" style="">
