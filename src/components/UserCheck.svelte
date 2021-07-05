@@ -23,7 +23,7 @@
   import { goto } from '@sapper/app';
 
 
-  import { Profile, checkUser, ID } from "@/stores/profile"
+  import { Profile, checkUser, ID, isAttending } from "@/stores/profile"
   import { _content, _get } from "@/stores/sitedata"
 
   export let id, loading=true
@@ -33,8 +33,10 @@
   onMount(async () => {
 
     await checkUser(id)
-    if((!$Profile && !id) || !$Profile.ticketnumber) {
-      console.error('No ticket number')
+
+    console.log('Profile check:', $Profile) 
+    if(!$Profile && !id || !isAttending($Profile) || !$Profile.ticketnumber) {
+      console.error('No user profile')
       goto('/start')
       return
     }

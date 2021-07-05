@@ -77,7 +77,7 @@
 
   $: if(user) {
 
-    console.log('user:', user)
+    // console.log('user:', user)
 
 
     // ticket prices should be hard coded

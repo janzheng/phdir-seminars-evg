@@ -6,7 +6,7 @@
 
   {#if !user || !user.ticketnumber}
     <div class="Start _no-user">
-      <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
+      <div class="_section-page _padder-top _padder-bottom _margin-center">
         <div class="_section-article _margin-center">
           
           {@html marked(nouser||'')}
@@ -18,7 +18,7 @@
   {:else if isFree}
   
     <div class="Start">
-      <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
+      <div class="_section-page _padder-top _padder-bottom _margin-center">
         <div class=" _margin-center">
           
           <div class="_grid-2-1 _grid-gap-large">
@@ -26,6 +26,7 @@
               {@html marked(almostsignedup||'')}
             </div>
             <div>
+              {@html marked(finalizenotice||'')}
               <Finalize bind:user={user} classes=" _divider-bottom" />
             </div>
           </div>
@@ -41,7 +42,7 @@
   {:else}
   
     <div class="Start">
-      <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
+      <div class="_section-page _padder-top _padder-bottom _margin-center">
         <div class=" _margin-center">
 
           <div class="_grid-2-1 _grid-gap-large">
@@ -87,11 +88,13 @@
   // replace id from markdown
   let nouser = textReplacer(_content('start-nouser'), {ticketnumber: id})
 
-  let signedup, almostsignedup
+  let signedup, almostsignedup, finalizenotice
   const info = user ? textReplacer(_content('signedup-info'), {...user}) : ''
 
-  $: console.log('EventContainer:', id, user)
+  // $: console.log('EventContainer:', id, user)
   // $: console.log('EventContainer:', id)
+
+  finalizenotice = _content('finalize-notice')
 
 
   $: if(user && user.ticketnumber) {

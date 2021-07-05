@@ -582,7 +582,7 @@ $notion-page-icon: $size-7;
 
 // for embedded widgets in two-column notion pages
 .notion-row .notion-render {
-  padding-left: $size;
+  // padding-left: $size;
   &:first-child {
     // flex-grow: 1; // for columns to split equally
     flex-grow: 2;

@@ -24,7 +24,7 @@
 
 <script>
   // import marked from 'marked'
-  import { Profile, checkUser } from "@/stores/profile"
+  import { Profile, checkUser, isAttending, logOut } from "@/stores/profile"
   import { goto, prefetch } from '@sapper/app';
 
   export let classes = '_card _padding'
@@ -35,11 +35,14 @@
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // if user has previously been logged in, log out first
+    logOut()
     
     if(!$Profile || $Profile.ticketnumber != code) {
       let user = await checkUser(code)
 
-      if(user && user.ticketnumber && (user.ticketnumber == code)) {
+      if(user && user.ticketnumber && (user.ticketnumber == code) && isAttending(user)) {
         prefetch(`/start/live`)
         goto(`/start/live`)
       } else {
