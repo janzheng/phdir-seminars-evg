@@ -2,20 +2,21 @@
 <script context="module">
   export async function preload(page, session) {
     const results = await this.fetch(`/api/getters`).then(r => r.json())
-    const Content = results['Content']
-    const Schedule = results['Schedule']
-    const Profiles = results['Profiles']
+    // const Content = results['Content']
+    // const Schedule = results['Schedule']
+    // const Profiles = results['Profiles']
 		// session.update({
 		// 	...session, ...Content
 		// });
-    return { _SiteData: results, Content, Schedule, Profiles };
+    // return { _SiteData: results, Content, Schedule, Profiles };
+    return { _SiteData: results };
   }
 </script>
 
 
 <script>
 
-  console.log('[Evergreen] v1.02')
+  console.log('[Evergreen] v1.05')
 
 	import { SiteData, _content, _get } from "@/stores/sitedata"
 
@@ -28,6 +29,11 @@
 	// https://stackoverflow.com/questions/60911171/how-to-pass-data-from-a-layout-to-a-page-in-sapper
 	export let segment
 	export let _SiteData  //, Content, Schedule, Profiles
+
+
+  import { stores } from "@sapper/app";
+  let page = stores().page
+
 
   // import { setContext } from 'svelte'
   // import { writable } from 'svelte/store'
@@ -100,6 +106,19 @@
 
 
 
+
+
+{#if $page.path.includes('/embed/')}
+  <!-- page embeds don't have any chrome -->
+  <slot ></slot>
+
+  <style>
+    body {
+      background-color: inherit !important;
+    }
+  </style>
+
+{:else}
 <div id="top" class="ContentFrame Layout">
 
   <Nav {segment} />
@@ -115,6 +134,7 @@
 </div>
 
 
+{/if}
 
 
 

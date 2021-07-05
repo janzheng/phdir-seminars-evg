@@ -4,7 +4,11 @@
   <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
     <div class="_section-article _margin-center">
         <div class="_card _padding __white">
-          Loading ticket number: {id}
+          {#if id}
+            Loading registration number: {id}
+          {:else}
+            Loading ...
+          {/if}
         </div>
       </div>
     </div>
@@ -19,7 +23,7 @@
   import { goto } from '@sapper/app';
 
 
-  import { Profile, checkUser, ID } from "@/stores/profile"
+  import { Profile, checkUser, ID, isAttending } from "@/stores/profile"
   import { _content, _get } from "@/stores/sitedata"
 
   export let id, loading=true
@@ -29,14 +33,18 @@
   onMount(async () => {
 
     await checkUser(id)
-    if((!$Profile && !id) || !$Profile.ticketnumber) {
-      console.error('No ticket number')
+
+    console.log('Profile check:', $Profile) 
+    if(!$Profile && !id || !isAttending($Profile) || !$Profile.ticketnumber) {
+      console.error('No user profile')
       goto('/start')
       return
     }
 
     loading = false
   })
+
+  // $: console.log('[UserCheck]', $Profile)
 
 </script>
 

@@ -34,7 +34,7 @@
 </svelte:head>
 
 
-<div class="_section-article _divider-top _divider-bottom _margin-center">
+<div class="_section-article _padder-top _padder-bottom _margin-center">
 
 	<div class="_padding _card">
 		<h1>{status}</h1>

@@ -14,10 +14,10 @@
 
 
 
-<style global type="text/scss">
+<!-- <style global type="text/scss">
 
   // .Separator-wrapper {
   //     // height: 367px;
   // }
 
-</style>
+</style> -->

@@ -1,5 +1,4 @@
 
-
 {#if ticketPrice > 0}
   <div id="signup-finalize" class="{classes}">
 
@@ -26,6 +25,13 @@
       {/if}
 
       <div class="" id="paypal-button-container"></div>
+
+      {#if errorMsg}
+        <div class="Error">
+          <p>{errorMsg}</p>
+          <p>If you continue getting this error, please take a screenshot and email it to Jan, at jan@phage.directory</p>
+        </div>
+      {/if}
     </div>
 
   </div>
@@ -49,8 +55,8 @@
   import { scrollToAnchor } from "@/_utils/scrollto.js";
   import { zzz } from "@/_utils/helpers.js";
 
-	import { textReplacer } from "@/_project/app-helpers"
-  import { prefetch, goto } from '@sapper/app';
+	// import { textReplacer } from "@/_project/app-helpers"
+  // import { prefetch, goto } from '@sapper/app';
 
 
 
@@ -70,6 +76,9 @@
 
 
   $: if(user) {
+
+    // console.log('user:', user)
+
 
     // ticket prices should be hard coded
     // should also be coded again separately on server
@@ -131,6 +140,10 @@
             }
           }]
         });
+      },
+      onError: function(err) {
+        console.error('Paypal error:', err)
+        errorMsg = err
       },
       onApprove: function(data, actions) {
         // console.log('[paypal...]')

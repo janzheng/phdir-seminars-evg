@@ -88,6 +88,61 @@
 	background-color: usetheme(background-light);
 }
 
+// header tab nav
+.Nav {
+
+	ul {
+		text-align: center;
+
+    // @include screen-md {
+    //   display: flex;
+    //   justify-content: center;
+    // }
+
+		li {
+			margin: 0.5rem 0.5rem;
+			text-align: left;
+      white-space: nowrap;
+
+      display: inline-block;
+
+			a {
+        background: white;
+        padding: $size-half $size;
+        @extend ._shadow-1;
+        border-radius: $size-5;
+        
+				font-size: 1.1em;
+				text-decoration: none;
+
+				&.__active {
+          background-color: usetheme(brand-active);
+          color: white;
+				}
+
+				&:hover {
+          background-color: usetheme(brand-active);
+          color: white !important;
+				}
+
+			}
+
+
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 body {
 	background-color: usetheme(body-bg);
@@ -166,6 +221,30 @@ body {
 		color: white;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -252,6 +331,11 @@ input.__massive, button.__massive, ._button.__massive {
 	._section-article {
 		max-width: 32rem;
 	}
+}
+
+
+._section-superwide { 
+  max-width: 96rem;
 }
 
 
@@ -448,6 +532,11 @@ hr {
 
 
 
+$notion-page-icon: $size-7;
+
+
+
+
 .notion-collection {
   figure {
     max-width: 100%;
@@ -466,14 +555,43 @@ hr {
     @extend .__stack-xs;
   }
 }
-.notion-text {
-  white-space: pre-line
+.notion-text, .notion-callout-text {
+  white-space: pre-line;
+  // padding-left: $size;
 }
-.notion-row .notion-render,
-.notion-row .Notion-render {
-  // for columns to split equally
-  flex-grow: 1;
-  flex-basis: 0;
+.notion-callout {
+  align-items: start;
+
+  .notion-page-icon {
+    min-width: $notion-page-icon;
+    min-height: $notion-page-icon;
+    height: $notion-page-icon;
+    width: $notion-page-icon;
+    // margin-right: $size-half;
+    object-fit: contain;
+
+    // useful for icon spans
+    font-size: $size-4;
+    display: inline-block;
+    text-align: center;;
+  }
+  // span.notion-page-icon {
+  // }
+}
+
+
+// for embedded widgets in two-column notion pages
+.notion-row .notion-render {
+  // padding-left: $size;
+  &:first-child {
+    // flex-grow: 1; // for columns to split equally
+    flex-grow: 2;
+    flex-basis: 0;
+  }
+  &:last-child {
+    flex-grow: 1; // 2-1 split
+    flex-basis: 0;
+  }
 
   .notion-column {
     width: 100% !important; 
@@ -481,11 +599,54 @@ hr {
   }
 }
 
+// this enlarges embedded notion assets, suitable for embedded widgets
+.notion-embed {
+  width: 100% !important;
+}
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+  Messaging Widget
+
+*/
+.Messages {
+  // min-height: 50vh;
+  // max-height: 100%;
+  
+  @include screen-md {
+    position: sticky;
+    height: 100%;
+    max-height: 96vh;
+  }
+
+  top: $size;
+  margin-bottom: $size;
+  padding-bottom: $size-half;
+}
+
+.MessageList {
+  overflow: scroll;
+}
+
+.MessageSender {
+  padding-bottom: $size-half;
+}
 
 
 

@@ -11,6 +11,8 @@
   
          
  
+
+
 @import '../../node_modules/coeur/styles/_head-reset.scss';
 
 @import 'settings.scss';
@@ -18,9 +20,11 @@
 @import 'layout'; // typography, basic design & whitespace
 
 @import '../../node_modules/coeur/styles/_body-starter.scss';
-    
+
+
 @import 'profile.scss';
- 
+@import 'notion.scss';
+// @import '../../node_modules/@yawnxyz/svelte-notion/src/styles.css';
   
 /*       
 
@@ -55,7 +59,8 @@
 	// padding-bottom: 140px; // $size-9;
   position: relative;
   z-index: 10;
-  overflow: hidden;   
+  // overflow: hidden;   // using this prevents sticky
+  // overflow: auto;
 }
 
    
@@ -97,4 +102,43 @@ html, body, * {
   background-color: usetheme(brand-green);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+._padder-top {
+  padding-top: $size-10;
+}
+._padder-bottom {
+  padding-bottom: $size-10;
+}
+._padder-top-half {
+  padding-top: $size-6;
+}
+._padder-bottom-half {
+  padding-bottom: $size-6;
+}
 

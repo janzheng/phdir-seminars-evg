@@ -163,6 +163,54 @@ export const updatePaymentPaypal = async ({data}) => {
 
 
 
+// lets a user set their profile slug
+export const updateProfile = async (data) => {
+
+  console.log('[updateProfile] data:', data)
+  
+  // verify user from data
+  let user = await getUserFromCode(data['ticketnumber'])
+  
+  if(!user || user.status == false) {
+    return {
+      message: `Unknown ticket number: ${data['ticketnumber']}`
+    }
+  }
+  
+
+  // console.log('[updatePaymentPaypal] user:' , user, ticketnumber, ticketprice)
+
+  const cytosis = await Cytosis.save({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    tableName: 'Attendees',
+    recordId: user.id,
+    tableOptions: {
+      insertOptions: ['typecast'],
+    },
+    payload: {
+      'Profile': data.profile,
+    }
+  })
+
+  // console.log('update profile cytosis:', cytosis)
+  // return true
+  return {
+    data: {
+      status: true
+    }
+    // cytosis, // do NOT pass this back — contains Paypal info
+    // data: {
+    //   ...data,
+    //   ticketprice,
+    //   ticketnumber,
+    //   regstatus: data.regStatus,
+    //   id: cytosis.id,
+    // },
+  }
+}
+
+
 
 
 
@@ -281,6 +329,45 @@ export const getRegCount = async (useCache=false) => {
   if(cytosis.results['Attendees']) {
   	cacheSet(_cacheStr, cytosis.results['Attendees'].length)
     return cytosis.results['Attendees'].length
+  }
+
+	return undefined
+}
+
+
+
+
+
+// gets an array of user profiles of ppl who signed up
+export const getUserProfiles = async (useCache=false) => {
+
+	const _cacheStr = `getUserProfiles`
+	if(useCache && cacheGet(_cacheStr))
+		return cacheGet(_cacheStr)
+
+  const cytosis = await new Cytosis({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    bases:  [
+      {
+        tables: ['Attendees'],
+        options: {
+          view: 'Paid',
+        }
+      },
+    ],
+    routeDetails: '[getUserProfiles]',
+  })
+
+  if(cytosis.results['Attendees']) {
+    let profiles = []
+
+    cytosis.results['Attendees'].forEach(person => {
+      if(person.fields['Profile'])
+        profiles.push(person.fields['Profile'])
+    })
+  	cacheSet(_cacheStr, profiles, 60*60)
+    return profiles
   }
 
 	return undefined

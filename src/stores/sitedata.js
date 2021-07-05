@@ -7,6 +7,7 @@
 // import { get } from 'svelte/store';
 // import * as localStorage from "svelte-local-storage-store";
 import { writable, get } from 'svelte/store';
+import { fetchPost } from '@/_utils/fetch-helpers';
 
 
 // SiteData should mirror a cytosis.results setup
@@ -81,10 +82,9 @@ async function processPoster(poster) {
   poster._affiliations = affiliations
 
   if(poster.Profiles) {
-    await _fetchProfiles(poster.Profiles)
+    await _fetchProfiles(poster.Profiles.split(','))
   }
 
-  console.log('poster:', poster)
 }
 
 
@@ -138,20 +138,53 @@ export const _poster = (term) => {
 
 // user profiles; an objet w/ slugs as keys
 export const Profiles = writable({})
+let v3People // store this in memory
+let v3PeopleQuery = {
+  "airKey": "keyAe6M1KoPfg25aO",
+  "airBase": "appZBUJQuXSUckq4d",
+  "tableQuery": "People",
+}
+
 
 
 // slugs is a csv, e.g. "jan-zheng,jessica-sacher"
 export const _fetchProfiles = async (slugs) => {
-  // filter out the slugs?
 
-  if(process.browser) {
-    let res = await fetch(`//content.phage.directory/api/members?slugs=${slugs}`)
-    let json = await res.json()
+  // filter out existing slugs
+  let _profiles = get(Profiles)
+  if(slugs && Array.isArray(slugs)) {
+    slugs.forEach((slug, i) => {
+      if(_profiles[slug]) slugs.splice(i,1)
+    })
+  }
+
+  if(process.browser && slugs && Array.isArray(slugs) && slugs.length > 0) {
+    
+    // v3 implementation
+    const res = await fetchPost('https://content.phage.directory/api/v3/query', v3PeopleQuery, fetch)
+    // const res = await fetchPost('http://localhost:2021/api/v3/query', v3PeopleQuery, fetch)
+    let pplData = await res.json() // all public profiles... faster than going one by one, and v3 doesn't support multi-slug
+    v3People = pplData.People
+    // console.log('pdv3 profiles:', v3People)
+
+    // map the slugs we want from the big array
 
     let profiles = {}
-    json.profiles.forEach(profile => {
-      profiles[profile.fields['Slug']] = profile
+    slugs.forEach(slug => {
+      // console.log('--- slug', slug)
+      v3People.forEach(profile => {
+        if(profile.fields['Slug'] == slug)
+          profiles[profile.fields['Slug']] = profile
+      })
     })
+
+    // v4 implementation (unused)
+    // let res = await fetch(`//content.phage.directory/api/members?slugs=${slugs}`)
+    // let json = await res.json()
+    // let profiles = {}
+    // json.profiles.forEach(profile => {
+    //   profiles[profile.fields['Slug']] = profile
+    // })
 
     Profiles.update(data => {
       data = {...data , ...profiles}
@@ -166,3 +199,23 @@ export const _profile = (slug) => {
   return get(Profiles)[slug]
 } 
 
+
+
+
+
+
+
+// get all slugs from all Paid Profiles on Airtable
+// then grab them using fetchProfiles
+export const _fetchAllProfiles = async () => {
+
+  if(process.browser) {
+    let res = await fetch(`/api/getters?type=profiles`)
+    let json = await res.json()
+
+    // console.log('_fetchAllProfiles', json)
+    _fetchProfiles(json.profiles) // updates $Profiles
+    return true
+  }
+  return false
+}

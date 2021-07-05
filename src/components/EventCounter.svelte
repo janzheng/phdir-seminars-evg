@@ -8,7 +8,7 @@
 
 <script>
   import { onMount } from 'svelte';
-  export let classes = '_card _padding', regCount = null
+  export let classes = '_card _padding', regCount = 'Lots of'
   
   onMount(async () => {
     // load payment key on site load — speeds things up

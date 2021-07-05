@@ -65,17 +65,19 @@ export const getContentFromAirtable = async () => {
 	  options: {
 	    "view": view,
 	  }
-  },{
-	  tables: ["Schedule"],
-	  options: {
-	    "view": view,
-	  }
-  },{
-	  tables: ["Profiles"],
-	  options: {
-	    "view": view,
-	  }
-  }
+  },
+  // {
+	//   tables: ["Schedule"],
+	//   options: {
+	//     "view": view,
+	//   }
+  // },
+  // {
+	//   tables: ["Profiles"],
+	//   options: {
+	//     "view": view,
+	//   }
+  // }
   ]
 
 	// console.log('loading cytosis...', bases)
@@ -89,11 +91,11 @@ export const getContentFromAirtable = async () => {
 	delete _cytosis['apiKey']
 	delete _cytosis['baseId']
 
-	const schedule = _cytosis.results['Schedule']
-	schedule.map((sched) => {
-		if(sched)
-			delete sched.fields['Presenter Email']
-	})
+	// const schedule = _cytosis.results['Schedule']
+	// schedule.map((sched) => {
+	// 	if(sched)
+	// 		delete sched.fields['Presenter Email']
+	// })
 
   const _results = _cytosis.results
 

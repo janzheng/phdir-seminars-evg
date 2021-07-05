@@ -10,7 +10,7 @@
 
   <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
     <div class="_section-article _margin-center">
-      <Comment {name} {email} />
+      <Comment isTiny={true} {name} {email} />
     </div>
   </div>
 

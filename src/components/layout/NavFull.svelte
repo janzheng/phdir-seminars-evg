@@ -3,6 +3,7 @@
 <script>
   // import Cytosis from 'cytosis'
   import marked from 'marked'
+  
 
   // import { onMount, getContext, setContext } from 'svelte';
 	import { _content } from "@/stores/sitedata"
@@ -12,10 +13,12 @@
   import EventLogin from '@/components/EventLogin.svelte'
   import EventCounter from '@/components/EventCounter.svelte'
 
+  import { Profile, logOut, isAttending, isVIP } from "@/stores/profile"
+
+  export let segment
+
   let top = _content('top') || ''
   let caldate = _content('_caldate') || ''
-
-
 
 
   import { stores } from "@sapper/app";
@@ -46,16 +49,6 @@
     			<img class="Header-img" src="evg-full-logo.png" alt="Evergreen 2021" style="">
     		</a>
     	</div> 
-    	<!-- <div class=" _margin-center _padding-bottom-2">
-				<nav>
-					<ul>
-						<li class="_align-vertically"><a rel=prefetch class='{segment === undefined ? "__active" : ""}' aria-current='{segment === undefined ? "page" : undefined}' href='.'>Home</a></li>
-						<li class="_align-vertically"><a rel=prefetch class='{segment === "schedule" ? "__active" : ""}' aria-current='{segment === "schedule" ? "page" : undefined}' href='schedule'>Schedule</a></li>
-						<li class="_align-vertically"><a rel=prefetch class='{segment === "past-events" ? "__active" : ""}' aria-current='{segment === "past-events" ? "page" : undefined}' href='past-events'>Past Events</a></li>
-						<li class="_align-vertically"><a rel=prefetch class='{segment === "organizers" ? "__active" : ""}' aria-current='{segment === "organizers" ? "page" : undefined}' href='organizers'>Organizers</a></li>
-					</ul>
-				</nav> 
-			</div> -->
     </div>
   </div>  
 
@@ -86,10 +79,6 @@
 </nav>
 
 
-
-
-
-
 {:else}
 
   <!-- skinny header for other pages -->
@@ -105,6 +94,28 @@
           </a>
         </div>
       </div>
+
+      {#if $Profile.ticketnumber && isAttending($Profile)}
+        <div class="Nav _margin-top-2 _margin-center ">
+          <nav>
+            <ul>
+              <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/live" ? "__active" : ""}' aria-current='{segment === "/start/live" ? "page" : undefined}' href='/start/live'>Start</a></li>
+              <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/schedule" ? "__active" : ""}' aria-current='{segment === "/start/schedule" ? "page" : undefined}' href='/start/schedule'>Schedule</a></li>
+              <li class="_align-vertically" ><a rel=prefetch target="_blank" class='{$page.path === "/start/zoom" ? "__active" : ""}' aria-current='{segment === "/start/zoom" ? "page" : undefined}' href='/start/zoom'>Zoom ↗️</a></li>
+              <!-- <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/posters" ? "__active" : ""}' aria-current='{segment === "/start/posters" ? "page" : undefined}' href='/start/posters'>Posters</a></li> -->
+              <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/people" ? "__active" : ""}' aria-current='{segment === "/start/people" ? "page" : undefined}' href='/start/people'>People</a></li>
+              <li class="_align-vertically" ><a rel=prefetch href='https://phagedirectory.slack.com/archives/C026XQ7HH5Z' target="_blank">#evergreen Slack ↗️</a></li>
+              <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/sponsors" ? "__active" : ""}' aria-current='{segment === "/sponsors" ? "page" : undefined}' href='/sponsors'>Sponsors</a></li>
+              {#if isVIP($Profile)}
+                <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/backstage" ? "__active" : ""}' aria-current='{segment === "/start/backstage" ? "page" : undefined}' href='/start/backstage'>Backstage</a></li>
+              {/if}
+              <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/"+$Profile.ticketnumber ? "__active" : ""}' aria-current='{segment === "/start/"+$Profile.ticketnumber ? "page" : undefined}' href={'/start/'+$Profile.ticketnumber}>Account</a></li>
+              <li class="_align-vertically"><a href='/' on:click={((e)=>{logOut()})}>Log Out</a></li>
+            </ul>
+          </nav> 
+        </div>
+      {/if}
+
     </div>  
   </nav>
 
@@ -115,7 +126,7 @@
 
 	.Header, .Nav {
 		// background-color: #FAFAFA; // #E7FBFF;
-		padding-bottom: 1rem;
+		// padding-bottom: 1rem;
 		background-color: #DBF4E9;
 	}
 
@@ -124,4 +135,5 @@
 		position: relative;
 		left: -6px;
 	}
+
 </style>

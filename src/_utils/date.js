@@ -1,8 +1,6 @@
-/* 
+/* upd: 7-4-2021
 
   dayjs helpers
-
-  Last updated: 12-16-2020
 
 */
 
@@ -18,16 +16,16 @@ export const niceDate = (value) => {
 }
 
 
-export const niceDateShort = (value) => {
+export const niceDateShort = (value, format='MMM D, YYYY') => {
   if (value) {
     return dayjs(String(value)).format('MMM D, YYYY')
   }
 }
 
 
-export const niceTimeDate = (value) => {
+export const niceTimeDate = (value, format='h:mm a, MMM D') => {
   if (value) {
-    return dayjs(String(value)).format('h:mm a, MMM D')
+    return dayjs(String(value)).format(format)
   }
 }
 
@@ -54,15 +52,15 @@ export const isBefore = (value) => {
   }
 }
 
-export const today = (value) => {
+export const today = (value, format='MMMM D, YYYY') => {
   if (value) {
-    return dayjs(today).format('MMMM D, YYYY')
+    return dayjs(today).format(format)
   }
 }
 
-export const todayCitation = (value) => {
+export const todayCitation = (value, format='D MMMM, YYYY') => {
   if (value) {
-    return dayjs(today).format('D MMMM, YYYY')
+    return dayjs(today).format(format)
   }
 }
 
