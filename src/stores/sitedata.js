@@ -126,7 +126,31 @@ export const _poster = (term) => {
 } 
 
 
+export const _posterId = (id) => {
+  let rows = get(Blocks).posters.rows
 
+  if(id && rows) {
+    return rows.find(row => row['AbstractId'] == id)
+  }
+  return false
+} 
+
+
+
+
+// export const _fetchBlock = async (api, blockId) => {
+//   if(process.browser && !get(Blocks)[blockId]) {
+//     let res = await fetch(`${api}/v1/page/${blockId}`)
+//     let block = await res.json()
+
+//     Blocks.update(data => {
+//       data[blockId] = block
+//       return data
+//     })
+//     return block
+//   }
+//   return false
+// }
 
 
 

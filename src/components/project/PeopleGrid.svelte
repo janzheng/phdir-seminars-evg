@@ -35,17 +35,14 @@
   import ProfileDescription from '@/components/widgets/profile/v3ProfileDescription.svelte'
 	import { _content, Blocks, _fetchPosters, _poster, Profiles, _fetchAllProfiles } from "@/stores/sitedata"
   
-  let blockId = _content('_notion-posters') || ''
-
   export let filterString
 
   import { onMount } from 'svelte'
-  export let api = '//notion-cloudflare-worker.yawnxyz.workers.dev'
   export let isLoading = true
   export let classes = '', itemClasses = '_divider-bottom'
   export let profiles = []
 
-  _fetchAllProfiles(api, blockId)
+  _fetchAllProfiles()
 
   $: if(Object.keys($Profiles).length > 0) {
     console.log('PeopleGrid Profiles:', $Profiles)

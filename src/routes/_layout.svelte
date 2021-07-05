@@ -16,7 +16,7 @@
 
 <script>
 
-  console.log('[Evergreen] v1.05')
+  console.log('[Evergreen] v1.10')
 
 	import { SiteData, _content, _get } from "@/stores/sitedata"
 

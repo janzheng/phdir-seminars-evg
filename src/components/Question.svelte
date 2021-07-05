@@ -2,8 +2,8 @@
 <div class="Question">
   <form class="Formlet" on:submit={handleSubmit}>
 
-    {#if !submitted && !isSubmitting}
-      {#if !$Profile.ticketnumber && showEmail}
+    {#if !isSubmitting}
+      {#if !$Profile.ticketnumber && showEmail && !loadingTicket}
         <div class="Formlet Formlet-input _margin-bottom">
           <!-- <label for=email class="_form-label _inline">Email</label> (optional) -->
           <input id="email" name="email" on:change={handleChange} on:blur={handleChange} bind:value={$form.email}  placeholder="Your email (optional)" type="email" class="_form-input __width-full"> 
@@ -15,16 +15,15 @@
       </div>
     {/if}
 
+    <button type="submit" class="_button __action _margin-bottom-none _width-full" >
+      {#if isSubmitting}
+        <div class="_relative "><span class="_loader __circle _margin-right-2"></span> <span class="_margin-left-2">Sending...</span></div>
+      {:else}
+        {CTA}
+      {/if}
+    </button> 
     {#if submitted}
-      <div class="_card _padding"><div class="_color-brand _padding-top-0">🎉 &nbsp; Thank you!</div></div>
-    {:else}
-      <button type="submit" class="_button __action _margin-bottom-none _width-full" >
-        {#if isSubmitting}
-          <div class="_relative "><span class="_loader __circle _margin-right-2"></span> <span class="_margin-left-2">Sending...</span></div>
-        {:else}
-          Ask a Question
-        {/if}
-      </button> 
+      <div class="_card _padding _margin-top"><div class="_color-brand _padding-top-0">🎉 &nbsp; Thank you!</div></div>
     {/if}
   </form>
 
@@ -38,13 +37,18 @@
   import * as yup from "yup";
   import { getContext } from 'svelte';
 
-  export let name, email, reference, type
+  export let name, email, topic, type
 
-  let submitted, exists, isSubmitting = false, showEmail = true
+  let submitted, exists, isSubmitting = false, showEmail = true, loadingTicket=true, CTA = 'Ask a Question'
   const Content$ = getContext('Content')
   $: Content = $Content$
 
   checkUser()
+
+  $: if(!Profile && $Profile.ticketnumber) {
+    loadingTicket = false
+  }
+
 
   yup.setLocale({
     string: {
@@ -83,7 +87,7 @@
         name: _data.name,
         email: _data.email,
         comment: _data.comment,
-        reference: reference,
+        topic: topic,
         questiontype: type,
         recordId: $Profile ? $Profile.recordId : null
       }

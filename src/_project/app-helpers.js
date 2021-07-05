@@ -83,12 +83,12 @@ export const addQuestion = async (data) => {
     baseId: baseId,
     tableName: 'Questions',
     tableOptions: {
-      insertOptions: [],
+      insertOptions: ['typecast'],
     },
     payload: {
     	'Name': data['name'],
     	'Type': data['questiontype'],
-    	'Reference': data['reference'],
+    	'Topic': data['topic'],
     	'Email': data['email'],
     	'Question': data['comment'],
     	'Attendee': data['recordId'] ? [data['recordId']] : null,
