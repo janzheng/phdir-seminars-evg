@@ -22,7 +22,7 @@
 
 <script>
   import { onMount } from 'svelte';
-import { goto } from '@sapper/app';
+  import { goto } from '@sapper/app';
 
   import { Profile, checkUser } from "@/stores/profile"
   import { _content, _get } from "@/stores/sitedata"

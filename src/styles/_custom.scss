@@ -334,6 +334,11 @@ input.__massive, button.__massive, ._button.__massive {
 }
 
 
+._section-wide { 
+  max-width: 88rem;
+}
+
+
 ._section-superwide { 
   max-width: 96rem;
 }
@@ -555,6 +560,9 @@ $notion-page-icon: $size-7;
     @extend .__stack-xs;
   }
 }
+.notion-link {
+  word-break: break-word; // might break w/ long links, but this helps pre-line wrapped text blocks
+}
 .notion-text, .notion-callout-text {
   white-space: pre-line;
   // padding-left: $size;
@@ -631,7 +639,7 @@ $notion-page-icon: $size-7;
   
   @include screen-md {
     position: sticky;
-    height: 100%;
+    // height: 100%;
     max-height: 96vh;
   }
 
@@ -678,5 +686,13 @@ $notion-page-icon: $size-7;
   color: usetheme(brand);
   @extend ._tag;
   @extend ._font-small;
+  display: inline-block;
+}
+.PosterNumber {
+  padding: $size/4 $size;
+  border-radius: $size-half;
+  font-size: usetheme(font-large);
+  font-weight: 300;
+  background-color: usetheme(brand-green-lighter);
   display: inline-block;
 }

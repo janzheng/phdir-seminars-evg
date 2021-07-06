@@ -1,33 +1,33 @@
 
 <script context="module">
   export async function preload(page, session) {
-    return { id: page.params.regcode }
+    return { id: page.params.postercode }
   }
 </script>
 
 
-<UserCheck {id}>
-  <div class="Posters _section-page _padding-top-2 _margin-center ">
+
+<UserCheck>
+  <div class="Poster _section-page _padding-top-2 _margin-center ">
     <div class=" _margin-center _margin-bottom-2 _padding-bottom-2">
-      
-      <h1>Abstracts &amp; Posters</h1>
-      <NotionPosterGrid classes="_divider-top" />
+      <NotionPoster {id}  />
+      <!-- <NotionPoster {id} user={$Profile} /> -->
     </div>
   </div>
 </UserCheck>
 
-<script>
-  
-  import { onMount } from 'svelte';
 
+<script>
+  import { onMount } from 'svelte';
+  import { goto } from '@sapper/app';
+
+  import UserCheck from '@/components/UserCheck.svelte'
   import { Profile, checkUser } from "@/stores/profile"
   import { _content, _get } from "@/stores/sitedata"
   
-  import UserCheck from '@/components/UserCheck.svelte'
+  import NotionPoster from '@/components/project/notion/NotionPoster.svelte'
 
-  import NotionPosterGrid from '@/components/project/notion/NotionPosterGrid.svelte'
-
-  export let id
+  export let id, loading=true
 
 </script>
 

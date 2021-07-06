@@ -3,13 +3,13 @@
 
 <script context="module">
   export async function preload(page, session) {
-    return { reference: page.query['ref'], type: page.query['type'] };
+    return { topic: page.query['topic'], type: page.query['type'] };
   }
 </script>
 
 
 <div class="Question" bind:clientHeight bind:clientWidth>
-  <Question {reference} {type} showEmail={false} />
+  <Question {topic} {type} showEmail={false} />
 </div>
 
 
@@ -17,7 +17,7 @@
   // import Comment from '../components/widgets/Comment.svelte'
   import Question from '../../components/Question.svelte'
 
-  export let reference, type, outerWidth, outerHeight, clientHeight, clientWidth
+  export let topic, type, outerWidth, outerHeight, clientHeight, clientWidth
 
   $: if(process.browser, outerWidth, outerHeight) {
     // console.log('frame w/h', clientHeight, clientWidth)

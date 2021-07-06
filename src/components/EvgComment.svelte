@@ -5,10 +5,10 @@
   {#if isTiny}
     <form class="Formlet _grid-3-1-sm" on:submit={handleSubmit}>
 
-      <div class="_grid-2-sm">
+      <div class="{showEmail && !loadingTicket ? '_grid-2-sm' : ''}">
         
         {#if !submitted && !isSubmitting}
-          {#if !$Profile.ticketnumber}
+          {#if !$Profile.ticketnumber && showEmail && !loadingTicket}
             <div class="Formlet Formlet-input ">
               <!-- <label for=email class="_form-label _inline">Email</label> (optional) -->
               <input id="email" name="email" on:change={handleChange} on:blur={handleChange} bind:value={$form.email}  placeholder="Your email (optional)" type="email" class="_form-input __width-full"> 
@@ -90,9 +90,15 @@
 
   export let name, email, isTiny = false
 
-  let submitted, exists, isSubmitting = false
+  let submitted, exists, isSubmitting = false, showEmail = true, loadingTicket=true
   const Content$ = getContext('Content')
   $: Content = $Content$
+
+  checkUser()
+
+  $: if(!Profile && $Profile.ticketnumber) {
+    loadingTicket = false
+  }
 
   yup.setLocale({
     string: {

@@ -48,6 +48,7 @@
   import { formData } from "@/_data/formEvergreen.js";
   import Formlet from '@/components/formlet/FormletPaged.svelte'
   import { fetchPost } from '@/_utils/fetch-helpers'
+  import { _err, _msg } from '@/_utils/sentry-browser'
 
 	import { _contents } from "@/stores/sitedata"
 	import { Profile } from "@/stores/profile"
@@ -76,10 +77,7 @@
 
 
   $: if(user) {
-
     // console.log('user:', user)
-
-
     // ticket prices should be hard coded
     // should also be coded again separately on server
     if(user.position === 'Student'  && user.tickettype === 'In-Person' )
@@ -94,23 +92,32 @@
     ticketPrice = 400
     else if(user.position === 'Industry'  && user.tickettype === 'Virtual' )
     ticketPrice = 300
+
+    preInitPaypal()
   }
 
 
-  onMount(async () => {
-    // load payment key on site load — speeds things up
-    const res = await fetch(
-      `/api/payments/getters`, {
-      method: 'GET',
-    })
-    if(res.ok) {
-      let json = await res.json()
-      paymentKey = json['paymentKey']
-      initPaypal()
+  async function preInitPaypal() {
+    // gets the payment keys from server for Paypal to start working
+
+    if(!paymentKey) {
+      // load payment key on site load — speeds things up
+      const res = await fetch(
+        `/api/payments/getters`, {
+        method: 'GET',
+      })
+      if(res.ok) {
+        let json = await res.json()
+        paymentKey = json['paymentKey']
+      }
     }
-  })
+  }
 
-
+  // only init Paypal when both user and server payment key exists
+  // safeguard against race cond
+  $: if(user && paymentKey) {
+    initPaypal()
+  }
 
   let hasPaypal, elements, card, confirmingPayment=false, confirmedPayment=false
   const initPaypal = () => {
@@ -123,7 +130,7 @@
       document.head.appendChild(script)
       hasPaypal=true
     }
-  }
+  }  
 
 
   // Create and initialize a payment form object
@@ -142,7 +149,8 @@
         });
       },
       onError: function(err) {
-        console.error('Paypal error:', err)
+        _err(`EVG Paypal Error: ${err}`)
+        console.error('Paypal was unable to process your card. If this error persists, please email jan@phage.directory. Error message:', err)
         errorMsg = err
       },
       onApprove: function(data, actions) {

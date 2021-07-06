@@ -6,10 +6,11 @@
 </script>
 
 
-<div class="Comments">
+<div class="Comments _padder-top _padder-bottom">
 
-  <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
+  <div class="_section-page _margin-center _margin-bottom-2">
     <div class="_section-article _margin-center">
+      <h1>Leave some Feedback for Evergreen</h1>
       <Comment isTiny={true} {name} {email} />
     </div>
   </div>

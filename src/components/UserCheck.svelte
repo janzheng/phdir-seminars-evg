@@ -34,9 +34,9 @@
 
     await checkUser(id)
 
-    console.log('Profile check:', $Profile) 
+    // console.log('Profile check:', $Profile) 
     if(!$Profile && !id || !isAttending($Profile) || !$Profile.ticketnumber) {
-      console.error('No user profile')
+      console.error('No user access')
       goto('/start')
       return
     }

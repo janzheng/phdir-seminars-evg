@@ -4,7 +4,7 @@
 
   <div class="_section-article _margin-center _margin-bottom-2 _padding-bottom-2">
     <div class="_margin-top-2 _margin-bottom-2">
-      <p>← <a rel="preload" href="/">Go back home</a></p>
+      <!-- <p>← <a rel="preload" href="/">Go back home</a></p> -->
     </div>
     {@html marked(sponsors)}
   </div>

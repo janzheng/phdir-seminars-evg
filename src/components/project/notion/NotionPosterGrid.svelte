@@ -1,32 +1,37 @@
-<div class='PosterGrid {classes}' >
-  
-  {#if isLoading}
-    Loading Posters...
-  {:else}
-    <FilterList bind:filterString={filterString} bind:filterOptions={filterOptions} bind:options={options}>
-      {#if $Blocks && $Blocks.posters}
-        {#each posters as poster}
-          <div class="PosterGrid-item {itemClasses}" >
-            {#if poster.Category}<div class="PosterGrid-category">{poster.Category}</div>{/if}
-            <h5 class="PosterGrid-name">{poster.Name}</h5>
-            <div class="PosterGrid-authors">{@html marked(`${poster._authorString}`)}</div>
-            <!-- <div class="PosterGrid-authors">{@html marked(`${poster._authors[0]}, ..., ${poster._authors[poster._authors.length - 1]}`)}</div> -->
-            
-            {#if poster.Profiles}
-              {#each poster.Profiles.split(',') as profile}
-                {#if $Profiles[profile]}
-                  <ProfileThumb showName={true} profile={$Profiles[profile]} />
-                {/if}
-              {/each}
-            {/if}
-          </div>
-        {/each}
-      {/if}
-    </FilterList>
-  {/if}
-    
-</div>
 
+<UserCheck>
+  <div class='PosterGrid {classes}' >
+    
+    {#if isLoading}
+      Loading Posters...
+    {:else}
+      <FilterList bind:filterString={filterString} bind:filterOptions={filterOptions} bind:options={options}>
+        {#if $Blocks && $Blocks.posters}
+          {#each posters as poster}
+            <div class="PosterGrid-item {itemClasses}" >
+              <div class="PosterGrid-Number-container _align-vertically _grid-1-4-xs">
+                <div><div class="PosterGrid-Number PosterNumber">#{poster.AbstractId}</div></div>
+                <div class=" _right">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
+              </div>
+              <a href="/start/posters/{poster.AbstractId}"><h5 class="PosterGrid-name">{poster.Name}</h5></a>
+              <div class="PosterGrid-authors">{@html marked(`${poster._authorString}`)}</div>
+              <!-- <div class="PosterGrid-authors">{@html marked(`${poster._authors[0]}, ..., ${poster._authors[poster._authors.length - 1]}`)}</div> -->
+              
+              {#if poster.Profiles}
+                {#each poster.Profiles.split(',') as profile}
+                  {#if $Profiles[profile]}
+                    <ProfileThumb showName={true} profile={$Profiles[profile]} />
+                  {/if}
+                {/each}
+              {/if}
+            </div>
+          {/each}
+        {/if}
+      </FilterList>
+    {/if}
+      
+  </div>
+</UserCheck>
 
 
 
@@ -34,6 +39,7 @@
 <script>
   import marked from 'marked'
 
+  import UserCheck from '@/components/UserCheck.svelte'
   import FilterList from '@/components/widgets/FilterList.svelte'
   import ProfileThumb from '@/components/widgets/profile/ProfileThumb.svelte'
 	import { _content, Blocks, _fetchPosters, _poster, Profiles } from "@/stores/sitedata"
@@ -68,7 +74,7 @@
       let _lowerStr = filterString.toLowerCase()
       posters = $Blocks.posters.rows.filter(poster => {
         return poster.Name.toLowerCase().includes(_lowerStr) ||
-                (poster.AbstractId == _lowerStr) || // this is usually a number
+                (poster.AbstractId ? poster.AbstractId.toString().includes(_lowerStr.toString()) : false) || // this is usually a number
                 (poster.Authors ? poster.Authors.toLowerCase().includes(_lowerStr) : false) ||
                 (poster.Affiliations ? poster.Affiliations.toLowerCase().includes(_lowerStr) : false) ||
                 (poster.Correspondence ? poster.Correspondence.toLowerCase().includes(_lowerStr) : false) ||
