@@ -99,7 +99,8 @@ export default {
 
         // env keys for the public!
         'process.env.SUPABASE_URL': JSON.stringify(process.env.SUPABASE_URL),
-        'process.env.SUPABASE_KEY': JSON.stringify(process.env.SUPABASE_KEY)
+        'process.env.SUPABASE_KEY': JSON.stringify(process.env.SUPABASE_KEY),
+        'process.env.SENTRY': JSON.stringify(process.env.SENTRY)
 			}),
 	    sass({
 	     // update includePaths to what suits.
