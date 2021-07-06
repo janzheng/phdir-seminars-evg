@@ -10,8 +10,8 @@
     <div class="_flex">
       <div class="Formlet Formlet-input _flex-1">
         <!-- using "search" forces autocomplete to go away -->
-        <input type="search" autocomplete="off" style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
-          id="comment" name="comment" bind:value={$form.comment} required="required" class="_form-input __width-full" placeholder="Say hello!">
+        <input autocomplete="off" style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
+          id="comment" name="comment" on:change={handleChange} bind:value={$form.comment} required="required" class="_form-input __width-full" placeholder="Say hello!">
       </div>
       
       <button type="submit" style="width: 2.4rem; border-top-left-radius: 0; border-bottom-left-radius: 0;" class="_center _button __action _margin-bottom-none _padding-none-i" >

@@ -48,6 +48,7 @@
   import { formData } from "@/_data/formEvergreen.js";
   import Formlet from '@/components/formlet/FormletPaged.svelte'
   import { fetchPost } from '@/_utils/fetch-helpers'
+  import { _err, _msg } from '@/_utils/sentry-browser'
 
 	import { _contents } from "@/stores/sitedata"
 	import { Profile } from "@/stores/profile"
@@ -142,7 +143,8 @@
         });
       },
       onError: function(err) {
-        console.error('Paypal error:', err)
+        _err(`EVG Paypal Error: ${err}`)
+        console.error('Paypal was unable to process your card. If this error persists, please email jan@phage.directory. Error message:', err)
         errorMsg = err
       },
       onApprove: function(data, actions) {

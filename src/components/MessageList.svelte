@@ -22,7 +22,7 @@
           <div class="MessageList-pic _margin-right _align-vertically"><img style="border-radius: 100%; min-width: 32px; min-height: 32px; background-size: cover;" width="32" height="32" src="{$Profiles[msg['author']].fields['ProfileImage'][0].thumbnails.small.url}" alt="{msg['author']}"/></div>
         {/if}
         <div class="MessageList-message _margin-right _flex-1 _align-vertically">{msg['content']}</div>
-        <div class="MessageList-timestamp _right _align-vertically">{niceTimeDate(msg['updatedAt'], 'h:mm a')}</div>
+        <div class="MessageList-timestamp _right _align-vertically">{dateTo(msg['updatedAt'], 'h:mm a')}</div>
       </div>
     {/each}
   </div>
@@ -30,7 +30,7 @@
 
 <script>
   import { onMount, onDestroy } from 'svelte';
-  import { niceTimeDate } from '@/_utils/date'
+  import { dateTo } from '@/_utils/date'
   import { poll } from '@/_utils/poll'
 
   import { Messages } from "@/stores/messages"

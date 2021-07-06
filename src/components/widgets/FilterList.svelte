@@ -8,7 +8,8 @@
       <form id="formlet-top" class="Formlet-container">
         <div id="formlet--filterstring" class="Formlet Formlet-input ">
           <div class="_md-pfix"><label class="Formlet-label" for="filterString"><p>Search</p></label> </div> 
-          <input id="filterString" name="filterString" bind:value={filterString} placeholder="{placeholder}" type="search" class="_form-input _width-full "> 
+          <input id="filterString" name="filterString" bind:value={filterString} placeholder="{placeholder}" class="_form-input _width-full "> 
+          <!-- <input id="filterString" name="filterString" bind:value={filterString} placeholder="{placeholder}" type="search" class="_form-input _width-full ">  -->
         </div> 
 
 

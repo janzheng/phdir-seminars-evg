@@ -74,7 +74,7 @@
       let _lowerStr = filterString.toLowerCase()
       posters = $Blocks.posters.rows.filter(poster => {
         return poster.Name.toLowerCase().includes(_lowerStr) ||
-                (poster.AbstractId == _lowerStr) || // this is usually a number
+                (poster.AbstractId ? poster.AbstractId.toString().includes(_lowerStr.toString()) : false) || // this is usually a number
                 (poster.Authors ? poster.Authors.toLowerCase().includes(_lowerStr) : false) ||
                 (poster.Affiliations ? poster.Affiliations.toLowerCase().includes(_lowerStr) : false) ||
                 (poster.Correspondence ? poster.Correspondence.toLowerCase().includes(_lowerStr) : false) ||

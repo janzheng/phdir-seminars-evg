@@ -15,7 +15,7 @@
           </div>
         {/if}
         <div class="Question">
-          <p>Suggest a question for the Poster Talk</p>
+          <p>Suggest a question for the Poster Q&A Session </p>
           <Question topic={id} type='Poster' showEmail={false} />
           <div class="_margin-top _card __white _padding">
             Alternately, ask questions on <a href="https://phagedirectory.slack.com/archives/C026XQ7HH5Z" target="_blank">our #Evergreen Slack channel</a>
@@ -76,7 +76,7 @@
   import { onMount } from 'svelte'
   export let api = '//notion-cloudflare-worker.yawnxyz.workers.dev'
   export let isLoading = true
-  export let classes = '_section-wide _margin-center', itemClasses = '_grid-2 _grid-gap-large _padder-top _padder-bottom'
+  export let classes = '_section-wide _margin-center', itemClasses = '_grid-2 _grid-1-2-lg _grid-gap-large _padder-top _padder-bottom'
 
   onMount(async () => {
     await _fetchPosters(api, postersBlockId)
