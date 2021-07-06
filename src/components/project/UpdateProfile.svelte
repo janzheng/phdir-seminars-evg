@@ -62,9 +62,9 @@
     }
   })
 
-  $: if(user) {
-    console.log('Profile:::', user, $Profiles[user.profile])
-  }
+  // $: if(user) {
+  //   console.log('[Update Profile]:', user, $Profiles[user.profile])
+  // }
 
 
   let user

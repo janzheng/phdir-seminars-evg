@@ -160,9 +160,17 @@
         return actions.order.capture().then(async function(details) {
           // This function shows a transaction success message to your buyer.
 
+
+          if (details && details.error === 'INSTRUMENT_DECLINED') {
+            return actions.restart()
+          }
+          
           confirmingPayment = true
           
           user['email'] = user['email'] ? user['email'].trim() : ''
+
+          // _msg(details) // log all details to Sentry — this will leak data!
+          console.log('pp details:' , details)
           
           // register completed payment w/ Airtable 
           const payConfirmRes = await fetchPost('/api/setters', { 
@@ -182,6 +190,7 @@
             throw new Error('Evergreen registration failed, but your payment went through')
             return
           }
+          
 
           formSubmitted=true
           formSubmitting=false
@@ -206,7 +215,8 @@
 
           // await prefetch(`/start/${signupData.ticketnumber}`)
 
-          console.log('payment confirmation:', user)
+          console.log('Payment confirmation for user:', user)
+          _msg(`[Paypal-Finalize] Payment confirmation for user: ${user}`)
 
           zzz(scrollToAnchor, 'event-top', 200)
 
