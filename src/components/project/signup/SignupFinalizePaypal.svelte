@@ -48,7 +48,7 @@
   import { formData } from "@/_data/formEvergreen.js";
   import Formlet from '@/components/formlet/FormletPaged.svelte'
   import { fetchPost } from '@/_utils/fetch-helpers'
-  import { _err, _msg } from '@/_utils/sentry-browser'
+  import { _err, _msg, _tr } from '@/_utils/sentry-browser'
 
 	import { _contents } from "@/stores/sitedata"
 	import { Profile } from "@/stores/profile"
@@ -74,6 +74,7 @@
 
   let formSubmitted, formSubmitting
   let ticketPrice = -1, paymentKey = null, errorMsg
+  let sentryTransaction
 
 
   $: if(user) {
@@ -129,6 +130,12 @@
       script.onload = loadPayPal
       document.head.appendChild(script)
       hasPaypal=true
+      console.log('user:', user)
+      sentryTransaction = _tr({
+        op: 'paypal-finalize',
+        name: `Paypal finalize for ${user.name} | ${user.email}`
+      })
+      // _msg(`[Paypal-Finalize] Starting paypal for: ${user}`)
     }
   }  
 
@@ -152,6 +159,7 @@
         _err(`EVG Paypal Error: ${err}`)
         console.error('Paypal was unable to process your card. If this error persists, please email jan@phage.directory. Error message:', err)
         errorMsg = err
+        sentryTransaction.finish()
       },
       onApprove: function(data, actions) {
         // console.log('[paypal...]')
@@ -216,7 +224,8 @@
           // await prefetch(`/start/${signupData.ticketnumber}`)
 
           console.log('Payment confirmation for user:', user)
-          _msg(`[Paypal-Finalize] Payment confirmation for user: ${user}`)
+          _msg(`[Paypal-Finalize] Payment confirmation for user: ${user.name} | ${user.email}`)
+          sentryTransaction.finish()
 
           zzz(scrollToAnchor, 'event-top', 200)
 
