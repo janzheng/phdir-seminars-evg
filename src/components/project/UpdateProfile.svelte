@@ -14,7 +14,7 @@
     <h3>Update and link your profile</h3>
     {#if !submitted && !isSubmitting}
       <div class="Formlet Formlet-input _margin-top ">
-        <input id="profile" name="profile" bind:value={$form.profile} required="required" class="_form-input __width-full" placeholder="jessica-sacher">
+        <input id="profile" name="profile" bind:value={$form.profile} required="required" class="_form-input __width-full" placeholder="e.g. jessica-sacher">
       </div>
     {/if}
 
