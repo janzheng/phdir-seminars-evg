@@ -55,6 +55,7 @@
 
   import { scrollToAnchor } from "@/_utils/scrollto.js";
   import { zzz } from "@/_utils/helpers.js";
+  import { niceTimeDate } from '@/_utils/date'
 
 	// import { textReplacer } from "@/_project/app-helpers"
   // import { prefetch, goto } from '@sapper/app';
@@ -123,7 +124,7 @@
   let hasPaypal, elements, card, confirmingPayment=false, confirmedPayment=false
   const initPaypal = () => {
     if(!hasPaypal) {
-      console.log('[starting paypal...]')
+      console.log(`[starting paypal...] with ${paymentKey}`)
       let script = document.createElement('script')
       script.setAttribute('src', `https://www.paypal.com/sdk/js?client-id=${paymentKey}`)
       // get stripe pk value 
@@ -138,7 +139,7 @@
 
   // Create and initialize a payment form object
   const loadPayPal = () => {
-    console.log('[PayPal] Loading', paypal, Date.now())
+    console.log('[PayPal] Loading', paypal, niceTimeDate(new Date()))
 
     paypal.Buttons({
       createOrder: function(data, actions) {
@@ -146,10 +147,16 @@
         return actions.order.create({
           purchase_units: [{
             custom_id: `${user.ticketnumber} | ${user.recordId}`,
+            // payee: {
+            //   email: user.ticketnumber,
+            // }, 
+            // shipping: {
+            //   name: user.name
+            // },
             amount: {
               value: ticketPrice
             },
-            invoice_id: `${user.ticketnumber} - ${Date.now()}`
+            invoice_id: `${user.name} - ${user.email} - ${user.ticketnumber} - ${niceTimeDate(new Date())}`
           }]
         });
       },
