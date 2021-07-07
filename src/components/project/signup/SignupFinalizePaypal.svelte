@@ -131,10 +131,6 @@
       document.head.appendChild(script)
       hasPaypal=true
       console.log('user:', user)
-      sentryTransaction = _tr({
-        op: 'paypal-finalize',
-        name: `Paypal finalize for ${user.name} | ${user.email}`
-      })
       // _msg(`[Paypal-Finalize] Starting paypal for: ${user}`)
     }
   }  
@@ -142,23 +138,35 @@
 
   // Create and initialize a payment form object
   const loadPayPal = () => {
-    console.log('[PayPal] Loading', paypal)
+    console.log('[PayPal] Loading', paypal, Date.now())
 
     paypal.Buttons({
       createOrder: function(data, actions) {
         // This function sets up the details of the transaction, including the amount and line item details.
         return actions.order.create({
           purchase_units: [{
+            custom_id: `${user.ticketnumber} | ${user.recordId}`,
             amount: {
               value: ticketPrice
-            }
+            },
+            invoice_id: `${user.ticketnumber} - ${Date.now()}`
           }]
         });
       },
+      onClick: function(err) {
+        console.log('[Paypal-Finalize]  Starting Payment')
+        _msg(`[Paypal-Finalize] Starting Payment: ${user.name} | ${user.email} | $${ticketPrice}`)
+        sentryTransaction = _tr({
+          op: 'paypal-finalize',
+          name: `Paypal finalize for ${user.name} | ${user.email}`
+        })
+      },
       onError: function(err) {
-        _err(`EVG Paypal Error: ${err}`)
+        // this is a generic error / last resort error
+        // _err(`[Paypal-Finalize] Payment Error: ${err}`)
+        _err(err)
         console.error('Paypal was unable to process your card. If this error persists, please email jan@phage.directory. Error message:', err)
-        errorMsg = err
+        errorMsg = `Paypal was unable to process your card. Error message: ${JSON.stringify(err)}`
         sentryTransaction.finish()
       },
       onApprove: function(data, actions) {
@@ -193,9 +201,12 @@
           }, fetch)
 
           if(!payConfirmRes.ok) {
+            _err(`[Paypal-Finalize] Error for ${user.name} | ${user.email} — ${payConfirmRes.status}`)
+            _err(payConfirmRes)
             console.error('Payment confirmation error:', payConfirmRes.status, payConfirmRes)
-            errorMsg = `Evergreen registration failed, but your payment went through. Please notify evergreen@phage.directory of this error. Error: ${payConfirmRes.status}`
-            throw new Error('Evergreen registration failed, but your payment went through')
+            console.error('Paypal was unable to process your card. If this error persists, please email jan@phage.directory. Error message:', err, payConfirmRes.status, payConfirmRes)
+            errorMsg = `Paypal was unable to process your card. If this error persists, please email jan@phage.directory. Error message: ${payConfirmRes.status}`
+            throw new Error('Evergreen registration failed')
             return
           }
           
