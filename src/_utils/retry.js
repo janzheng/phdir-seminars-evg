@@ -14,19 +14,35 @@
     })
 
 
+
+    let blah = await retry(async () => {
+      const res = await fetch('https://asdasdasdads.com')
+    
+      if (403 === res.status) {
+        // don't retry upon 403
+        bail(new Error('Unauthorized'))
+        return
+      }
+    
+      const data = await res.text()
+      return data.substr(0, 500)
+    })
+    console.log('blah?', blah)
+
+
 */
-
-
 import Retry from "async-retry"
 
 
 
-export const retry = async (fn, retries=5) => {
-  return await Retry(async bail => {
-    // console.log('loading cytosis...', bases)
-    return await fn()
+export const retry = (fn, retries=5, loud=false, msg='try #') => {
+  let tries = 0
+  return Retry(async bail => {
+    // console.log('[retry] ', msg, ++tries)
+    let result = await fn(bail)
+    return result
   }, {
-    retries: 5
+    retries: retries
   })
 }
 

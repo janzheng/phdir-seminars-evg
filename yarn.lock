@@ -2119,10 +2119,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-cytosis@^0.0.416:
-  version "0.0.416"
-  resolved "https://registry.yarnpkg.com/cytosis/-/cytosis-0.0.416.tgz#200c4c248fd3cf669599f8b0ec74f071a8fd1215"
-  integrity sha512-F9bxtgtBko5D7VV3N1Xccqu+yBwIcoefH7dqZE5mw7V/PxQlu8TVLIVGshK+/timqB6hXtYLWs67Vu9PjqA23w==
+cytosis@^0.0.423:
+  version "0.0.423"
+  resolved "https://registry.yarnpkg.com/cytosis/-/cytosis-0.0.423.tgz#6af88660d7d4f4a27797347a841e364c86a2189d"
+  integrity sha512-d77RyS/z8tN8tcrBqMGVk1qTsshdVCo1P5Kyy35zQN95JCMGO8nDFxoybSNn1F56aoUQZs1YL+5YJeNkbK7WgQ==
   dependencies:
     airtable "^0.8.1"
 

@@ -17,9 +17,9 @@ config(); // https://github.com/sveltejs/sapper/issues/122
 
 
 export async function get(req, res) {
+  const { code, type } = req.query
 
 	try {
-    const { code, type } = req.query
 
 		// console.log('[api/getters] get', req.query)
 
@@ -54,7 +54,7 @@ export async function get(req, res) {
 		});
 
 	} catch(err) {
-    _err(e, `[api/getters] GET error — ${type}`, {body: req.body, query: req.query})
+    _err(err, `[api/getters] GET error — ${type}`, {body: req.body, query: req.query})
 		console.error('[api/getters] api/get error:', err)
 		throw new Error('[api/getters] Error', err)
 	}

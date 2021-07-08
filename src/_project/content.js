@@ -1,8 +1,8 @@
 
 import Cytosis from 'cytosis';
+
 import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
-import Retry from "async-retry"
 import { retry } from "@/_utils/retry"
 
 
@@ -70,18 +70,6 @@ export const getContentFromAirtable = async () => {
   }
   ]
 
-  // let _cytosis = await Retry(async bail => {
-  //   // console.log('loading cytosis...', bases)
-  //   let _cytosis = await new Cytosis({
-  //     apiKey: apiEditorKey,
-  //     baseId: baseId,
-  //     bases: 	bases,
-  //     routeDetails: '[content/get]',
-  //   })
-  //   return _cytosis
-  // }, {
-  //   retries: 5
-  // })
 
   let _cytosis = await retry(async () => {
     return await new Cytosis({
