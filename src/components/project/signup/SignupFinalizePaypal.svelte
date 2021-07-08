@@ -210,8 +210,8 @@
           if(!payConfirmRes.ok) {
             signupData = await payConfirmRes.json()
             // _msg(`[Paypal-Finalize] Data Capture Error: ${payConfirmData?.error} — ${user.name} | ${user.email} — ${payConfirmRes.status}` )
-            console.error('Payment confirmation error:', signupData?.error, payConfirmRes.status)
-            errorMsg = `We were unable to register your payment, but your payment went through. We have been notified and are looking into it. ${json?.error}`
+            // console.error('Payment confirmation error:', signupData?.error, payConfirmRes.status)
+            // errorMsg = `We were unable to register your payment, but your payment went through. We have been notified and are looking into it. ${json?.error}`
             throw new Error('Evergreen registration failed')
             return
           }

@@ -21,13 +21,9 @@
     "airtable": "./node_modules/airtable/build/airtable.browser"
   },
   "dependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.14.5",
-    "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@polka/send": "^0.4.0",
     "@polka/send-type": "^0.5.2",
-    "@sentry/browser": "^6.8.0",
     "@sentry/node": "^6.8.0",
-    "@sentry/tracing": "^6.8.0",
     "@supabase/supabase-js": "^1.18.0",
     "airtable": "^0.8.1",
     "body-parser": "^1.19.0",
@@ -37,13 +33,14 @@
     "mailgun-js": "^0.22.0",
     "node-cache": "^5.1.1",
     "polka": "next",
-    "sirv": "^0.4.0",
+    "sirv": "^1.0.12",
     "stripe": "^8.150.0",
     "svelte-forms-lib": "^1.1.1",
-    "websocket": "^1.0.34",
     "yup": "^0.29.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.14.5",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/core": "^7.14.6",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.9.0",

@@ -5,6 +5,9 @@ https://docs.sentry.io/platforms/node/
 
 last updated: 11/17/2020
 
+this will NOT work in conjunction with sentry-browser
+for some odd reason, you can either only do server or client-side lol
+
 */
 
 
