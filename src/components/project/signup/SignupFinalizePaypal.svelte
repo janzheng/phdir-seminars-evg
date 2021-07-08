@@ -48,7 +48,7 @@
   import { formData } from "@/_data/formEvergreen.js";
   import Formlet from '@/components/formlet/FormletPaged.svelte'
   import { fetchPost } from '@/_utils/fetch-helpers'
-  import { _err, _msg, _tr } from '@/_utils/sentry-browser'
+  // import { _err, _msg, _tr } from '@/_utils/sentry-browser'
 
 	import { _contents } from "@/stores/sitedata"
 	import { Profile } from "@/stores/profile"
@@ -121,7 +121,7 @@
     initPaypal()
   }
 
-  let hasPaypal, elements, card, confirmingPayment=false, confirmedPayment=false
+  let hasPaypal, elements, card, signupData, confirmingPayment=false, confirmedPayment=false
   const initPaypal = () => {
     if(!hasPaypal) {
       console.log(`[starting paypal...] with ${paymentKey}`)
@@ -132,7 +132,6 @@
       document.head.appendChild(script)
       hasPaypal=true
       console.log('user:', user)
-      // _msg(`[Paypal-Finalize] Starting paypal for: ${user}`)
     }
   }  
 
@@ -162,18 +161,18 @@
       },
       onClick: function(err) {
         console.log('[Paypal-Finalize]  Starting Payment')
-        _msg(`[Paypal-Finalize] Starting Payment: ${user.name} | ${user.email} | $${ticketPrice}`)
-        sentryTransaction = _tr({
-          op: 'paypal-finalize',
-          name: `Paypal finalize for ${user.name} | ${user.email}`
-        })
+        // _msg(`[Paypal-Finalize] Starting Payment: ${user.name} | ${user.email} | $${ticketPrice}`)
+        // sentryTransaction = _tr({
+        //   op: 'paypal-finalize',
+        //   name: `Paypal finalize for ${user.name} | ${user.email}`
+        // })
       },
       onError: function(err) {
-        // this is a generic error / last resort error
-        // _err(`[Paypal-Finalize] Payment Error: ${err}`)
-        _err(err)
-        console.error('Paypal was unable to process your card. If this error persists, please email jan@phage.directory. Error message:', err)
-        errorMsg = `Paypal was unable to process your card. Error message: ${JSON.stringify(err)}`
+        // this is a generic error / last resort error — handle these in onApprove !ok
+        // when onApprove throws an error, we end up here
+        // errors caught in !payConfirmRes.ok
+        // console.error('We were unable to register your payment. If this error persists, please email jan@phage.directory. Error message:', err)
+        // errorMsg = `We were unable to register your payment. If this error persists, please email jan@phage.directory.`
         sentryTransaction.finish()
       },
       onApprove: function(data, actions) {
@@ -185,6 +184,7 @@
 
 
           if (details && details.error === 'INSTRUMENT_DECLINED') {
+            // _msg(`[Paypal-Finalize] Card declined for: ${user.name} | ${user.email} | $${ticketPrice}`)
             return actions.restart()
           }
           
@@ -192,8 +192,7 @@
           
           user['email'] = user['email'] ? user['email'].trim() : ''
 
-          // _msg(details) // log all details to Sentry — this will leak data!
-          console.log('pp details:' , details)
+          // console.log('pp details:' , details)
           
           // register completed payment w/ Airtable 
           const payConfirmRes = await fetchPost('/api/setters', { 
@@ -202,27 +201,27 @@
               paymentMethod: 'PayPal',
               paymentReceipt: details.id,
               paymentReceiptData: details,
-              regStatus: ['Attendee'],
+              regstatus: ['Attendee'],
             },
             type: 'update_payment'
           }, fetch)
 
+          
           if(!payConfirmRes.ok) {
-            _err(`[Paypal-Finalize] Error for ${user.name} | ${user.email} — ${payConfirmRes.status}`)
-            _err(payConfirmRes)
-            console.error('Payment confirmation error:', payConfirmRes.status, payConfirmRes)
-            console.error('Paypal was unable to process your card. If this error persists, please email jan@phage.directory. Error message:', err, payConfirmRes.status, payConfirmRes)
-            errorMsg = `Paypal was unable to process your card. If this error persists, please email jan@phage.directory. Error message: ${payConfirmRes.status}`
+            signupData = await payConfirmRes.json()
+            // _msg(`[Paypal-Finalize] Data Capture Error: ${payConfirmData?.error} — ${user.name} | ${user.email} — ${payConfirmRes.status}` )
+            console.error('Payment confirmation error:', signupData?.error, payConfirmRes.status)
+            errorMsg = `We were unable to register your payment, but your payment went through. We have been notified and are looking into it. ${json?.error}`
             throw new Error('Evergreen registration failed')
             return
           }
-          
+
+          zzz(scrollToAnchor, 'top', 200)
 
           formSubmitted=true
           formSubmitting=false
-
-          let json = await payConfirmRes.json(), signupData
-          signupData = json['data']
+          
+          signupData = await payConfirmRes.json()
           
           // const successText = textReplacer(signedup, {
           //   ...signupData,
@@ -240,12 +239,11 @@
           user = signupData
 
           // await prefetch(`/start/${signupData.ticketnumber}`)
-
           console.log('Payment confirmation for user:', user)
-          _msg(`[Paypal-Finalize] Payment confirmation for user: ${user.name} | ${user.email}`)
           sentryTransaction.finish()
 
-          zzz(scrollToAnchor, 'event-top', 200)
+          // if(process.browser)
+          //   _msg(`[Paypal-Finalize] Confirmed: ${user.name} | ${user.email} | ${user.ticketnumber} | ${details.id}`)
 
           // goto(`/start/${signupData.ticketnumber}`)
           

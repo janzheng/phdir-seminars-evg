@@ -1,7 +1,7 @@
 
 import Cytosis from 'cytosis';
 // import * as sapper from '@sapper/server';
-import { cacheGet, cacheSet} from "@/_utils/cache"
+import { cacheGet, cacheSet, cacheClear} from "@/_utils/cache"
 
 import { config } from "dotenv";
 
@@ -11,6 +11,8 @@ import { customAlphabet } from 'nanoid';
 import { createStripePayment, getTicketPrice } from './payments';
 import { sendReceiptToCustomer, sendInfoToAdmin } from './notifiers';
 
+// import { _err, _msg, _tr } from '@/_utils/sentry'
+import { _err, _msg, _tr } from '@/_utils/sentry'
 
 
 
@@ -75,7 +77,7 @@ export const registerPostPaymentPaypal = async ({data}) => {
       'Registration': 'Site Registration',
 
       'Payment': data.paymentMethod,
-      'Reg Status': data.regStatus || ['Free'], // default to ['Attendee'] if paid
+      'Reg Status': data.regstatus || ['Free'], // default to ['Attendee'] if paid
 
       'Receipt': data.paymentReceipt,
       'Receipt Data': data.paymentReceiptData,
@@ -104,54 +106,61 @@ export const registerPostPaymentPaypal = async ({data}) => {
 // user should already have info at this point
 export const updatePaymentPaypal = async ({data}) => {
 
-  // console.log('[updatePaymentPaypal] data:', data)
+  let cytosis, ticketnumber, ticketprice
+
+  try {
+     console.log('[updatePaymentPaypal] data:', data)
   
-  // verify user from data
-  let user = await getUserFromCode(data['ticketnumber'])
-  
-  if(!user || user.status == false) {
+    // verify user from data
+    let user = await getUserFromCode(data['ticketnumber'])
+    
+    if(!user || user.status == false) {
+      _err(`Unknown ticket number: ${data['ticketnumber']}`)
+      return {
+        message: `Unknown ticket number: ${data['ticketnumber']}`
+      }
+    }
+    
+    ticketnumber = user.fields['Ticket Number']
+    ticketprice = getTicketPrice(data)
+
+    // console.log('[updatePaymentPaypal] user:' , user, ticketnumber, ticketprice)
+    
+    cytosis = await Cytosis.save({
+      apiKey: apiEditorKey,
+      baseId: baseId,
+      tableName: 'Attendees',
+      recordId: user.id,
+      tableOptions: {
+        insertOptions: ['typecast'],
+      },
+      payload: {
+        'Registration': 'Site Registration',
+
+        'Payment': data.paymentMethod || 'No payment method',
+        'Reg Status': data.regstatus || ['Attendee'], // default to ['Attendee'] if paid
+
+        'Receipt': data.paymentReceipt || 'No payment receipt',
+        'Receipt Data': JSON.stringify(data.paymentReceiptData) || 'No payment receipt data',
+      }
+    })
+
+    console.log('[updatePaymentPaypal] Cytosis: ', cytosis.fields) // for Sentry to log
+    _msg(`[updatePaymentPaypal] Success: ${data.name} | ${data.ticketnumber}`)
+
+    // await sendEmails({...data, ticketprice, ticketnumber})
+    cacheClear(`user-${data['ticketnumber']}`)
+
     return {
-      message: `Unknown ticket number: ${data['ticketnumber']}`
-    }
-  }
-  
-  const ticketnumber = user.fields['Ticket Number']
-  const ticketprice = getTicketPrice(data)
-
-  // console.log('[updatePaymentPaypal] user:' , user, ticketnumber, ticketprice)
-
-  const cytosis = await Cytosis.save({
-    apiKey: apiEditorKey,
-    baseId: baseId,
-    tableName: 'Attendees',
-    recordId: user.id,
-    tableOptions: {
-      insertOptions: ['typecast'],
-    },
-    payload: {
-      'Registration': 'Site Registration',
-
-      'Payment': data.paymentMethod,
-      'Reg Status': data.regStatus || ['Attendee'], // default to ['Attendee'] if paid
-
-      'Receipt': data.paymentReceipt,
-      'Receipt Data': data.paymentReceiptData,
-    }
-  })
-
-  // await sendEmails({...data, ticketprice, ticketnumber})
-
-  // return true
-  return {
-    ticketnumber,
-    // cytosis, // do NOT pass this back — contains Paypal info
-    data: {
       ...data,
       ticketprice,
       ticketnumber,
-      regstatus: data.regStatus,
-      id: cytosis.id,
-    },
+      regstatus: data.regstatus,
+      id: cytosis.id
+    }
+  } catch (e) {
+    _err(e, `[updatePaymentPaypal] Error updating paid Paypal User: ${data['ticketnumber']}`, {...data, ticketprice, cytosis} )
+    console.error(e, `[updatePaymentPaypal] Error updating paid Paypal User: ${data['ticketnumber']}`, data, cytosis.fields, ticketprice, ticketnumber)
   }
 }
 
@@ -204,7 +213,7 @@ export const updateProfile = async (data) => {
     //   ...data,
     //   ticketprice,
     //   ticketnumber,
-    //   regstatus: data.regStatus,
+    //   regstatus: data.regstatus,
     //   id: cytosis.id,
     // },
   }
@@ -282,8 +291,6 @@ export const getUserFromCode = async (code, useCache=false) => {
     
     // console.log('[getUserFromCode] ????', result.fields)
   	cacheSet(_cacheStr, result)
-
-
     
     return {
       fields: result.fields,

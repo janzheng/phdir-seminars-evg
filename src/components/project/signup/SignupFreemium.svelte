@@ -113,7 +113,7 @@
       data: {
         ...state, 
         paymentMethod: 'Free',
-        regStatus: ['Free'],
+        regstatus: ['Free'],
       },
       type: 'post_payment'
     }, fetch)

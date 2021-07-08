@@ -63,7 +63,7 @@
   })
 
   $: if(user) {
-    console.log('[Update Profile]:', user, $Profiles[user.profile])
+    console.log('[Update Profile]:', user, ' — linked profile:', $Profiles[user.profile])
   }
 
 

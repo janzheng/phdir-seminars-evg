@@ -9,36 +9,10 @@ last updated: 11/17/2020
 
 
 /* 
-  const transaction = Sentry.startTransaction({
-    op: "test",
-    name: "My First Test Transaction",
-  });
-
-  setTimeout(() => {
-    try {
-      foo();
-    } catch (e) {
-      Sentry.captureException(e);
-    } finally {
-      transaction.finish();
-    }
-  }, 99);
-
-*/
-
-/* 
-  try {
-    // ...
-  } catch (e) {
-    Sentry.captureException(e);
-  }
-*/
-
-/* 
   Sentry.captureMessage("Something went wrong");
 */
 import * as Sentry from '@sentry/node';
-// import * as Tracing from '@sentry/tracing';
+import * as Tracing from '@sentry/tracing';
 
 const sentryUrl = process.env.SENTRY
 Sentry.init({
@@ -63,17 +37,62 @@ export const _tr = (op,name) => {
 }
 
 // capture a simple error
-export const _err = (err, loud=false) => {
-  if(loud){console.error('[sentry/_err] sending error:', err)}
-  Sentry.captureException(err)
+// note: err is the thrown exception object!!
+// https://github.com/getsentry/sentry-javascript/issues/1607
+// export const _err = (err, loud=false) => {
+//   if(loud){console.error('[sentry/_err] sending error:', err)}
+//   Sentry.captureException(err)
+// }
+export const _err = (err, msg, data) => {
+  if(Sentry) {
+    Sentry.captureException(err, scope => {
+      if (msg)
+        scope.addBreadcrumb({
+          type: "error", // predefined types
+          category: "error",
+          level: Sentry.Severity.Error,
+          message: msg
+        });
+      if (data)
+        scope.setContext("data", data);
+    });
+  }
 }
 
 // capture a message
 export const _msg = (msg,loud=false) => {
-  if(loud){console.log('[sentry/_msg] messaging:', msg)}
-  Sentry.captureMessage(msg)
+  if(Sentry) {
+    if(loud){console.log('[sentry/_msg] messaging:', msg)}
+    Sentry.captureMessage(msg)
+  }
 }
 
+
+
+export const _test = () => {
+
+  const transaction = Sentry.startTransaction({
+    op: "test",
+    name: "My First Test Transaction",
+  });
+
+  setTimeout(() => {
+    try {
+      foo();
+    } catch (e) {
+      console.log('[Testing Sentry]', Sentry)
+      Sentry.captureException(e);
+    } finally {
+      transaction.finish();
+    }
+  }, 99);
+
+  try {
+    // ...
+  } catch (e) {
+    Sentry.captureException(e);
+  }
+}
 
 
 
