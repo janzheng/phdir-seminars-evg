@@ -30,7 +30,7 @@ import { sendData } from "@/_utils/sapper-helpers"
 import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal, updatePaymentPaypal, updateProfile} from "@/_project/registration" 
 import { addComment, addQuestion, addMessage, unsubscribe } from "@/_project/app-helpers" 
 
-
+import { _err, _msg, _tr } from '@/_utils/sentry'
 import { config } from "dotenv";
 
 // import { notifyAdmins, notifySubscribe, notifyEventSignup } from '../../_utils/_mailer.js'
@@ -44,12 +44,13 @@ config(); // https://github.com/sveltejs/sapper/issues/122
 
 
 export async function post(req, res) {
+  const { type } = req.body
 
 	try {
-		const { type } = req.body
 
 		console.log('[api/setters] post', type, req.body)
-		
+		// _msg('[api/setters] post', type, req.body)
+
     if (type === 'signup') {
 			const { data } = await registerSignupStripe(req.body)
       return sendData({
@@ -111,16 +112,21 @@ export async function post(req, res) {
 
     if (type === 'update_payment') {
       // only implemented for PayPal 
-      let { data } = await updatePaymentPaypal(req.body)
-      return sendData({
-        data // send data back
-      }, res);
+      let data = await updatePaymentPaypal(req.body)
+      if(data)
+        return sendData(
+          data // send data back
+        , res);
     }
 
     res.end('The server encountered an error during signup. Please contact jan@phage.directory.')
 
 	} catch(e) {
-		console.error('[api/setters]', e)
+    _err(e, `[api/setters] POST error — ${type}`, req.body)
+		console.error(`[api/setters] POST error — ${type}`, e)
+    return sendData({
+      error: e.message,
+    }, res, 400);
 	}
 }
 

@@ -205,7 +205,7 @@
               paymentMethod: 'PayPal',
               paymentReceipt: details.id,
               paymentReceiptData: details,
-              regStatus: ['Attendee'],
+              regstatus: ['Attendee'],
             },
             type: 'post_payment'
           }, fetch)

@@ -37,11 +37,11 @@ https://docs.sentry.io/platforms/node/
 /* 
   Sentry.captureMessage("Something went wrong");
 */
-import * as Sentry from '@sentry/browser';
+import * as SentryBrowser from '@sentry/browser';
 import { Integrations } from "@sentry/tracing";
 
 const sentryUrl = process.env.SENTRY // don't forget to replace this in Rollup
-Sentry.init({
+SentryBrowser.init({
   dsn: sentryUrl, 
   integrations: [new Integrations.BrowserTracing()],
   // We recommend adjusting this value in production, or using tracesSampler
@@ -49,14 +49,14 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-export let _sentry = Sentry
+export let _sentry = SentryBrowser
 
 
 // create setup and create a transaction
 // make sure to close it at the end of scope w/ transaction.finish()
 export const _tr = (op,name) => {
-  if(Sentry) {
-    return Sentry.startTransaction({
+  if(SentryBrowser) {
+    return SentryBrowser.startTransaction({
       op, name
     });
   }
@@ -64,15 +64,32 @@ export const _tr = (op,name) => {
 }
 
 // capture a simple error
-export const _err = (err, loud=false) => {
-  if(loud){console.error('[sentry/_err] sending error:', err)}
-  Sentry.captureException(err)
+// note: err is the thrown exception object!!
+// https://github.com/getsentry/sentry-javascript/issues/1607
+// export const _err = (err, loud=false) => {
+//   if(loud){console.error('[sentry/_err] sending error:', err)}
+//   Sentry.captureException(err)
+// }
+export const _err = (err, msg, data) => {
+  console.log('capturing exception', err)
+  return SentryBrowser.captureException(err)
+  SentryBrowser.captureException(err, scope => {
+    if (msg)
+      scope.addBreadcrumb({
+        type: "error", // predefined types
+        category: "error",
+        level: SentryBrowser.Severity.Error,
+        message: msg
+      });
+    if (data)
+      scope.setContext("extra-data", data);
+  });
 }
 
 // capture a message
 export const _msg = (msg,loud=false) => {
   if(loud){console.log('[sentry/_msg] messaging:', msg)}
-  Sentry.captureMessage(msg)
+  SentryBrowser.captureMessage(msg)
 }
 
 

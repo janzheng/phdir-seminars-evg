@@ -8,6 +8,7 @@
 // import * as localStorage from "svelte-local-storage-store";
 import { writable, get } from 'svelte/store';
 import { fetchPost } from '@/_utils/fetch-helpers';
+import { retry } from "@/_utils/retry"
 
 
 // SiteData should mirror a cytosis.results setup
@@ -184,8 +185,14 @@ export const _fetchProfiles = async (slugs) => {
 
   if(process.browser && slugs && Array.isArray(slugs) && slugs.length > 0) {
     
+
+
+
     // v3 implementation
-    const res = await fetchPost('https://content.phage.directory/api/v3/query', v3PeopleQuery, fetch)
+    const res = await retry(async () => {
+      return await fetchPost('https://content.phage.directory/api/v3/query', v3PeopleQuery, fetch)
+    })
+    // const res = await fetchPost('https://content.phage.directory/api/v3/query', v3PeopleQuery, fetch)
     // const res = await fetchPost('http://localhost:2021/api/v3/query', v3PeopleQuery, fetch)
     let pplData = await res.json() // all public profiles... faster than going one by one, and v3 doesn't support multi-slug
     v3People = pplData.People
