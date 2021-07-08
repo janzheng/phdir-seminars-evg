@@ -3,6 +3,7 @@ import Cytosis from 'cytosis';
 import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
 import Retry from "async-retry"
+import { retry } from "@/_utils/retry"
 
 
 import { config } from "dotenv";
@@ -12,9 +13,6 @@ config(); // https://github.com/sveltejs/sapper/issues/122
 const view = process.env.STATUS=='Preview' ? "Preview" : "Published"
 const apiEditorKey = process.env.AIRTABLE_PRIVATE_API
 const baseId = process.env.AIRTABLE_PRIVATE_BASE
-
-// const retry = Retry.retry
-
 
 let content
 try {
@@ -72,17 +70,26 @@ export const getContentFromAirtable = async () => {
   }
   ]
 
-  let _cytosis = await Retry(async bail => {
-    // console.log('loading cytosis...', bases)
-    let _cytosis = await new Cytosis({
+  // let _cytosis = await Retry(async bail => {
+  //   // console.log('loading cytosis...', bases)
+  //   let _cytosis = await new Cytosis({
+  //     apiKey: apiEditorKey,
+  //     baseId: baseId,
+  //     bases: 	bases,
+  //     routeDetails: '[content/get]',
+  //   })
+  //   return _cytosis
+  // }, {
+  //   retries: 5
+  // })
+
+  let _cytosis = await retry(async () => {
+    return await new Cytosis({
       apiKey: apiEditorKey,
       baseId: baseId,
       bases: 	bases,
       routeDetails: '[content/get]',
     })
-    return _cytosis
-  }, {
-    retries: 5
   })
 
 	delete _cytosis['apiKey']

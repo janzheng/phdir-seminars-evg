@@ -6,6 +6,7 @@ import Cytosis from 'cytosis';
 import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
 import { getContent } from "@/_project/content" 
+import { _err, _msg, _tr } from '@/_utils/sentry'
 
 import { getUserFromCode, getRegCount, getUserProfiles } from "@/_project/registration" 
 import { getMessages } from "@/_project/app-helpers" 
@@ -53,8 +54,9 @@ export async function get(req, res) {
 		});
 
 	} catch(err) {
-		console.error('[getters] api/get error:', err)
-		throw new Error('[getters] Error', err)
+    _err(e, `[api/getters] GET error — ${type}`, {body: req.body, query: req.query})
+		console.error('[api/getters] api/get error:', err)
+		throw new Error('[api/getters] Error', err)
 	}
 }
 

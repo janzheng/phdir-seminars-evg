@@ -30,7 +30,7 @@ import { sendData } from "@/_utils/sapper-helpers"
 import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal, updatePaymentPaypal, updateProfile} from "@/_project/registration" 
 import { addComment, addQuestion, addMessage, unsubscribe } from "@/_project/app-helpers" 
 
-import { _err, _msg, _tr, _test } from '@/_utils/sentry'
+import { _err, _msg, _tr } from '@/_utils/sentry'
 import { config } from "dotenv";
 
 // import { notifyAdmins, notifySubscribe, notifyEventSignup } from '../../_utils/_mailer.js'
