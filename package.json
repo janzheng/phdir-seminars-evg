@@ -35,6 +35,7 @@
     "polka": "next",
     "sirv": "^1.0.12",
     "stripe": "^8.150.0",
+    "loglevel": "^1.7.1",
     "svelte-forms-lib": "^1.1.1",
     "yup": "^0.29.1"
   },

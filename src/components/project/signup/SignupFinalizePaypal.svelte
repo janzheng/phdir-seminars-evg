@@ -56,6 +56,7 @@
   import { scrollToAnchor } from "@/_utils/scrollto.js";
   import { zzz } from "@/_utils/helpers.js";
   import { niceTimeDate } from '@/_utils/date'
+  import log from '@/_utils/logger'
 
 	// import { textReplacer } from "@/_project/app-helpers"
   // import { prefetch, goto } from '@sapper/app';
@@ -79,7 +80,8 @@
 
 
   $: if(user) {
-    // console.log('user:', user)
+    // log.trace('user:', user)
+    
     // ticket prices should be hard coded
     // should also be coded again separately on server
     if(user.position === 'Student'  && user.tickettype === 'In-Person' )
@@ -131,7 +133,7 @@
       script.onload = loadPayPal
       document.head.appendChild(script)
       hasPaypal=true
-      console.log('user:', user)
+      log.log('[initPaypal] w/user:', user)
     }
   }  
 

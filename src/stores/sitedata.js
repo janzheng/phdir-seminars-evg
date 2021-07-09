@@ -185,9 +185,6 @@ export const _fetchProfiles = async (slugs) => {
 
   if(process.browser && slugs && Array.isArray(slugs) && slugs.length > 0) {
     
-
-
-
     // v3 implementation
     const res = await retry(async () => {
       return await fetchPost('https://content.phage.directory/api/v3/query', v3PeopleQuery, fetch)
