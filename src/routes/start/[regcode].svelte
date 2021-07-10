@@ -11,7 +11,7 @@
   <div class="_section-page _divider-top _divider-bottom _padder-top _padder-bottom _margin-center">
     <div class="_section-article _margin-center">
         <div class="_card _padding __white">
-          Loading ticket number: {id}
+          Loading {id}
         </div>
       </div>
     </div>
