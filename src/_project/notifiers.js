@@ -48,7 +48,7 @@ import { getIcsDecoded } from "@/routes/api/event.js"
 // send receipt to customer
 export const sendReceiptToCustomer = async (data, templateName='_email-receipt') => {
   try {
-    console.log('[sendReceiptToCustomer] data:', data)
+    // console.log('[sendReceiptToCustomer] data:', data)
     const _dict = dict(data)
     const content = await getContent()
     const template = content['Content'].find(e => e.fields['Name'] == templateName)
@@ -109,10 +109,16 @@ export const sendInfoToAdmin = async (data, templateName='_email-admin') => {
 
 
 
+
+
 // send an email template to ALL attendees
-export const sendGroupEmailToAttendees = async (templateName) => {
-  if(!templateName || process.env.GROUP_EMAILS_ON !== 'true')
+// doesn't use dict for replacement; uses Airtable fields schema instead for users
+export const sendGroupEmailToAttendees = async (templateName, view='Grid view') => {
+  if(!templateName || process.env.GROUP_EMAILS_ON !== 'true') {
+    console.error('GROUP_EMAILS is turned off for', templateName, view, process.env.GROUP_EMAILS_ON)
     return false
+  }
+    
 
   try {
 
@@ -122,7 +128,7 @@ export const sendGroupEmailToAttendees = async (templateName) => {
       baseId: process.env.AIRTABLE_PRIVATE_BASE,
       bases: 	[{
         tables: ["Attendees"],
-        options: { "view": 'Grid view',}
+        options: { "view": view,}
       }]
     })
 
@@ -131,25 +137,28 @@ export const sendGroupEmailToAttendees = async (templateName) => {
     const content = await getContent()
     const template = content['Content'].find(e => e.fields['Name'] == templateName)
     
+    // console.log('[sendGroupEmailToAttendees]', attendees)
+
+
     // build template and send to each person
     attendees.map(user => {
-      const replaced = textReplacer(template.fields['Markdown'], {
-        name: user.fields['Name']
+      const replaced = keyReplace(template.fields['Markdown'], {
+        ...user.fields,
+        ticketprice: user.fields['Ticket Price'],
+        ticketnumber: user.fields['Ticket Number']
       })
       const md = marked(replaced)
-      console.log('[sendGroupEmailToAttendees]', md)
 
       // DO NOT UNCOMMENT UNTIL USING OFFICIALLY
-      // mailto({
-      //   subject: `New Reg: ${data['name']} ${data['email']}`,
-      //   to: `evergreen@phage.directory,`, // tescphage@gmail.com
-      //   html: md,
-      //   text: md,
-      // })
+      if(template.fields['Title'] && md && user.fields['Email'])
+      mailto({
+        subject: template.fields['Title'],
+        to: user.fields['Email'], // tescphage@gmail.com
+        html: md,
+        text: md,
+      })
 
     })
-
-  
 
     return true
 

@@ -20,14 +20,16 @@
 <script>
   
   import { onMount } from 'svelte';
-  import { goto } from '@sapper/app';
+  import { goto, stores } from '@sapper/app';
 
 
   import { Profile, checkUser, ID, isAttending } from "@/stores/profile"
   import { _content, _get } from "@/stores/sitedata"
 
   export let id, loading=true
+  const {page} = stores()
 
+  
   // load data onmount to support refreshing
   // and syncing w/ store
   onMount(async () => {
@@ -37,7 +39,7 @@
     // console.log('Profile check:', $Profile) 
     if(!$Profile && !id || !isAttending($Profile) || !$Profile.ticketnumber) {
       console.error('No user access')
-      goto('/start')
+      goto(`/start?path=${$page.path}`)
       return
     }
 

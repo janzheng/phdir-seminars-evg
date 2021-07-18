@@ -5,7 +5,7 @@
     <div class="_section-article _margin-center _margin-bottom-2 _padding-bottom-2">
       <h1>People Directory</h1>
       <div class="_card _padding __white">
-        Want to be listed in this directory? It’s easy: <a href="/start/{$Profile.ticketnumber}">add your profile to your account.</a>
+        Want to be listed in this directory? It’s easy: <a href="/start/{$Profile.ticketnumber}">link your profile to your Phage Directory account!</a>
       </div>
       <PeopleGrid />
     </div>

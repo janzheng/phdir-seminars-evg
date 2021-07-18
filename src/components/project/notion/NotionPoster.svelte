@@ -2,7 +2,13 @@
   
 
   {#if isLoading}
-    Loading poster {id}...
+    <div class="_padding _card">
+      Loading poster {id}...
+    </div>
+  {:else if !poster}
+    <div class="_padding _card">
+      No poster found for {id}
+    </div>
   {:else}
     <div class="Poster-item {itemClasses}" >
 
@@ -48,10 +54,6 @@
         </div>
 
       </div>
-    
-
-
-
 
     </div>
   {/if}

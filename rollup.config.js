@@ -32,12 +32,12 @@ const preprocess = sveltePreprocess({
   scss: {
     includePaths: ['src'],
   },
-  postcss: {
-    plugins: [require('autoprefixer')],
-    // includePaths: ["node_modules", "./src/styles", ],
-    includePaths: [ "./src/styles", ],
-    output: "static/core.css"
-  },
+  // postcss: {
+  //   plugins: [require('autoprefixer')],
+  //   // includePaths: ["node_modules", "./src/styles", ],
+  //   includePaths: [ "./src/styles", ],
+  //   output: "static/core.css"
+  // },
 });
 
 
@@ -100,7 +100,10 @@ export default {
         // env keys for the public!
         'process.env.SUPABASE_URL': JSON.stringify(process.env.SUPABASE_URL),
         'process.env.SUPABASE_KEY': JSON.stringify(process.env.SUPABASE_KEY),
-        'process.env.SENTRY': JSON.stringify(process.env.SENTRY)
+        'process.env.SENTRY': JSON.stringify(process.env.SENTRY),
+
+        'process.env.LOGFLARE_API': JSON.stringify(process.env.LOGFLARE_API),
+        'process.env.LOGFLARE_SOURCE': JSON.stringify(process.env.LOGFLARE_SOURCE)
 			}),
 	    sass({
 	     // update includePaths to what suits.
@@ -176,12 +179,12 @@ export default {
 		plugins: [
     	json(),
 			replace({
+        // NO SECRETS HERE
 				'process.env.npm_package_version': undefined,
 				'process.browser': false,
 				'process.env.NODE_ENV': JSON.stringify(mode),
-
         'process.env.SUPABASE_URL': JSON.stringify(process.env.SUPABASE_URL),
-        'process.env.SUPABASE_KEY': JSON.stringify(process.env.SUPABASE_KEY)
+        'process.env.SUPABASE_KEY': JSON.stringify(process.env.SUPABASE_KEY),
 			}),
 	    // sass({
 	    //  // update includePaths to what suits.

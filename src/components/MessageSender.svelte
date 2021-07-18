@@ -74,9 +74,14 @@
     onSubmit: async (_data) => {
 
       // real users only
-      if(!$Profile.profile || isSubmitting) {
+      if(!$Profile.profile) {
         console.error('No profile!')
         isSubmitting = false
+        return
+      }
+
+      if(isSubmitting) {
+        console.error('Already submitting!')
         return
       }
 
@@ -90,11 +95,6 @@
       const data = {
         content: _data.comment,
         author: $Profile.profile
-      }
-
-      if(!$Profile.profile) {
-        isSubmitting = false
-        return
       }
       // console.log('sending:', data)
       sendMessage(data)

@@ -95,8 +95,11 @@ export const _fetchPosters = async (api, blockId) => {
     let posters = await res.json()
 
     // process the abstracts
-    posters.rows.forEach(poster => {
-      processPoster(poster)
+    posters.rows.forEach((poster, i) => {
+      if(poster.Status == 'Published' || (process.env.NODE_ENV !== 'production' && poster.Status == 'Preview'))
+        processPoster(poster)
+      else
+        delete posters.rows[i]
     })
 
     Blocks.update(data => {
@@ -131,7 +134,7 @@ export const _posterId = (id) => {
   let rows = get(Blocks).posters.rows
 
   if(id && rows) {
-    return rows.find(row => row['AbstractId'] == id)
+    return rows.find(row => row && row['AbstractId'] == id)
   }
   return false
 } 

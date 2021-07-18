@@ -1,9 +1,10 @@
 
 <div class="Tester _section-page _padding-top-2 _margin-center ">
   <div class="_section-article _margin-center _margin-bottom-2 _padding-bottom-2">
+    <div class="_button" on:click={()=>test()} >Test!</div>
     <!-- <NotionPage /> -->
     <!-- <NotionPosterGrid /> -->
-    <NotionPoster id={234} />
+    <!-- <NotionPoster id={234} /> -->
   </div>
 </div>
 
@@ -20,6 +21,20 @@
   // import NotionPage from '@/components/project/notion/NotionLive.svelte'
 
 
+
+  import { fetchPost } from '@/_utils/fetch-helpers'
+  async function test() {
+    const res = await fetchPost('/api/senders', { 
+      type: 'send_registration_info',
+      key: 'Bxw6gcuHwFPqqx*PDesrthAN',
+      ticketId: 'TEST-EVG',
+    }, fetch)
+
+    if(res.ok) {
+      let result = await res.text()
+      console.log('res:', result)
+    }
+  }
 </script>
 
 

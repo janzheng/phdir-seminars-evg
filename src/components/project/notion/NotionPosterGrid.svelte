@@ -3,28 +3,32 @@
   <div class='PosterGrid {classes}' >
     
     {#if isLoading}
-      Loading Posters...
+      <div class="_padding _card">
+        Loading posters...
+      </div>
     {:else}
       <FilterList bind:filterString={filterString} bind:filterOptions={filterOptions} bind:options={options}>
         {#if $Blocks && $Blocks.posters}
           {#each posters as poster}
-            <div class="PosterGrid-item {itemClasses}" >
-              <div class="PosterGrid-Number-container _align-vertically _grid-1-4-xs">
-                <div><div class="PosterGrid-Number PosterNumber">#{poster.AbstractId}</div></div>
-                <div class=" _right">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
+            {#if poster}
+              <div class="PosterGrid-item {itemClasses}" >
+                <div class="PosterGrid-Number-container _align-vertically _grid-1-4-xs">
+                  <div><div class="PosterGrid-Number PosterNumber">#{poster.AbstractId}</div></div>
+                  <div class=" _right">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
+                </div>
+                <a href="/start/posters/{poster.AbstractId}"><h5 class="PosterGrid-name">{poster.Name}</h5></a>
+                <div class="PosterGrid-authors">{@html marked(`${poster._authorString}`)}</div>
+                <!-- <div class="PosterGrid-authors">{@html marked(`${poster._authors[0]}, ..., ${poster._authors[poster._authors.length - 1]}`)}</div> -->
+                
+                {#if poster.Profiles}
+                  {#each poster.Profiles.split(',') as profile}
+                    {#if $Profiles[profile]}
+                      <ProfileThumb showName={true} profile={$Profiles[profile]} />
+                    {/if}
+                  {/each}
+                {/if}
               </div>
-              <a href="/start/posters/{poster.AbstractId}"><h5 class="PosterGrid-name">{poster.Name}</h5></a>
-              <div class="PosterGrid-authors">{@html marked(`${poster._authorString}`)}</div>
-              <!-- <div class="PosterGrid-authors">{@html marked(`${poster._authors[0]}, ..., ${poster._authors[poster._authors.length - 1]}`)}</div> -->
-              
-              {#if poster.Profiles}
-                {#each poster.Profiles.split(',') as profile}
-                  {#if $Profiles[profile]}
-                    <ProfileThumb showName={true} profile={$Profiles[profile]} />
-                  {/if}
-                {/each}
-              {/if}
-            </div>
+            {/if}
           {/each}
         {/if}
       </FilterList>
@@ -63,7 +67,7 @@
     $Blocks.posters.rows.forEach(poster => {categories[poster.Category]=true})
     // console.log('derp', _poster('third'))
     options = Object.keys(categories)
-    console.log('posters / blocks:', posters, options, filterString, filterOptions)
+    // console.log('posters / blocks:', posters, options, filterString, filterOptions)
   }
 
   $: if($Blocks.posters) {
@@ -95,7 +99,7 @@
       })
     }
 
-    console.log('filter posters:', posters)
+    // console.log('filter posters:', posters)
   }
 
 
