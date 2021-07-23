@@ -19,6 +19,12 @@
             <iframe class="_margin-center __width-full " style="width: 100%"
               width="544" height="315" src="https://www.youtube.com/embed/{poster.Youtube}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
+        {:else}
+          <div class="Poster-Youtube _margin-bottom-2">
+            <div class="_card _padding">
+              This poster author has not submitted a video yet.
+            </div>
+          </div>
         {/if}
         <div class="Question">
           <p>Suggest a question for the Poster Q&A Session </p>

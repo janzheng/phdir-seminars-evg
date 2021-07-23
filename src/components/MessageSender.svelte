@@ -1,7 +1,7 @@
 
 <div class="MessageSender {classes}">
 
-  {#if !$Profile.profile}
+  {#if !$Profile.profile || $Profile.profile != ''}
     <div class=' _card __white _padding-half _font-small'>To send a message, <a class="_font-small" href="/start/{$Profile.ticketnumber}">link your profile to your account.</a></div>
   {:else}
     <div class=' _card __white _padding-half _font-small'>Join our <a class="_font-small" href="https://phagedirectory.slack.com/archives/C026XQ7HH5Z" target="_blank">community Slack channel</a> for more conversations</div>

@@ -32,7 +32,10 @@
             <section class="Abstract-item chapter {itemClasses}" >
               {#if poster.Category}<div class="Abstract-category _inline-block">{poster.Category}</div>{/if}
               {#if poster.QR}<div class="Abstract-QR" style="float: right" ><img width=100 height=100 alt="QR link" src="{poster.QR}"></div>{/if}
-              <div class="Abstract-Number PosterNumber">#{poster.AbstractId}</div>
+              <div>
+                <span class="Abstract-Number PosterNumber" style="font-family: sans-serif">#{poster.AbstractId}</span>
+                <span class="Abstract-Link _padding-left-2"><a href="https://evergreen.phage.directory/start/posters/{poster.AbstractId}">https://evergreen.phage.directory/start/posters/{poster.AbstractId}</a></span>
+              </div>
               <h1 class="Abstract-name">{poster.Name}</h1>
               <div class="Abstract-authors">{@html marked(`${poster._authorString}`)}</div>
               <div class="Abstract-affiliations">{@html marked(`${poster.Affiliations}`)}</div>

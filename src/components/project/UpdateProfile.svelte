@@ -3,6 +3,9 @@
 
 <div class="UpdateProfile _margin-top _margin-bottom {classes}">
 
+  <div class="Live-messages _margin-bottom-2" style="">
+    <Messages />
+  </div>
   {#if user && $Profiles[user.profile]}
     <div class="UpdateProfile-preview _margin-bottom-2">
       <h3>Profile Preview</h3>
@@ -28,6 +31,14 @@
           <span style="white-space: nowrap">Link profile</span>
         {/if}
       </button> 
+      {#if user && user.profile && user.profile != ''}
+        <button on:click="{()=>unlink()}" class="_button __action-outline _margin-bottom-none _width-full _margin-top" >
+          Unlink profile
+        </button>
+      {/if}
+      <a href="https://phage.directory/join" target="_blank" class="_button _center __action-outline _margin-bottom-none _width-full _margin-top" >
+        Create a profile
+      </a>
     {/if}
   </form>
 
@@ -44,6 +55,7 @@
   import { onMount } from 'svelte';
   import { _content, _get, Profiles, _fetchAllProfiles } from "@/stores/sitedata"
   import ProfileThumb from '@/components/widgets/profile/ProfileThumb.svelte'
+  import Messages from '@/components/Messages.svelte'
 
 
   import { Profile, checkUser, refreshUser } from "@/stores/profile"
@@ -95,8 +107,12 @@
       submitted = false 
       
       
+      if(_data.profile) {
+        _data.profile = _data.profile.trim()
+      }
 
       let profile = _data.profile
+
       if(profile.includes('#')) {
         profile = profile.substring(profile.indexOf('#')+1)
       }
@@ -128,7 +144,36 @@
       });
       
     }
-  });
+  })
+
+  const unlink = () => {
+
+    const data = {
+      type: 'update_profile',
+      profile: '',
+      ticketnumber: user.ticketnumber,
+      recordId: user.recordId
+    }
+    
+    const reg = fetch(
+      `/api/setters`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(data)
+    }).then( async (res) => {
+      isSubmitting = false
+      await refreshUser() // sync user if exists
+      await _fetchAllProfiles()
+
+      // const text = await res.text()
+      // // console.log('reg finished: ', text)
+      // if(res.status == 200) {
+      //   submitted = true
+      // }
+    });
+  }
 
 </script>
 

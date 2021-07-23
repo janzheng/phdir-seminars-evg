@@ -59,6 +59,7 @@
   import log from '@/_utils/logger'
 
   import logstream from '@/_utils/logger-stream'
+  import { trail } from '@/_utils/logger-trails'
 
 	// import { textReplacer } from "@/_project/app-helpers"
   // import { prefetch, goto } from '@sapper/app';
@@ -80,7 +81,9 @@
   let ticketPrice = -1, paymentKey = null, errorMsg
   let sentryTransaction
 
-
+  // test trail
+  log.log(`hey this is a test`, {ex: 'some test data'})
+  trail(`hey this is a test`, {ex: 'some test data'})
   
 
   $: if(user) {
