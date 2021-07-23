@@ -16,8 +16,18 @@
                   <div><div class="PosterGrid-Number PosterNumber">#{poster.AbstractId}</div></div>
                   <div class=" _right">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
                 </div>
-                <a href="/start/posters/{poster.AbstractId}"><h5 class="PosterGrid-name">{poster.Name}</h5></a>
-                <div class="PosterGrid-authors">{@html marked(`${poster._authorString}`)}</div>
+                {#if poster['Abstract Name']}
+                  <a href="/start/posters/{poster.AbstractId}"><h5 class="PosterGrid-name">{poster['Abstract Name']}</h5></a>
+                {:else}
+                  <h5 class="PosterGrid-name">No abstract</h5>
+                {/if}
+                <div class="PosterGrid-authors">
+                  {#if poster._authorString}
+                    {@html marked(`${poster._authorString}`)}
+                  {:else}
+                    {poster.Name}
+                  {/if}
+                </div>
                 <!-- <div class="PosterGrid-authors">{@html marked(`${poster._authors[0]}, ..., ${poster._authors[poster._authors.length - 1]}`)}</div> -->
                 
                 {#if poster.Profiles}
