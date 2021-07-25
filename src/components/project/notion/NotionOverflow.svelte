@@ -1,5 +1,5 @@
 
-{#if process.browser}
+{#if process.browser && blockId}
   {#if !show}
     <div class="_button _width-full _center __action-outline" on:click={()=>{show=true}}>Show More</div>
   {:else}

@@ -105,9 +105,10 @@
 </svelte:head>
 
 
-{#if process.env.NODE_ENV !== 'production'}
+<!-- messes up some embeds which use staging -->
+<!-- {#if process.env.NODE_ENV !== 'production'}
   <div class="_font-large _padding-top-half _padding" style="background: purple; color: white; position: fixed; top: 0; width: 100%; z-index: 999; ">STAGING</div>
-{/if}
+{/if} -->
 
 
 {#if $page.path.includes('/embed/') || $page.path.includes('abstract')}

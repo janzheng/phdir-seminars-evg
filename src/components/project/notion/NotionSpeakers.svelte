@@ -7,7 +7,7 @@
 <script>
 	import { _content } from "@/stores/sitedata"
   import Notion from '@yawnxyz/svelte-notion'
-  let blockId = _content('_notion-schedule') || ''
+  let blockId = _content('_notion-speakers') || ''
 
 </script>
 
