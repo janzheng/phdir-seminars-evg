@@ -1,10 +1,18 @@
 
 import { config } from "dotenv";
-import { testTrigger } from "@/_project/triggers" 
+import { trail } from '@/_utils/logger-trails'
+import { testTrigger, customSender } from "@/_project/triggers" 
 
 import send from '@polka/send';
 
 config(); // https://github.com/sveltejs/sapper/issues/122
+
+
+
+
+
+
+
 
 
 
@@ -27,20 +35,26 @@ export async function get(req, res) {
     }
 
 
+
+    trail(`[Trigger] ID:${req.query.id} - Trigger: ${req.query.trigger}`)
+
     let msg = ''
 
     if(req.query.trigger === 'testTrigger')
       msg = await testTrigger()
 
-    return send(res, 200, `[Event triggered successfully] ${msg}`, {
+    if(req.query.trigger === 'customSender')
+      msg = await customSender(req)
+
+    return send(res, 200, `[Event triggered successfully] ${msg} for trigger: [${req.query.trigger}]`, {
       'Content-Type': 'text',
       // 'Content-Type': 'text',
     })
 
 
 	} catch(err) {
-		console.error('[ics] api/get error:', err)
-		throw new Error('[ics] Error', err)
+		console.error('[triggers] api/get error:', err)
+		throw new Error('[triggers] Error', err)
 	}
 }
 

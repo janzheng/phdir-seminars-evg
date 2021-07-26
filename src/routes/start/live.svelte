@@ -11,6 +11,7 @@
     <!-- prevent blowouts from embeds -->
     <div class=" _margin-center _margin-bottom-2 _padding-bottom-2" style="min-width: 0; max-width: 100%;">
       <NotionLive />
+      <!-- <NotionOverflow /> -->
     </div>
     <div class="Live-messages" style="">
       <Messages />
@@ -31,6 +32,7 @@
   import Messages from '@/components/Messages.svelte'
 
   import NotionLive from '@/components/project/notion/NotionLive.svelte'
+  import NotionOverflow from '@/components/project/notion/NotionOverflow.svelte'
 
   export let id
 

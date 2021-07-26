@@ -57,30 +57,33 @@ export const Blocks = writable({})
 
 
 async function processPoster(poster) {
-  let authors = poster.Authors.split('\n')
-  poster._authors = authors
-  let authString = ''
-  authors.forEach((auth, i) => {
-    let _str = ''
-    if(auth.includes('^')) {
-      _str = auth.replace(/\^/i, '<sup>')
-      _str += '</sup>'
-      if(i < authors.length-1)
-        _str += ', '
-    } else {
-      _str = auth
-      if(i < authors.length-1)
-        _str += ', '
-    }
-    
-      authString += _str
-  })
-  poster._authorString = authString // authors.join(', ')
 
+  if(poster.Authors) {
+    let authors = poster.Authors.split('\n')
+    poster._authors = authors
+    let authString = ''
+    authors.forEach((auth, i) => {
+      let _str = ''
+      if(auth.includes('^')) {
+        _str = auth.replace(/\^/i, '<sup>')
+        _str += '</sup>'
+        if(i < authors.length-1)
+          _str += ', '
+      } else {
+        _str = auth
+        if(i < authors.length-1)
+          _str += ', '
+      }
+      
+        authString += _str
+    })
+    poster._authorString = authString // authors.join(', ')
+  }
 
-
-  let affiliations = poster.Affiliations.split('\n')
-  poster._affiliations = affiliations
+  if(poster.Affiliations) { 
+    let affiliations = poster.Affiliations.split('\n')
+    poster._affiliations = affiliations
+  }
 
   if(poster.Profiles) {
     await _fetchProfiles(poster.Profiles.split(','))
@@ -95,8 +98,11 @@ export const _fetchPosters = async (api, blockId) => {
     let posters = await res.json()
 
     // process the abstracts
-    posters.rows.forEach(poster => {
-      processPoster(poster)
+    posters.rows.forEach((poster, i) => {
+      if(poster.Status == 'Published' || (process.env.NODE_ENV !== 'production' && poster.Status == 'Preview'))
+        processPoster(poster)
+      else
+        delete posters.rows[i]
     })
 
     Blocks.update(data => {
@@ -131,7 +137,7 @@ export const _posterId = (id) => {
   let rows = get(Blocks).posters.rows
 
   if(id && rows) {
-    return rows.find(row => row['AbstractId'] == id)
+    return rows.find(row => row && row['AbstractId'] == id)
   }
   return false
 } 
@@ -185,9 +191,6 @@ export const _fetchProfiles = async (slugs) => {
 
   if(process.browser && slugs && Array.isArray(slugs) && slugs.length > 0) {
     
-
-
-
     // v3 implementation
     const res = await retry(async () => {
       return await fetchPost('https://content.phage.directory/api/v3/query', v3PeopleQuery, fetch)

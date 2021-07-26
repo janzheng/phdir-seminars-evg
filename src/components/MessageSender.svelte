@@ -1,7 +1,7 @@
 
 <div class="MessageSender {classes}">
 
-  {#if !$Profile.profile}
+  {#if !$Profile.profile || $Profile.profile != ''}
     <div class=' _card __white _padding-half _font-small'>To send a message, <a class="_font-small" href="/start/{$Profile.ticketnumber}">link your profile to your account.</a></div>
   {:else}
     <div class=' _card __white _padding-half _font-small'>Join our <a class="_font-small" href="https://phagedirectory.slack.com/archives/C026XQ7HH5Z" target="_blank">community Slack channel</a> for more conversations</div>
@@ -74,9 +74,14 @@
     onSubmit: async (_data) => {
 
       // real users only
-      if(!$Profile.profile || isSubmitting) {
+      if(!$Profile.profile) {
         console.error('No profile!')
         isSubmitting = false
+        return
+      }
+
+      if(isSubmitting) {
+        console.error('Already submitting!')
         return
       }
 
@@ -90,11 +95,6 @@
       const data = {
         content: _data.comment,
         author: $Profile.profile
-      }
-
-      if(!$Profile.profile) {
-        isSubmitting = false
-        return
       }
       // console.log('sending:', data)
       sendMessage(data)

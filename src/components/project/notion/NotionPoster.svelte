@@ -2,7 +2,13 @@
   
 
   {#if isLoading}
-    Loading poster {id}...
+    <div class="_padding _card">
+      Loading poster {id}...
+    </div>
+  {:else if !poster}
+    <div class="_padding _card">
+      No poster found for {id}
+    </div>
   {:else}
     <div class="Poster-item {itemClasses}" >
 
@@ -12,6 +18,12 @@
           <div class="Poster-Youtube _margin-bottom-2">
             <iframe class="_margin-center __width-full " style="width: 100%"
               width="544" height="315" src="https://www.youtube.com/embed/{poster.Youtube}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        {:else}
+          <div class="Poster-Youtube _margin-bottom-2">
+            <div class="_card _padding">
+              This poster author has not submitted a video yet.
+            </div>
           </div>
         {/if}
         <div class="Question">
@@ -31,7 +43,7 @@
           <div><div class="Poster-Number PosterNumber">#{poster.AbstractId}</div></div>
           <div class=" _right">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
         </div>
-        <h2 class="Poster-name _font-sans _margin-top-2 _margin-bottom-2">{poster.Name}</h2>
+        <h2 class="Poster-name _font-sans _margin-top-2 _margin-bottom-2">{poster['Abstract Name']}</h2>
         <div class="Poster-authors">{@html marked(`${poster._authorString}`)}</div>
         <div class="Poster-affiliations">{@html marked(`${poster.Affiliations}`)}</div>
 
@@ -48,10 +60,6 @@
         </div>
 
       </div>
-    
-
-
-
 
     </div>
   {/if}
@@ -76,7 +84,7 @@
   import { onMount } from 'svelte'
   export let api = '//notion-cloudflare-worker.yawnxyz.workers.dev'
   export let isLoading = true
-  export let classes = '_section-wide _margin-center', itemClasses = '_grid-2 _grid-1-2-lg _grid-gap-large _padder-top _padder-bottom'
+  export let classes = '_section-wide _margin-center', itemClasses = '_grid-1-3 _grid-1-2-lg _grid-gap-large _padder-top _padder-bottom'
 
   onMount(async () => {
     await _fetchPosters(api, postersBlockId)
@@ -88,4 +96,13 @@
 </script>
 
 <style>
+
+  iframe {
+    max-width: 100%;
+  }
+
+  .Poster-sidebar, .Poster-main {
+    min-width: 0;
+  }
+
 </style>

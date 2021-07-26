@@ -1,4 +1,4 @@
-/*
+/* 7/9/2021
 
 	Simple wrapper around logging
 
@@ -7,10 +7,44 @@
     - Events triggered analytics and logger engine?
     - Using the Winston format but adding a simple event registration system like Mixpanel
 
+  - 7/9 replaced with loglevel
+    https://www.npmjs.com/package/loglevel 
 
-	Last updated: 9/21/2020
+    loglevel defaults to "warn" log level
+    - by default we enable all levels for dev
+
+    log.trace(msg)
+
+    log.log(msg)
+      — these are all the same thing
+      log.debug(msg) (since 2020, an alias for .info or .log)
+      log.info(msg)
+      
+    log.warn(msg)
+    log.error(msg)
 	
 */
+
+import log from 'loglevel'
+// import * as log from 'loglevel'
+
+
+
+// enable all log levels for dev
+if(process.env.NODE_ENV == 'development')
+  log.enableAll()
+  
+
+export default log
+
+// export const _log = (msg) => log.trace(msg)
+
+
+
+
+
+
+
 
 
 

@@ -57,6 +57,10 @@
   import { zzz } from "@/_utils/helpers.js";
   import { niceTimeDate } from '@/_utils/date'
 
+  import log from '@/_utils/logger'
+  import logstream from '@/_utils/logger-stream'
+  import { trail } from '@/_utils/logger-trails'
+
 	// import { textReplacer } from "@/_project/app-helpers"
   // import { prefetch, goto } from '@sapper/app';
 
@@ -76,10 +80,10 @@
   let formSubmitted, formSubmitting
   let ticketPrice = -1, paymentKey = null, errorMsg
   let sentryTransaction
-
+  
 
   $: if(user) {
-    // console.log('user:', user)
+
     // ticket prices should be hard coded
     // should also be coded again separately on server
     if(user.position === 'Student'  && user.tickettype === 'In-Person' )
@@ -123,15 +127,15 @@
 
   let hasPaypal, elements, card, signupData, confirmingPayment=false, confirmedPayment=false
   const initPaypal = () => {
-    if(!hasPaypal) {
+    if(!hasPaypal && user && paymentKey) {
       console.log(`[starting paypal...] with ${paymentKey}`)
       let script = document.createElement('script')
-      script.setAttribute('src', `https://www.paypal.com/sdk/js?client-id=${paymentKey}`)
+      script.setAttribute('src', `https://www.paypal.com/sdk/js?client-id=${paymentKey}&currency=USD`)
       // get stripe pk value 
       script.onload = loadPayPal
       document.head.appendChild(script)
       hasPaypal=true
-      console.log('user:', user)
+      log.log('[initPaypal] w/user:', user)
     }
   }  
 
@@ -153,14 +157,18 @@
             //   name: user.name
             // },
             amount: {
-              value: ticketPrice
+              value: ticketPrice,
+              USD: 1,
             },
             invoice_id: `${user.name} - ${user.email} - ${user.ticketnumber} - ${niceTimeDate(new Date())}`
           }]
         });
       },
+      onShippingChange: function(data,actions){
+        return actions.resolve(); // https://github.com/paypal/paypal-checkout-components/issues/1521
+      },
       onClick: function(err) {
-        console.log('[Paypal-Finalize]  Starting Payment')
+        logstream.log('SignupFinalizePaypal', `Starting payment: ${user.name} - ${user.email}`, user)
         // _msg(`[Paypal-Finalize] Starting Payment: ${user.name} | ${user.email} | $${ticketPrice}`)
         // sentryTransaction = _tr({
         //   op: 'paypal-finalize',
@@ -172,7 +180,8 @@
         // when onApprove throws an error, we end up here
         // errors caught in !payConfirmRes.ok
         // console.error('We were unable to register your payment. If this error persists, please email jan@phage.directory. Error message:', err)
-        // errorMsg = `We were unable to register your payment. If this error persists, please email jan@phage.directory.`
+        logstream.error('SignupFinalizePaypal', `Starting payment: ${user.name} - ${user.email}`, user, err)
+        errorMsg = `We were unable to register your payment. If this error persists, please email jan@phage.directory.`
         sentryTransaction.finish()
       },
       onApprove: function(data, actions) {
@@ -185,6 +194,7 @@
 
           if (details && details.error === 'INSTRUMENT_DECLINED') {
             // _msg(`[Paypal-Finalize] Card declined for: ${user.name} | ${user.email} | $${ticketPrice}`)
+            logstream.error('SignupFinalizePaypal', `Card declined: ${user.name} - ${user.email}`, user)
             return actions.restart()
           }
           
@@ -193,6 +203,7 @@
           user['email'] = user['email'] ? user['email'].trim() : ''
 
           // console.log('pp details:' , details)
+          logstream.log('SignupFinalizePaypal', `Payment approved for: ${user.name} - ${user.email}`, user)
           
           // register completed payment w/ Airtable 
           const payConfirmRes = await fetchPost('/api/setters', { 
@@ -212,10 +223,15 @@
             // _msg(`[Paypal-Finalize] Data Capture Error: ${payConfirmData?.error} — ${user.name} | ${user.email} — ${payConfirmRes.status}` )
             // console.error('Payment confirmation error:', signupData?.error, payConfirmRes.status)
             // errorMsg = `We were unable to register your payment, but your payment went through. We have been notified and are looking into it. ${json?.error}`
+            
+            trail(`[SignupFinalizePaypal] Error: Payment/user update failed: ${user.name} - ${user.email}`, user)
+            logstream.error('SignupFinalizePaypal', `Payment/user update failed: ${user.name} - ${user.email}`, user)
             throw new Error('Evergreen registration failed')
             return
           }
 
+          trail(`[SignupFinalizePaypal] Success: Payment + user update success: ${user.name} - ${user.email}`, user)
+          logstream.error('SignupFinalizePaypal', `Payment + user update success: ${user.name} - ${user.email}`, user)
           zzz(scrollToAnchor, 'top', 200)
 
           formSubmitted=true
@@ -239,7 +255,7 @@
           user = signupData
 
           // await prefetch(`/start/${signupData.ticketnumber}`)
-          console.log('Payment confirmation for user:', user)
+          // console.log('Payment confirmation for user:', user)
           sentryTransaction.finish()
 
           // if(process.browser)

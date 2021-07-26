@@ -55,8 +55,34 @@ export const testTrigger = async () => {
   if(process.env.TRIGGERS_ON !== 'true' || _triggerRecord.fields['Status'] !== 'On')
     return '[trigger] Status is Off; not triggered'
 
-  // console.log('testTrigger launching', )
-  await sendGroupEmailToAttendees('_email-pre-event')
+  console.log('[testTrigger] launching', )
+  // await sendGroupEmailToAttendees('_email-pre-event')
+
+  await turnOffTrigger(_triggerRecordId)
+  return '[testTrigger] complete'
+}
+
+
+
+
+// custom sender
+export const customSender = async (req) => {
+  const _triggerRecordId = 'recd5Wm9ZeWtMLMCa' // record of the trigger
+  const {template, view} = req.query
+
+  
+  const _triggerRecord = await Cytosis.getRecord({
+    apiKey: apiEditorKey,
+    baseId: baseId,
+    tableName: 'Content',
+    recordId: _triggerRecordId,
+  })
+  
+  if(process.env.TRIGGERS_ON !== 'true' || _triggerRecord.fields['Status'] !== 'On')
+    return '[trigger] Status is Off; not triggered'
+  
+  console.log('[testTrigger] Sending custom sender', template, view )
+  await sendGroupEmailToAttendees(template, view)
 
   await turnOffTrigger(_triggerRecordId)
   return '[testTrigger] complete'

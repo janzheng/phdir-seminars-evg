@@ -1,0 +1,139 @@
+
+/* Style not specific to paged.js ----------------------------------------------------------------------- 
+--------------------------------------------------------------------------------------------------------- */
+
+
+:root{
+    font-size: 16px;
+    --baseline: 22px;
+}
+
+* { 
+    font-size: 1rem;
+    line-height: 22px;
+    margin: 0;
+    padding: 0;
+}
+
+ul{ list-style: none; }
+
+a{ color: currentColor; text-decoration: none; }
+
+
+
+.Abstract-affiliations {
+  counter-reset: affiliation 0;
+}
+.Abstract-affiliations li {
+  display: inline;
+  padding-right: 8px;
+  margin-left: 0;
+  counter-increment: affiliation;
+}
+
+.Abstract-affiliations li:before {
+  content: counter(affiliation) ". ";
+}
+
+/* CHAPTER TITLE ----------------------------------------- */
+
+
+/* .chapter h1, 
+#toc h1 {
+    font-family: 'Georgia';
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+    line-height: var(--baseline);
+    margin-bottom: 12px;
+    margin-top: calc(var(--baseline)*6);
+    margin-bottom: calc(var(--baseline)*2);
+} */
+
+/* .chapter h1 + p, 
+#introduction h1 + p,
+#prefatory-note h1 + p{
+  text-indent: 0;
+} */
+
+
+/* counter */
+/* body { counter-reset: chapter; }
+.chapter h1 { counter-increment: chapter; }
+.chapter h1::before { 
+  content: counter(chapter, lower-roman);
+  font-weight: normal;
+}
+
+
+.chapter h1::before{
+    font-size: 2rem;
+    line-height: 0;
+    padding-right: var(--baseline);
+} */
+
+
+/* TEXT ---------------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6, p, li, b {
+  /* font-family: 'Georgia', sans-serif !important; */
+  font-family: Times, 'Times New Roman', serif !important;
+  color: black;
+}
+
+.book p, .book li, .book b, .book div, .book a, .book ol {
+  /* font-family: 'Georgia', sans-serif !important; */
+  font-family: Times, 'Times New Roman', serif !important;
+  color: black;
+  font-size: 15px !important;
+  line-height: 19px !important;
+}
+
+li {
+  margin: 0;
+  line-height: 19px;
+} 
+
+a { 
+  text-decoration: none;
+}
+
+h1 {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+
+
+
+p{
+  /* text-indent: 1rem;
+  text-align: justify; */
+}
+
+/* blockquote and list */
+
+/* blockquote, .chapter li{
+    margin: var(--baseline) 1rem;
+} */
+
+blockquote p:before{ content: "“"; }
+blockquote p:after{ content: "”"; }
+
+
+blockquote p,
+blockquote + p,
+.chapter li{ text-indent: 0; }
+
+
+
+
+
+/* WHITOUT PAGED.JS */
+@media screen{
+    body{
+        max-width: 70vw;
+        padding-left: 15vw;
+    }
+    figure, figure img{ max-width: 500px; }
+}
