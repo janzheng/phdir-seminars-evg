@@ -11,6 +11,7 @@
 import mailgun from 'mailgun-js'; // insecure, uses private API, but works better w/ Vercel
 import MailComposer from 'nodemailer/lib/mail-composer'; 
 import { config } from "dotenv";
+import { trail } from '@/_utils/logger-trails'
 
 config() // https://github.com/sveltejs/sapper/issues/122
 // import uuid from 'uuid-by-string';
@@ -176,6 +177,9 @@ export const mailto = async (data) => {
 		// console.log('[notify] sending out notification', mailData)
     // const res = await sendMail(mailData)
     const res = await compose(mailData)
+
+    trail(`[Mailer] Email sent to: ${to}`, mailData)
+
     return res
 
   } catch (e) {

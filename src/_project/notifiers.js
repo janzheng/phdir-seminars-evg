@@ -24,6 +24,8 @@ import { keyReplace } from "@/_utils/helpers.js"
 import { dict, textReplacer } from "./app-helpers.js"
 import { getIcsDecoded } from "@/routes/api/event.js"
 
+import { trail } from '@/_utils/logger-trails'
+
 
 
 
@@ -140,6 +142,8 @@ export const sendGroupEmailToAttendees = async (templateName, view='Grid view') 
     // console.log('[sendGroupEmailToAttendees]', attendees)
 
 
+    trail(`[sendGroupEmailToAttendees] Group email: ${templateName} - view: ${view} - # emails: ${attendees.length}`)
+
     // build template and send to each person
     attendees.map(user => {
       const replaced = keyReplace(template.fields['Markdown'], {
@@ -151,12 +155,12 @@ export const sendGroupEmailToAttendees = async (templateName, view='Grid view') 
 
       // DO NOT UNCOMMENT UNTIL USING OFFICIALLY
       if(template.fields['Title'] && md && user.fields['Email'])
-      mailto({
-        subject: template.fields['Title'],
-        to: user.fields['Email'], // tescphage@gmail.com
-        html: md,
-        text: md,
-      })
+        mailto({
+          subject: template.fields['Title'],
+          to: user.fields['Email'], // tescphage@gmail.com
+          html: md,
+          text: md,
+        })
 
     })
 

@@ -96,6 +96,7 @@ export default {
 				'process.env.npm_package_version': undefined, // so airtable can compile properly
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode),
+        'process.env.PROJECT_ID': JSON.stringify(process.env.PROJECT_ID),
 
         // env keys for the public!
         'process.env.SUPABASE_URL': JSON.stringify(process.env.SUPABASE_URL),

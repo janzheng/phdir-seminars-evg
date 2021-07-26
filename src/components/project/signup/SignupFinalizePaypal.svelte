@@ -56,8 +56,8 @@
   import { scrollToAnchor } from "@/_utils/scrollto.js";
   import { zzz } from "@/_utils/helpers.js";
   import { niceTimeDate } from '@/_utils/date'
-  import log from '@/_utils/logger'
 
+  import log from '@/_utils/logger'
   import logstream from '@/_utils/logger-stream'
   import { trail } from '@/_utils/logger-trails'
 
@@ -80,10 +80,6 @@
   let formSubmitted, formSubmitting
   let ticketPrice = -1, paymentKey = null, errorMsg
   let sentryTransaction
-
-  // test trail
-  log.log(`hey this is a test`, {ex: 'some test data'})
-  trail(`hey this is a test`, {ex: 'some test data'})
   
 
   $: if(user) {
@@ -207,7 +203,7 @@
           user['email'] = user['email'] ? user['email'].trim() : ''
 
           // console.log('pp details:' , details)
-          logstream.error('SignupFinalizePaypal', `Payment approved for: ${user.name} - ${user.email}`, user)
+          logstream.log('SignupFinalizePaypal', `Payment approved for: ${user.name} - ${user.email}`, user)
           
           // register completed payment w/ Airtable 
           const payConfirmRes = await fetchPost('/api/setters', { 
@@ -228,11 +224,13 @@
             // console.error('Payment confirmation error:', signupData?.error, payConfirmRes.status)
             // errorMsg = `We were unable to register your payment, but your payment went through. We have been notified and are looking into it. ${json?.error}`
             
+            trail(`[SignupFinalizePaypal] Error: Payment/user update failed: ${user.name} - ${user.email}`, user)
             logstream.error('SignupFinalizePaypal', `Payment/user update failed: ${user.name} - ${user.email}`, user)
             throw new Error('Evergreen registration failed')
             return
           }
 
+          trail(`[SignupFinalizePaypal] Success: Payment + user update success: ${user.name} - ${user.email}`, user)
           logstream.error('SignupFinalizePaypal', `Payment + user update success: ${user.name} - ${user.email}`, user)
           zzz(scrollToAnchor, 'top', 200)
 
@@ -257,7 +255,7 @@
           user = signupData
 
           // await prefetch(`/start/${signupData.ticketnumber}`)
-          console.log('Payment confirmation for user:', user)
+          // console.log('Payment confirmation for user:', user)
           sentryTransaction.finish()
 
           // if(process.browser)

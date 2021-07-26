@@ -1,5 +1,6 @@
 
 import { config } from "dotenv";
+import { trail } from '@/_utils/logger-trails'
 import { testTrigger, customSender } from "@/_project/triggers" 
 
 import send from '@polka/send';
@@ -33,6 +34,9 @@ export async function get(req, res) {
       })
     }
 
+
+
+    trail(`[Trigger] ID:${req.query.id} - Trigger: ${req.query.trigger}`)
 
     let msg = ''
 

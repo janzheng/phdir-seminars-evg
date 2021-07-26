@@ -79,7 +79,7 @@ export const customSender = async (req) => {
   })
   
   if(process.env.TRIGGERS_ON !== 'true' || _triggerRecord.fields['Status'] !== 'On')
-  return '[trigger] Status is Off; not triggered'
+    return '[trigger] Status is Off; not triggered'
   
   console.log('[testTrigger] Sending custom sender', template, view )
   await sendGroupEmailToAttendees(template, view)

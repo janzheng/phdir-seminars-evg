@@ -1,6 +1,8 @@
 
 /* 
 
+  NOT IMPLEMENTED YET — use triggers instead
+
   External or webhook-triggered email senders
   - make sure to validate against an ENV!
 

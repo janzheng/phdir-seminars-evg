@@ -19,9 +19,6 @@
 import pino from 'pino'
 import { logflarePinoVercel } from 'pino-logflare'
 
-
-// add a rollup rewrite here!! ****
-
 let logger
 
 // Logflare logger
@@ -47,7 +44,6 @@ if(process.env.LOGFLARE_API && process.env.LOGFLARE_SOURCE) {
   console.log('[LoggerStream] Logflare has been set up with Vercel + Logflare')
 } else {
   // basic browser logger
-  console.log('baap')
   logger = pino({
     prettyPrint: process.env.NODE_ENV == 'development' ? true : false
   })

@@ -25,6 +25,10 @@ const supabase = createClient(
 // schema: content (body), author (author slug for ID)
 // stores data as jsonb
 export const trail = async (message, data) => {
+
+  if(process.env.PROJECT_ID)
+    message = `[${process.env.PROJECT_ID}]:${message}`
+
   try {
     let { body } = await supabase
       .from('pdn-trails')
