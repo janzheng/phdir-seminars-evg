@@ -24,6 +24,10 @@
   import { stores } from "@sapper/app";
   let page = stores().page
   // $:console.log('page:', $page)
+
+
+  import Notion from '@yawnxyz/svelte-notion'
+  let blockId = _content('_notion-announcements') || ''
 </script>
 
 
@@ -97,6 +101,7 @@
 
       {#if $Profile.ticketnumber && isAttending($Profile)}
         <div class="Nav _margin-top-2 _margin-center ">
+
           <nav>
             <ul>
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/live" ? "__active" : ""}' aria-current='{segment === "/start/live" ? "page" : undefined}' href='/start/live'>Start</a></li>
@@ -121,6 +126,13 @@
     </div>  
   </nav>
 
+{/if}
+
+
+{#if $Profile.ticketnumber && isAttending($Profile)}
+  {#if process.browser && blockId}
+    <Notion loadingMsg='' classes={'_center'} id={blockId} api={'https://notion-cloudflare-worker.yawnxyz.workers.dev'}/>
+  {/if}
 {/if}
 
 
