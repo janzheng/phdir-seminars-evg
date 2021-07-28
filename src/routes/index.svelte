@@ -33,6 +33,17 @@
 
       <ContentBlock id="sponsors" name="_sponsors" classes="SponsorSection _section-page _margin-center _center _divider-top _divider-bottom" />
 
+    </div>
+  </div>
+
+  <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
+    <div id="datetime" class="Content-box _margin-top-2 _margin-bottom-2 ">
+      <NotionFree />
+    </div>
+  </div>
+
+  <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
+    <div class="_section-article _margin-center">
 
       <div id="datetime" class="Content-box _margin-top-2 _margin-bottom-2 _grid-1-4 _grid-gap-large">
         <CalDate str={_caldate} showInsert={false} styles="width: 10rem; height: 8rem;" />
@@ -125,6 +136,8 @@
   import CalDate from '@/components/CalDate.svelte'
   import ContentBlock from '@/components/ContentBlock.svelte'
   import Switch from '@/components/widgets/Switch.svelte'
+
+  import NotionFree from '@/components/project/notion/NotionFree.svelte'
   // import Subscribe from '../components/Subscribe.svelte';
   // import RenderProfile from '../components/RenderProfile.svelte';
   // import ScheduleItem from '../components/ScheduleItem.svelte';
