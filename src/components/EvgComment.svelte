@@ -14,7 +14,7 @@
               <input id="email" name="email" on:change={handleChange} on:blur={handleChange} bind:value={$form.email}  placeholder="Your email (optional)" type="email" class="_form-input __width-full"> 
             </div>
           {/if}
-          <div class="Formlet Formlet-input _margin-top-xs">
+          <div class="Formlet Formlet-input">
             <!-- <label for="comment" class="_form-label">Comment</label> -->
             <input id="comment" name="comment" bind:value={$form.comment} required="required" class="_form-input __width-full" placeholder="Comment">
           </div>
@@ -23,7 +23,7 @@
       </div>
 
       {#if submitted}
-        <div class="_card _padding _margin-top-xs"><div class="_color-brand _padding-top-0">🎉 &nbsp; Thank you!</div></div>
+        <div class="_card _padding"><div class="_color-brand _padding-top-0">🎉 &nbsp; Thank you!</div></div>
       {:else}
         <button type="submit" class="_button __action _margin-bottom-none _width-full _margin-top-xs" >
           {#if isSubmitting}
