@@ -11,7 +11,8 @@
     <div class="AbstractBook _section-page _padding-top-2 _margin-center ">
       <div class=" _margin-center _margin-bottom-2 _padding-bottom-2">
         <div class="_card _padding">
-          <p>Please wait until the sections below have loaded, then hit the button!</p>
+          <p>Please wait until the sections below have loaded, then hit the button! Enter a page number offset here: </p>
+          <input id="offset" name="offset" bind:value={pageOffset} placeholder="0" type="number" > 
           <div class="_button __action" on:click={()=>initBook()}>Convert into book</div>
         </div>
       </div>
@@ -21,7 +22,7 @@
 
 
 
-<div class="AbstractBook-render ">
+<div class="AbstractBook-render " style="--pageOffset: {pageOffset}">
   {#if process.browser && !isLoading}
 
     <p id="permission">This abstract book is not a formal conference proceedings. Information can not be referenced without explicit permission of the author(s).</p>
@@ -30,7 +31,7 @@
         {#if $Blocks && $Blocks.posters}
  
   
-          <section id="toc">  
+          <section id="toc" style="counter-reset: page 35;">  
             <ul>
               {#each topics as topic}
                 <li id="{"toc-"+slugify(topic)}"><a href="{'#'+slugify(topic)}">{topic}</a></li>
@@ -117,7 +118,7 @@
   export let api = process.env.NOTION_API
   export let isLoading = true
   export let classes = '', itemClasses = '_divider-bottom'
-  export let categories = {}, options = []
+  export let categories = {}, options = [], pageOffset=0
   export let posters, hasBook, topics = {}, authors = []
 
   import slugify from 'slugify'
@@ -225,10 +226,10 @@
     position: inherit;
     color: black !important;
   }
-  
 
   #toc {
-    /* counter-reset: page 20; */
+    counter-reset: page 20;
+    /* counter-reset: page var(--offsetProperty); */
   }
 
   h1{ 
