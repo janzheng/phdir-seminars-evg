@@ -81,7 +81,7 @@ h1, h2, h3, h4, h5, h6, p, li, b {
   color: black;
 }
 
-.book p, .book li, .book b, .book div, .book a, .book ol {
+.book p, .book li, .book b, .book div, .book a, .book ol, .book em, .book sup, .book span {
   /* font-family: 'Georgia', sans-serif !important; */
   font-family: Times, 'Times New Roman', serif !important;
   color: black;
@@ -137,3 +137,22 @@ blockquote + p,
     }
     figure, figure img{ max-width: 500px; }
 }
+ 
+
+
+
+/* Abstract-book specific styles */
+
+  .notion-asset-wrapper {
+    display: none !important;
+    /* hide the notion embeds */
+  }
+  .Abstract-authors span {
+    white-space: break-spaces;
+    display: inline-block;
+  }
+  .book sup {
+    position: relative;
+    top: -6px;
+    font-size: 13px !important;
+  }

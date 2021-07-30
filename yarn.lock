@@ -1202,10 +1202,10 @@
   dependencies:
     "@types/node" "*"
 
-"@yawnxyz/svelte-notion@0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@yawnxyz/svelte-notion/-/svelte-notion-0.0.22.tgz#0845927bbd1b261a845096f86ed32304581c337c"
-  integrity sha512-5kvycw3cozTcFT9c+EQ0HJ5Zi6P2WNesArceniQuRpoBcNAZQYGeSx/pgq906mVdINKbOidJ68BE9y8OaRHF2g==
+"@yawnxyz/svelte-notion@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@yawnxyz/svelte-notion/-/svelte-notion-0.0.23.tgz#8e0393cce3761106b0e2e93623083e731bb740e5"
+  integrity sha512-EUskOtJCDwdb7VAwLUOqubCLXmMQ6/Inmngy/gqKjqLiwYwCaY5b42eAA7kDDaSbKzLttnMRZcweaeIsFC68jA==
   dependencies:
     clipboard "^2.0.6"
     prism-solarized-dark "^1.0.1"
@@ -5478,6 +5478,11 @@ slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
+
+slugify@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.0.tgz#6bdf8ed01dabfdc46425b67e3320b698832ff893"
+  integrity sha512-FkMq+MQc5hzYgM86nLuHI98Acwi3p4wX+a5BO9Hhw4JdK4L7WueIiZ4tXEobImPqBz2sVcV0+Mu3GRB30IGang==
 
 smart-buffer@^4.1.0:
   version "4.1.0"

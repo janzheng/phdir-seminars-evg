@@ -17,41 +17,78 @@
       </div>
     </div>
   </UserCheck>
-{/if}
+{/if} 
 
 
 
 <div class="AbstractBook-render ">
-  {#if process.browser}
+  {#if process.browser && !isLoading}
 
     <p id="permission">This abstract book is not a formal conference proceedings. Information can not be referenced without explicit permission of the author(s).</p>
     <div class="book">
       <div class='AbstractContainer {classes}' >
         {#if $Blocks && $Blocks.posters}
-          {#each posters as poster}
-            <section class="Abstract-item chapter {itemClasses}" >
-              {#if poster.Category}<div class="Abstract-category _inline-block">{poster.Category}</div>{/if}
-              {#if poster.QR}<div class="Abstract-QR" style="float: right" ><img width=100 height=100 alt="QR link" src="{poster.QR}"></div>{/if}
-              <div>
-                <span class="Abstract-Number PosterNumber" style="font-family: sans-serif">#{poster.AbstractId}</span>
-                <span class="Abstract-Link _padding-left-2"><a href="https://evergreen.phage.directory/start/posters/{poster.AbstractId}">https://evergreen.phage.directory/start/posters/{poster.AbstractId}</a></span>
-              </div>
-              <h1 class="Abstract-name">{poster.Name}</h1>
-              <div class="Abstract-authors">{@html marked(`${poster._authorString}`)}</div>
-              <div class="Abstract-affiliations">{@html marked(`${poster.Affiliations}`)}</div>
-              <div class="_flex _align-vertically">
-                <div>
-                  <div class="Abstract-presenting" ><strong>Presenting:</strong> {poster.Presenting}</div>
-                  <div class="Abstract-attending" ><strong>Attending:</strong> {poster.Attending}</div>
-                </div>
-                <div class="Abstract-correspondence _flex-1 _md-pfix _padding-left-2" >{@html marked(`${poster.Correspondence}`)}</div>
-              </div>
-              <div class="Abstract-body" >
-                <Notion classes={''} id={poster.id} api={'https://notion-cloudflare-worker.yawnxyz.workers.dev'}/>
-              </div>
-              
-            </section>
-          {/each}
+ 
+  
+          <section id="toc">  
+            <ul>
+              {#each topics as topic}
+                <li id="{"toc-"+slugify(topic)}"><a href="{'#'+slugify(topic)}">{topic}</a></li>
+              {/each}
+            </ul>
+          </section>   
+
+    
+          <!-- abstracts listed in order, like the notion db? -->
+          <section id="author-index" class=""> 
+            <ul>
+              {#each Object.keys(authorIndex).sort() as authorName}
+              <li id="{"toc-author-"+slugify(authorName)}">
+                <span class="author-index-name">{authorName}</span>
+                <span class="author-index-links">
+                  {#each authorIndex[authorName] as id, i}
+                    <a class="author-index-link {i>0?"_second-link":""}" href="{'#abstract-'+id}">#{id}</a>
+                  {/each} 
+                </span>
+                </li>
+              {/each}  
+            </ul> 
+          </section>
+
+
+          <!-- each poster is a section / "chapter" -->
+          {#each topics as topic}
+            {#each posters.filter((poster) => poster['Category'] == topic) as poster, counter}
+              {#if poster}
+                <section class="Abstract-item chapter {itemClasses}" id={counter==0 ? slugify(topic) : null} >
+                  {#if poster.Category}<div class="Abstract-category _inline-block">{poster.Category}</div>{/if}
+                  {#if poster.QR}<div class="Abstract-QR" style="float: right" ><img width=100 height=100 alt="QR link" src="{poster.QR}"></div>{/if}
+                  <div id={'abstract-'+poster.AbstractId}>
+                    <span class="Abstract-Number PosterNumber" style="font-family: sans-serif">#{poster.AbstractId}</span>
+                    <span class="Abstract-Link _padding-left-2"><a href="https://evergreen.phage.directory/start/posters/{poster.AbstractId}">https://evergreen.phage.directory/start/posters/{poster.AbstractId}</a></span>
+                  </div>
+                  <h1 class="Abstract-name">{poster['Abstract Name']}</h1>
+                  <div class="Abstract-authors">{@html marked(`${poster._authorString}`)}</div>
+                  <div class="Abstract-affiliations">{@html marked(`${poster.Affiliations}`)}</div>
+                  <!-- <div class="_flex _align-vertically">
+                    <div>
+                      <div class="Abstract-presenting" ><strong>Presenting:</strong> {poster.Presenting}</div>
+                      <div class="Abstract-attending" ><strong>Attending:</strong> {poster.Attending}</div>
+                      <div class="Abstract-correspondence _flex-1 _md-pfix _padding-left-2" >{@html marked(`${poster.Correspondence}`)}</div>
+                    </div>
+                  </div> -->
+                  {#if poster.Correspondence}<div class="Abstract-correspondence _md-pfix" >{@html marked(`${poster.Correspondence}`)}</div>{/if}
+                  <div class="Abstract-body" >
+                    <Notion classes={''} id={poster.id} api={api}/>
+                  </div>
+                  
+                </section>
+              {/if}
+            {/each}
+          {/each}    
+          
+          
+
         {/if}
       </div>
 
@@ -73,22 +110,23 @@
   import Notion from '@yawnxyz/svelte-notion'
   import UserCheck from '@/components/UserCheck.svelte'
   import ProfileThumb from '@/components/widgets/profile/ProfileThumb.svelte'
-	import { _content, Blocks, _fetchPosters, _poster, Profiles, _posterId } from "@/stores/sitedata"
+	import { _content, Blocks, _fetchPosters, _poster, Profiles, _posterId, authorIndex } from "@/stores/sitedata"
   
   let blockId = _content('_notion-posters') || ''
 
-  export let api = '//notion-cloudflare-worker.yawnxyz.workers.dev'
+  export let api = process.env.NOTION_API
   export let isLoading = true
   export let classes = '', itemClasses = '_divider-bottom'
   export let categories = {}, options = []
-  export let posters, hasBook
+  export let posters, hasBook, topics = {}, authors = []
+
+  import slugify from 'slugify'
 
   _fetchPosters(api, blockId)
   
     
 
   $: if($Blocks.posters) {
-    isLoading = false
     // posters = $Blocks.posters.rows
     $Blocks.posters.rows.forEach(poster => {categories[poster.Category]=true})
     // console.log('derp', _poster('third'))
@@ -96,8 +134,20 @@
     
     posters = $Blocks.posters.rows
     console.log('posters:', posters)
-
+    
     // initBook()
+    
+    // grab topics as keys and convert into array
+    posters.map(poster => {
+      topics[poster['Category']] = true
+    })
+    topics = Object.keys(topics).sort()
+    console.log('topics:', topics)
+
+    console.log('authorIndex:', authorIndex)
+
+
+    isLoading = false
   }
 
 
@@ -156,26 +206,32 @@
   /* GLOBAL ----------------------------------------------------------------------- */
 
   /* Style not specific to paged.js */
-  /* @import "/book/css/global/reset.css"; */
+  @import "/book/css/global/reset.css";
   @import "/book/css/global/style.css"; 
 
   /* Specific to paged.js */
   /* @import "/book/css/global/layout.css"; */
 
-
+ 
   /* PARTS ----------------------------------------------------------------------- */
   /* @import "/book/css/parts/cover.css"; */
-  /* @import "/book/css/parts/table-of-content.css"; */
+  @import "/book/css/parts/table-of-content.css";
   /* @import "/book/css/parts/frontmatter.css"; */
   /* @import "/book/css/parts/backmatter.css"; */
   /* @import "/book/css/parts/figures.css"; */
 
+  
+  a {
+    position: inherit;
+    color: black !important;
+  }
+  
 
   #toc {
-    counter-reset: page 20;
+    /* counter-reset: page 20; */
   }
 
-  h1{
+  h1{ 
     font-size: 21px;
     line-height: 26px;
     font-weight: 400;
@@ -255,19 +311,19 @@
       }
 
     }
-
+ 
 
     /*  running header (book title) 
         way 1 : keep HTML element and style inside the running header, remove the element from the flux  */
     #permission { 
       position: running(permission); 
         font-family: Times, 'Times New Roman', serif;
-      font-weight: 100;
+      font-weight: 100; 
       text-indent: 0;
       color: #666;
       text-align: center;
       font-size: 15px;
-      line-height: 18px;
+      line-height: 18px; 
       padding: 0;
       margin: 0; 
     }
@@ -279,7 +335,17 @@
       display: none;
     }
     
+    #author-index {
+      column-count: 2;
+    }
 
+    ul{ list-style: none; }
+    li { margin-left: 0; }
+
+
+
+
+    
     /* PAGE BREAKS --------------------------------------------------------------------- */
 
     /* #halftitle, 
@@ -318,6 +384,14 @@
       /* break-before: left; */
       break-before: page;
     }
+
+
+
+
+
+
+
+
 
 
     /* section { page: section; } */

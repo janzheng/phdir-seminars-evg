@@ -15,7 +15,16 @@
 	import { _content } from "@/stores/sitedata"
   import marked from 'marked'
 
+  import { scrollToAnchor } from "@/_utils/scrollto.js";
+
   let sponsors = _content('_sponsor-page') || ''
+
+  
+  $: if(sponsors) {
+    if(process.browser && window.location.hash) {
+      scrollToAnchor(window.location.hash)
+    }
+  }
 
 </script>
 

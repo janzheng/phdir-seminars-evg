@@ -54,30 +54,60 @@ export const Blocks = writable({})
 
 
 
+/* for the author index
+{
+  slugified-author-name: [abstract IDs]
+}
 
+*/
+export const authorIndex = {}
 
 async function processPoster(poster) {
 
   if(poster.Authors) {
-    let authors = poster.Authors.split('\n')
-    poster._authors = authors
-    let authString = ''
-    authors.forEach((auth, i) => {
-      let _str = ''
-      if(auth.includes('^')) {
-        _str = auth.replace(/\^/i, '<sup>')
-        _str += '</sup>'
-        if(i < authors.length-1)
-          _str += ', '
-      } else {
-        _str = auth
-        if(i < authors.length-1)
-          _str += ', '
-      }
-      
-        authString += _str
-    })
-    poster._authorString = authString // authors.join(', ')
+    // process linebreak separated authors — this breaks single line authors!!
+    // if(poster.Authors.includes('\n')) {
+      let authors = poster.Authors.split('\n')
+      poster._authors = authors
+      let authString = ''
+      authors.forEach((auth, i) => {
+        let _str = ''
+        auth = auth.trim()
+
+        // build the author index
+        let authName, authNameArr = auth.match(/.+?(?=[\^*\n])/g)
+        if(authNameArr && authNameArr.length>0) {
+          // authName = authName.trim()
+          authName = authNameArr[0].trim()
+        } else {
+          authName = auth
+        }
+        if(authName.trim().substring(authName.length-1) == ',') {
+          authName = authName.substring(0,authName.length-1) // remove errant commas
+        }
+        authorIndex[authName] = authorIndex[authName] && authorIndex[authName].length > 0 ? 
+          authorIndex[authName] = [...authorIndex[authName], poster.AbstractId] : 
+          authorIndex[authName] = [poster.AbstractId]
+        
+        if(auth.includes('^')) {
+          if(auth.trim().substring(auth.length-1) == ',') {
+            auth = auth.substring(0,auth.length-1) // remove errant commas
+          }
+
+          _str = auth.replace(/\^/i, '<sup>')
+          _str += '</sup>'
+          if(i < authors.length-1)
+            _str += ', '
+        } else {
+          _str = auth
+          if(i < authors.length-1)
+            _str += ', '
+        }
+        
+        authString += `<span>${_str}</span>`
+      })
+      poster._authorString = authString // authors.join(', ')
+    // }
   }
 
   if(poster.Affiliations) { 
@@ -92,7 +122,9 @@ async function processPoster(poster) {
 }
 
 
+let __posters
 export const _fetchPosters = async (api, blockId) => {
+  if(__posters) return __posters // faster response
   if(process.browser && !get(Blocks).posters) {
     let res = await fetch(`${api}/v1/collection/${blockId}`)
     let posters = await res.json()
@@ -109,6 +141,8 @@ export const _fetchPosters = async (api, blockId) => {
       data['posters'] = posters
       return data
     })
+
+    __posters = posters
     return true
   }
   return false

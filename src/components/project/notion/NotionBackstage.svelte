@@ -1,6 +1,6 @@
 
 {#if process.browser && blockId}
-  <Notion classes={''} id={blockId} api={'https://notion-cloudflare-worker.yawnxyz.workers.dev'}/>
+  <Notion classes={''} id={blockId} api={process.env.NOTION_API}/>
 {/if}
 
 

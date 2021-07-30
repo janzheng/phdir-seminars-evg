@@ -30,7 +30,7 @@
           <p>Suggest a question for the Poster Q&A Session </p>
           <Question topic={id} type='Poster' showEmail={false} />
           <div class="_margin-top _card __white _padding">
-            Alternately, ask questions on <a href="https://phagedirectory.slack.com/archives/C026XQ7HH5Z" target="_blank">our #Evergreen Slack channel</a>
+            Alternately, ask questions on <a href="https://phagedirectory.slack.com/archives/C026XQ7HH5Z" target="_blank">our #Evergreen Slack channel</a> | <a href="https://phage.directory/slack" target="_blank">Join our Slack</a>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
           <div><div class="Poster-Number PosterNumber">#{poster.AbstractId}</div></div>
           <div class=" _right">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
         </div>
-        <h2 class="Poster-name _font-sans _margin-top-2 _margin-bottom-2">{poster['Abstract Name']}</h2>
+        <h2 class="Poster-name _font-sans _margin-bottom-2">{poster['Abstract Name']}</h2>
         <div class="Poster-authors">{@html marked(`${poster._authorString}`)}</div>
         <div class="Poster-affiliations">{@html marked(`${poster.Affiliations}`)}</div>
 
@@ -56,7 +56,8 @@
         {/if}
 
         <div class="Poster-body _divider-top">
-          <Notion classes={''} id={poster.id} api={'https://notion-cloudflare-worker.yawnxyz.workers.dev'}/>
+          <Notion classes={''} id={poster.id} api={process.env.NOTION_API}/>
+          <!-- <Notion classes={''} id={poster.id} api={'http://127.0.0.1:8787'} /> -->
         </div>
 
       </div>
@@ -82,7 +83,7 @@
   let postersBlockId = _content('_notion-posters') || ''
 
   import { onMount } from 'svelte'
-  export let api = '//notion-cloudflare-worker.yawnxyz.workers.dev'
+  export let api = process.env.NOTION_API
   export let isLoading = true
   export let classes = '_section-wide _margin-center', itemClasses = '_grid-1-3 _grid-1-2-lg _grid-gap-large _padder-top _padder-bottom'
 
