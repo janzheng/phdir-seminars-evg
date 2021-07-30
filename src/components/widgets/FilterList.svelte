@@ -4,7 +4,8 @@
 
 <div class="FilterList {classes}">
   <div class="FilterList-sidebar {sidebarClasses}">
-    <div class="FilterList-sidebar-content _sticky _top-0">
+    <!-- <div class="FilterList-sidebar-content _sticky _top-0"> -->
+    <div class="FilterList-sidebar-content ">
       <form id="formlet-top" class="Formlet-container">
         <div id="formlet--filterstring" class="Formlet Formlet-input ">
           <div class="_md-pfix"><label class="Formlet-label" for="filterString"><p>Search</p></label> </div> 

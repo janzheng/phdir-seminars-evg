@@ -1,6 +1,7 @@
 
 {#if process.browser && blockId}
-  <Notion classes={''} id={blockId} api={'https://notion-cloudflare-worker.yawnxyz.workers.dev'}/>
+  <Notion classes={''} id={blockId} api={process.env.NOTION_API}/>
+  <!-- <Notion classes={''} id={blockId} api={'//localhost:8787'}/> -->
 {/if}
 
 

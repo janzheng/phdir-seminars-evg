@@ -63,7 +63,7 @@
   export let filterString, filterOptions
 
   import { onMount } from 'svelte'
-  export let api = '//notion-cloudflare-worker.yawnxyz.workers.dev'
+  export let api = process.env.NOTION_API
   export let isLoading = true
   export let classes = '', itemClasses = '_divider-bottom'
   export let categories = {}, options = []

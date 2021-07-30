@@ -3,7 +3,7 @@
   {#if !show}
     <div class="_button _width-full _center __action-outline" on:click={()=>{show=true}}>Show More</div>
   {:else}
-    <Notion classes={''} id={blockId} api={'https://notion-cloudflare-worker.yawnxyz.workers.dev'}/>
+    <Notion classes={''} id={blockId} api={process.env.NOTION_API}/>
   {/if}
 {/if}
 

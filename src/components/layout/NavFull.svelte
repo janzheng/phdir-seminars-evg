@@ -131,7 +131,7 @@
 
 {#if $Profile.ticketnumber && isAttending($Profile)}
   {#if process.browser && blockId}
-    <Notion loadingMsg='' classes={'_center'} id={blockId} api={'https://notion-cloudflare-worker.yawnxyz.workers.dev'}/>
+    <Notion loadingMsg='' classes={'_center'} id={blockId} api={process.env.NOTION_API}/>
   {/if}
 {/if}
 

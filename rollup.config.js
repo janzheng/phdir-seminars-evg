@@ -104,8 +104,9 @@ export default {
         'process.env.SENTRY': JSON.stringify(process.env.SENTRY),
 
         'process.env.LOGFLARE_API': JSON.stringify(process.env.LOGFLARE_API),
-        'process.env.LOGFLARE_SOURCE': JSON.stringify(process.env.LOGFLARE_SOURCE)
-			}),
+        'process.env.LOGFLARE_SOURCE': JSON.stringify(process.env.LOGFLARE_SOURCE),
+        'process.env.NOTION_API': JSON.stringify(process.env.NOTION_API) || JSON.stringify("//notion-cloudflare-worker.yawnxyz.workers.dev")
+      }),
 	    sass({
 	     // update includePaths to what suits.
 	     // node_modules is probably only necessary if you need to import from a css library
