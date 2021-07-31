@@ -13,11 +13,10 @@
     <div class="Poster-item {itemClasses}" >
 
       <div class="Poster-sidebar">
-
-        {#if poster.Youtube}
+        {#if youtubeId}
           <div class="Poster-Youtube _margin-bottom-2">
             <iframe class="_margin-center __width-full " style="width: 100%"
-              width="544" height="315" src="https://www.youtube.com/embed/{poster.Youtube}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              width="544" height="315" src="https://www.youtube.com/embed/{youtubeId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         {:else}
           <div class="Poster-Youtube _margin-bottom-2">
@@ -85,7 +84,7 @@
 
   import { onMount } from 'svelte'
   export let api = process.env.NOTION_API
-  export let isLoading = true
+  export let isLoading = true, youtubeId
   export let classes = '_section-wide _margin-center', itemClasses = '_grid-1-3 _grid-1-2-lg _grid-gap-large _padder-top _padder-bottom'
 
   onMount(async () => {
@@ -93,7 +92,18 @@
     isLoading = false
     poster = _posterId(id)
     console.log('poster:', poster, )
+
+    if(poster.Youtube) {
+      if(poster.Youtube.substring(0,4) == 'http') {
+        youtubeId = poster.Youtube.substring(poster.Youtube.lastIndexOf('/')+1)
+      } else {
+        youtubeId = poster.Youtube
+      }
+
+
+    }
   })
+
   
 </script>
 
