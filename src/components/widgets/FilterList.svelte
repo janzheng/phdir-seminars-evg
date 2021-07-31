@@ -17,7 +17,7 @@
         <!-- <Switch classes="_button __action-outline _width-full _margin-top" value="{true}" hideText="Hide filters" showText="Show filters" handler={()=>{console.log('boop')}} /> -->
 
         <details class="_margin-top"> 
-          <summary>Filter by Topics</summary>
+          <summary class="_pointer">Filter by Topics</summary>
           <div id="formlet--options" class="Formlet Formlet-input _margin-top">
             {#each options as item}
               <label class="_form-checkbox-label __checkbox" for={item}>

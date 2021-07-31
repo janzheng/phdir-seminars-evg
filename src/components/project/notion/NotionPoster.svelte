@@ -38,9 +38,9 @@
 
       
       <div class="Poster-main">
-        <div class="Poster-Number-container _align-vertically _grid-1-4-xs">
+        <div class="Poster-Number-container _align-vertically _grid-1-4">
           <div><div class="Poster-Number PosterNumber">#{poster.AbstractId}</div></div>
-          <div class=" _right">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
+          <div class=" _right-sm _margin-top-xs">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
         </div>
         <h2 class="Poster-name _font-sans _margin-bottom-2 _md-pfix">{@html md.strip(md.render(`${poster['Abstract Name']}`))}</h2>
         <div class="Poster-authors">{@html marked(`${poster._authorString}`)}</div>
