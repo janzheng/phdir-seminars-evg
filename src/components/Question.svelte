@@ -114,6 +114,10 @@
         // console.log('reg finished: ', text)
         if(res.status == 200) {
           submitted = true
+          $form.name = ''
+          $form.email = ''
+          $form.topic = ''
+          $form.comment = ''
         }
       });
     }
