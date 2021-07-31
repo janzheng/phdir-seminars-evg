@@ -11,8 +11,8 @@
     <div class="AbstractBook _section-page _padding-top-2 _margin-center ">
       <div class=" _margin-center _margin-bottom-2 _padding-bottom-2">
         <div class="_card _padding">
-          <p>Please wait until the sections below have loaded, then hit the button! Enter a page number offset here: </p>
-          <input id="offset" name="offset" bind:value={pageOffset} placeholder="0" type="number" > 
+          <p>Please wait until the sections below have loaded, then hit the button!</p>
+          <!-- <input id="offset" name="offset" bind:value={pageOffset} placeholder="0" type="number" >  -->
           <div class="_button __action" on:click={()=>initBook()}>Convert into book</div>
         </div>
       </div>
@@ -22,7 +22,7 @@
 
 
 
-<div class="AbstractBook-render " style="--pageOffset: {pageOffset}">
+<div class="AbstractBook-render ">
   {#if process.browser && !isLoading}
 
     <p id="permission">This abstract book is not a formal conference proceedings. Information can not be referenced without explicit permission of the author(s).</p>
@@ -30,8 +30,8 @@
       <div class='AbstractContainer {classes}' >
         {#if $Blocks && $Blocks.posters}
  
-  
-          <section id="toc" style="counter-reset: page 35;">  
+          <section id="toc" style="">  
+            <h1 class="_padding-bottom-2">Abstract Topics</h1>
             <ul>
               {#each topics as topic}
                 <li id="{"toc-"+slugify(topic)}"><a href="{'#'+slugify(topic)}">{topic}</a></li>
@@ -39,16 +39,16 @@
             </ul>
           </section>   
 
-    
           <!-- abstracts listed in order, like the notion db? -->
-          <section id="author-index" class=""> 
+          <section id="author-index" class="break"> 
+            <h1>Author Index</h1>
             <ul>
               {#each Object.keys(authorIndex).sort() as authorName}
               <li id="{"toc-author-"+slugify(authorName)}">
                 <span class="author-index-name">{authorName}</span>
                 <span class="author-index-links">
                   {#each authorIndex[authorName] as id, i}
-                    <a class="author-index-link {i>0?"_second-link":""}" href="{'#abstract-'+id}">#{id}</a>
+                    <a class="author-index-link {i>0?"_second-link":""}" href="{'#abstract-'+id}">(#{id})</a>
                   {/each} 
                 </span>
                 </li>
@@ -221,15 +221,15 @@
   /* @import "/book/css/parts/backmatter.css"; */
   /* @import "/book/css/parts/figures.css"; */
 
-  
   a {
     position: inherit;
     color: black !important;
   }
 
   #toc {
-    counter-reset: page 20;
-    /* counter-reset: page var(--offsetProperty); */
+    /* counter-reset: page 5; */
+    /* --page: 10; */
+    /* counter-reset: page 5; */
   }
 
   h1{ 
@@ -364,6 +364,10 @@
     figure {
       break-inside: avoid;
     } */
+
+    .break {
+      break-before: right;
+    }
 
 
     /* BLANK PAGES --------------------------------------------------------------------- */

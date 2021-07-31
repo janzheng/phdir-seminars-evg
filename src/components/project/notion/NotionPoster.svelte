@@ -43,7 +43,7 @@
           <div><div class="Poster-Number PosterNumber">#{poster.AbstractId}</div></div>
           <div class=" _right">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
         </div>
-        <h2 class="Poster-name _font-sans _margin-bottom-2">{poster['Abstract Name']}</h2>
+        <h2 class="Poster-name _font-sans _margin-bottom-2 _md-pfix">{@html md.strip(md.render(`${poster['Abstract Name']}`))}</h2>
         <div class="Poster-authors">{@html marked(`${poster._authorString}`)}</div>
         <div class="Poster-affiliations">{@html marked(`${poster.Affiliations}`)}</div>
 
@@ -73,6 +73,7 @@
 
 <script>
   import marked from 'marked'
+  import {md} from '@/_utils/markdownit'
 
   import Notion from '@yawnxyz/svelte-notion'
   import Question from '@/components/Question.svelte'

@@ -9,7 +9,7 @@
 
 
 <div class="Question" bind:clientHeight bind:clientWidth>
-  <Question {topic} {type} showEmail={false} />
+  <Question {topic} {type} showEmail={false} showTopic={true} />
 </div>
 
 

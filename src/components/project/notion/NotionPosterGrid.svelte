@@ -17,7 +17,7 @@
                   <div class=" _right">{#if poster.Category}<div class="PosterGrid-category _inline-block ">{poster.Category}</div>{/if}</div>
                 </div>
                 {#if poster['Abstract Name']}
-                  <a href="/start/posters/{poster.AbstractId}"><h5 class="PosterGrid-name">{poster['Abstract Name']}</h5></a>
+                  <a href="/start/posters/{poster.AbstractId}"><h5 class="PosterGrid-name">{@html md.strip(md.render(`${poster['Abstract Name']}`))}</h5></a>
                 {:else}
                   <h5 class="PosterGrid-name">No abstract</h5>
                 {/if}
@@ -52,6 +52,7 @@
 
 <script>
   import marked from 'marked'
+  import {md} from '@/_utils/markdownit'
 
   import UserCheck from '@/components/UserCheck.svelte'
   import FilterList from '@/components/widgets/FilterList.svelte'
@@ -76,7 +77,7 @@
     // posters = $Blocks.posters.rows
     $Blocks.posters.rows.forEach(poster => {categories[poster.Category]=true})
     // console.log('derp', _poster('third'))
-    options = Object.keys(categories)
+    options = Object.keys(categories).sort()
     // console.log('posters / blocks:', posters, options, filterString, filterOptions)
   }
 
