@@ -43,7 +43,8 @@
 #author-index a[href]::after {
   /* content: " (p." target-counter(attr(href), page) ")"; */
   /* content: " (p." target-counter(attr(href), page) ") "; */
-  content: " (p" target-counter(attr(href), page) ") ";
+  /* content: "(p" target-counter(attr(href), page) ")"; */
+  content: " (" target-counter(attr(href), page) ")";
   /* content: "p" target-counter(attr(href), page); */
   /* float: right; */
 }

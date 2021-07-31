@@ -21,12 +21,12 @@
         {:else}
           <div class="Poster-Youtube _margin-bottom-2">
             <div class="_card _padding">
-              This poster author has not submitted a video yet.
+              The author has not yet submitted a video.
             </div>
           </div>
         {/if}
         <div class="Question">
-          <p>Suggest a question for the Poster Q&A Session </p>
+          <p>Ask the author a question:</p>
           <Question topic={id} type='Poster' showEmail={false} />
           <div class="_margin-top _card __white _padding">
             Alternately, ask questions on <a href="https://phagedirectory.slack.com/archives/C026XQ7HH5Z" target="_blank">our #Evergreen Slack channel</a> | <a href="https://phage.directory/slack" target="_blank">Join our Slack</a>
