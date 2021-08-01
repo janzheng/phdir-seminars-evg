@@ -107,9 +107,9 @@
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/live" ? "__active" : ""}' aria-current='{segment === "/start/live" ? "page" : undefined}' href='/start/live'>Start</a></li>
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/schedule" ? "__active" : ""}' aria-current='{segment === "/start/schedule" ? "page" : undefined}' href='/start/schedule'>Schedule</a></li>
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/speakers" ? "__active" : ""}' aria-current='{segment === "/start/speakers" ? "page" : undefined}' href='/start/speakers'>Speakers &amp; Talks</a></li>
+              <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/abstracts" ? "__active" : ""}' aria-current='{segment === "/start/abstracts" ? "page" : undefined}' href='/start/abstracts'>Abstracts</a></li>
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/people" ? "__active" : ""}' aria-current='{segment === "/start/people" ? "page" : undefined}' href='/start/people'>People</a></li>
               <!-- <li class="_align-vertically" ><a rel=prefetch target="_blank" class='{$page.path === "/start/zoom" ? "__active" : ""}' aria-current='{segment === "/start/zoom" ? "page" : undefined}' href='/start/zoom'>Zoom ↗️</a></li> -->
-              <!-- <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/abstracts" ? "__active" : ""}' aria-current='{segment === "/start/abstracts" ? "page" : undefined}' href='/start/abstracts'>Posters</a></li> -->
               <li class="_align-vertically" ><a rel=prefetch href='https://phagedirectory.slack.com/archives/C026XQ7HH5Z' target="_blank">#Evergreen Slack ↗️</a></li>
               <!-- <li class="_align-vertically" ><a rel=prefetch href='https://phage.directory/slack' target="_blank">#Evergreen Slack ↗️</a></li> -->
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/sponsors" ? "__active" : ""}' aria-current='{segment === "/sponsors" ? "page" : undefined}' href='/sponsors'>Sponsors</a></li>
@@ -119,7 +119,7 @@
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/"+$Profile.ticketnumber ? "__active" : ""}' aria-current='{segment === "/start/"+$Profile.ticketnumber ? "page" : undefined}' href={'/start/'+$Profile.ticketnumber}>Account</a></li>
               <li class="_align-vertically"><a href='/' on:click={((e)=>{logOut()})}>Log Out</a></li>
             </ul>
-          </nav> 
+          </nav>  
         </div>
       {/if}
 

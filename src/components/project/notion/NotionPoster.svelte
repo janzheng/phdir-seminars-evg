@@ -99,8 +99,6 @@
       } else {
         youtubeId = poster.Youtube
       }
-
-
     }
   })
 

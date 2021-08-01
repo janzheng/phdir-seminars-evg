@@ -693,6 +693,38 @@ $notion-page-icon: $size-7;
   border-radius: $size-half;
   font-size: usetheme(font-large);
   font-weight: 300;
-  background-color: usetheme(brand-green-lighter);
+  background-color: usetheme(brand-green-lightest);
   display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+/* 
+
+  Speaker grid
+
+*/
+
+.Speaker-video {
+  background-color: usetheme(brand-green-lightest);
+  
+
+  img {
+    width: 100%;
+    text-align: center;
+    object-fit: contain;
+  }
 }

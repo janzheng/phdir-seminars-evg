@@ -47,7 +47,7 @@ $sizes: (
   // size: 18px,
   // lineheight: 30px,
   size: 17px,
-  lineheight: 29px,
+  lineheight: 24px,
 
   font-large: 21px,
 
@@ -92,14 +92,14 @@ $baseline: $sizeline;
 
 
 /* 
-
+  
   COLOR MANAGEMENT
 
- */
+ */ 
 
  
 
-$colors: (
+$colors: ( 
   warning: #F53232,
   brand-orange: #FB9E1A, 
 ); 
@@ -119,6 +119,7 @@ $colors-brand: (
   brand-active: #04960b, // #065fb1,
   brand-light: #6aaae6, // #065fb1,
   brand-green-white: #e1f3e2,
+  brand-green-lightest: #DBF4E9,
   brand-green-lighter: #c7f0c9,
   brand-green-light: #72dd77,
   brand-active-green: #04960b,
