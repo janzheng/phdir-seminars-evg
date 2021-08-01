@@ -75,7 +75,7 @@
                       </span>
                       <span class="Abstract-Link _padding-left-half"><a href="https://evergreen.phage.directory/start/abstracts/{poster.AbstractId}">https://evergreen.phage.directory/start/abstracts/{poster.AbstractId}</a></span>
                     </div>
-                    <h1 class="Abstract-name">{poster['Abstract Name']}</h1>
+                    <h1 class="Abstract-name">{@html md.strip(md.render(`${poster['Abstract Name']}`))}</h1>
                     <div class="Abstract-authors">{@html marked(`${poster._authorString}`)}</div>
                     <div class="Abstract-affiliations">{@html marked(`${poster.Affiliations}`)}</div>
                     <!-- <div class="_flex _align-vertically">
@@ -115,6 +115,7 @@
 <script>
   import { onMount } from 'svelte';
   import marked from 'marked'
+  import {md} from '@/_utils/markdownit'
 
   import Notion from '@yawnxyz/svelte-notion'
   import UserCheck from '@/components/UserCheck.svelte'
