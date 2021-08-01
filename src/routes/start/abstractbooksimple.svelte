@@ -46,7 +46,7 @@
               {#each Object.keys(authorIndex).sort() as authorName}
               <li id="{"toc-author-"+slugify(authorName)}">
                 <span class="author-index-name">{authorName}</span>
-                <span class="author-index-links">{#each authorIndex[authorName] as id, i}<a class="author-index-link {i>0?"_second-link":""}" href="{'#abstract-'+id}">#{id}</a>{/each}</span>
+                <span class="author-index-links">{#each authorIndex[authorName] as id, i}<a class="author-index-link {i>0?"_second-link":""}" href="{'#abstract-'+id}">(#{id})</a>{/each}</span>
                 </li>
               {/each}  
             </ul> 
@@ -54,45 +54,33 @@
 
 
           <!-- each poster is a section / "chapter" -->
-          {#each topics as topic} 
-            {#each ["Oral", "Poster"] as presType}
-              {#each posters.filter((poster) => 
-                  poster['Category'] == topic && 
-                  poster['Presentation Type'] == presType && 
-                  poster['AbstractStatus'] == 'Published' 
-                ) as poster, counter}
-                {#if poster}
-                  <section class="Abstract-item chapter {itemClasses}" id={counter==0 ? slugify(topic) : null} >
-                    <!-- {#if poster['Presentation Type']}<div class="Abstract-Type _inline-block">{poster['Presentation Type']}</div>{/if} -->
-                    {#if poster.Category}<div class="Abstract-category _inline-block">{poster.Category}</div>{/if}
-                    {#if poster.QR}<div class="Abstract-QR" style="float: right" ><img width=100 height=100 alt="QR link" src="{poster.QR}"></div>{/if}
-                    <div id={'abstract-'+poster.AbstractId}>
-                      <span class="Abstract-Number PosterNumber" style="font-family: sans-serif">#{poster.AbstractId}</span>
-                      <span class="PosterGrid-Icons _margin-left-half">
-                        {#if poster['Presentation Type'] == 'Poster'}<svg style="vertical-align: sub" height="19" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 17"><path d="M16 5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm-8.5 3a3.49 3.49 0 003.45-3H7V5.05A3.49 3.49 0 004 8.5 3.5 3.5 0 007.5 12zM8 5.05V8h2.95A3.483 3.483 0 008 5.05zM16 11h-4v1h4v-1zm4-9v15H0V0h20v2zm-1-1H1v15h18V1z" fill="#000"/></svg>{/if}
-                        {#if poster['Presentation Type'] == 'Oral'}<svg style="vertical-align: sub" height="19"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c5.514 0 10 3.592 10 8.007 0 4.917-5.144 7.961-9.91 7.961-1.937 0-3.384-.397-4.394-.644-1 .613-1.594 1.037-4.272 1.82.535-1.373.722-2.748.601-4.265-.837-1-2.025-2.4-2.025-4.872C2 6.592 6.486 3 12 3zm0-2C5.662 1 0 5.226 0 11.007c0 2.05.739 4.063 2.047 5.625.055 1.83-1.023 4.456-1.993 6.368 2.602-.47 6.301-1.508 7.978-2.536 1.417.345 2.774.503 4.059.503 7.084 0 11.91-4.837 11.91-9.961C24 5.195 18.299 1 12 1z"/></svg>{/if}
-                        {#if poster.Youtube}<svg style="vertical-align: sub" height="21" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-youtube fa-w-18 fa-2x"><path fill="#CC0101" d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z" class=""></path></svg>{/if}
-                      </span>
-                      <span class="Abstract-Link _padding-left-half"><a href="https://evergreen.phage.directory/start/abstracts/{poster.AbstractId}">https://evergreen.phage.directory/start/abstracts/{poster.AbstractId}</a></span>
+          {#each topics as topic}
+            {#each posters.filter((poster) => poster['Category'] == topic) as poster, counter}
+              {#if poster}
+                <section class="Abstract-item chapter {itemClasses}" id={counter==0 ? slugify(topic) : null} >
+                  {#if poster.Category}<div class="Abstract-category _inline-block">{poster.Category}</div>{/if}
+                  {#if poster.QR}<div class="Abstract-QR" style="float: right" ><img width=100 height=100 alt="QR link" src="{poster.QR}"></div>{/if}
+                  <div id={'abstract-'+poster.AbstractId}>
+                    <span class="Abstract-Number PosterNumber" style="font-family: sans-serif">#{poster.AbstractId}</span>
+                    <span class="Abstract-Link _padding-left-2"><a href="https://evergreen.phage.directory/start/abstracts/{poster.AbstractId}">https://evergreen.phage.directory/start/abstracts/{poster.AbstractId}</a></span>
+                  </div>
+                  <h1 class="Abstract-name">{poster['Abstract Name']}</h1>
+                  <div class="Abstract-authors">{@html marked(`${poster._authorString}`)}</div>
+                  <div class="Abstract-affiliations">{@html marked(`${poster.Affiliations}`)}</div>
+                  <!-- <div class="_flex _align-vertically">
+                    <div>
+                      <div class="Abstract-presenting" ><strong>Presenting:</strong> {poster.Presenting}</div>
+                      <div class="Abstract-attending" ><strong>Attending:</strong> {poster.Attending}</div>
+                      <div class="Abstract-correspondence _flex-1 _md-pfix _padding-left-2" >{@html marked(`${poster.Correspondence}`)}</div>
                     </div>
-                    <h1 class="Abstract-name">{@html md.strip(md.render(`${poster['Abstract Name']}`))}</h1>
-                    <div class="Abstract-authors">{@html marked(`${poster._authorString}`)}</div>
-                    <div class="Abstract-affiliations">{@html marked(`${poster.Affiliations}`)}</div>
-                    <!-- <div class="_flex _align-vertically">
-                      <div>
-                        <div class="Abstract-presenting" ><strong>Presenting:</strong> {poster.Presenting}</div>
-                        <div class="Abstract-attending" ><strong>Attending:</strong> {poster.Attending}</div>
-                        <div class="Abstract-correspondence _flex-1 _md-pfix _padding-left-2" >{@html marked(`${poster.Correspondence}`)}</div>
-                      </div>
-                    </div> -->
-                    {#if poster.Correspondence}<div class="Abstract-correspondence _md-pfix" >{@html marked(`${poster.Correspondence}`)}</div>{/if}
-                    <div class="Abstract-body" >
-                      <Notion classes={''} id={poster.id} api={api}/>
-                    </div>
-                    
-                  </section>
-                {/if}
-              {/each}
+                  </div> -->
+                  {#if poster.Correspondence}<div class="Abstract-correspondence _md-pfix" >{@html marked(`${poster.Correspondence}`)}</div>{/if}
+                  <div class="Abstract-body" >
+                    <Notion classes={''} id={poster.id} api={api}/>
+                  </div>
+                  
+                </section>
+              {/if}
             {/each}
           {/each}    
           
@@ -115,7 +103,6 @@
 <script>
   import { onMount } from 'svelte';
   import marked from 'marked'
-  import {md} from '@/_utils/markdownit'
 
   import Notion from '@yawnxyz/svelte-notion'
   import UserCheck from '@/components/UserCheck.svelte'

@@ -9,6 +9,12 @@
           <input id="email" name="email" on:change={handleChange} on:blur={handleChange} bind:value={$form.email}  placeholder="Your email (optional)" type="email" class="_form-input __width-full"> 
         </div>
       {/if}
+      {#if showTopic}
+        <div class="Formlet Formlet-input _margin-bottom">
+          <!-- <label for="comment" class="_form-label">Comment</label> -->
+          <input id="topic" name="topic" bind:value={$form.topic} required="required" class="_form-input __width-full" placeholder="Topic, Session, or Speaker name">
+        </div>
+      {/if}
       <div class="Formlet Formlet-input _margin-bottom">
         <!-- <label for="comment" class="_form-label">Comment</label> -->
         <input id="comment" name="comment" bind:value={$form.comment} required="required" class="_form-input __width-full" placeholder="Question">
@@ -37,9 +43,9 @@
   import * as yup from "yup";
   import { getContext } from 'svelte';
 
-  export let name, email, topic, type
+  export let name, email, topic, type, showEmail=true, showTopic=false
 
-  let submitted, exists, isSubmitting = false, showEmail = true, loadingTicket=true, CTA = 'Ask a Question'
+  let submitted, exists, isSubmitting = false, loadingTicket=true, CTA = 'Ask a Question'
   const Content$ = getContext('Content')
   $: Content = $Content$
 
@@ -59,6 +65,7 @@
     initialValues: {
       name: name,
       email: email,
+      topic: topic,
       comment: undefined,
     },
     validationSchema: yup.object().shape({
@@ -69,7 +76,9 @@
         .email('Email must be valid'),
       comment: yup
         .string()
-        .required('Question required')
+        .required('Question required'),
+      topic: yup
+        .string()
     }),
     onSubmit: async (_data) => {
 
@@ -87,7 +96,7 @@
         name: _data.name,
         email: _data.email,
         comment: _data.comment,
-        topic: topic,
+        topic: _data.topic || topic,
         questiontype: type,
         recordId: $Profile ? $Profile.recordId : null
       }
@@ -105,6 +114,10 @@
         // console.log('reg finished: ', text)
         if(res.status == 200) {
           submitted = true
+          $form.name = ''
+          $form.email = ''
+          $form.topic = ''
+          $form.comment = ''
         }
       });
     }
