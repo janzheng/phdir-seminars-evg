@@ -54,7 +54,7 @@
 
 
           <!-- each poster is a section / "chapter" -->
-          {#each topics as topic}
+          {#each topics as topic} 
             {#each ["Oral", "Poster"] as presType}
               {#each posters.filter((poster) => 
                   poster['Category'] == topic && 
