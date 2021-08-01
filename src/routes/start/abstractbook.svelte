@@ -59,7 +59,7 @@
               {#each posters.filter((poster) => 
                   poster['Category'] == topic && 
                   poster['Presentation Type'] == presType && 
-                  poster['AbstractStatus'] == 'Published'
+                  poster['AbstractStatus'] == 'Published' 
                 ) as poster, counter}
                 {#if poster}
                   <section class="Abstract-item chapter {itemClasses}" id={counter==0 ? slugify(topic) : null} >
