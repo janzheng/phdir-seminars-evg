@@ -195,6 +195,30 @@ export const _posterId = (id) => {
 
 
 
+let __speakers
+export const _fetchSpeakers = async (api, blockId) => {
+  if(__speakers) return __speakers // faster response
+  if(process.browser && !get(Blocks).speakers) {
+    let res = await fetch(`${api}/v1/collection/${blockId}`)
+    let speakers = await res.json()
+
+    Blocks.update(data => {
+      data['speakers'] = speakers
+      return data
+    })
+
+    __speakers = speakers
+    return true
+  }
+  return false
+}
+
+
+
+
+
+
+
 
 
 

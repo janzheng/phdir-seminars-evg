@@ -111,7 +111,7 @@
 {/if} -->
 
 
-{#if $page.path.includes('/embed/') || $page.path.includes('abstract')}
+{#if $page.path.includes('/embed/') || $page.path.includes('abstractm') || $page.path.includes('abstractb')}
   <!-- page embeds don't have any chrome -->
   <slot ></slot>
 
