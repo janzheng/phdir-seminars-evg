@@ -27,21 +27,20 @@
                   <img src="no_video.jpg" width="220" height="150" alt="Video not uploaded" />
                 {/if}
               </div>
-              <div class="Speaker-details _padding _padding-top-half">
+              <div class="Speaker-details _padding _padding-top-half _flex-1">
                 <div class="_grid-2-xs _align-vertically">
                   <div>
                     {#if speaker.AbstractId}
                       <a href="/start/abstracts/{speaker.AbstractId}"><div class="Speaker-Number PosterNumber _font-small ">#{speaker.AbstractId}</div></a>
                     {/if}
                   </div>
-                  <div class="Speaker-Attending _font-small _right">{speaker.Attending}</div>
+                  {#if speaker.Attending}<div class="Speaker-Attending _font-small _right">{speaker.Attending}</div>{/if}
                 </div>
-                <div class="Speaker-Title _padding-top-half">{speaker.Title}</div>
-                <div class="Speaker-Name _font-small _padding-top-half">{speaker.Name}</div>
-                <div class="Speaker-Affiliation _font-small">{speaker.Affiliation}</div>
-                <div class="Speaker-Section _font-small">{speaker.Section}</div>
-                
+                {#if speaker.Title}<div class="Speaker-Title _padding-top-half">{speaker.Title}</div>{/if}
+                {#if speaker.Name}<div class="Speaker-Name _font-small _padding-top-half">{speaker.Name}</div>{/if}
+                {#if speaker.Affiliation}<div class="Speaker-Affiliation _font-small">{speaker.Affiliation}</div>{/if}
               </div>
+              {#if speaker.Section}<div class="Speaker-section _padding-half"><div class="Speaker-Section _tag _inline-block _margin-top-2 _font-small">{speaker.Section}</div></div>{/if}
             </div>
           {/each}
         </div>
