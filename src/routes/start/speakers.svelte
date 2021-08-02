@@ -16,7 +16,7 @@
         <h1>Speakers & Talks</h1>
 
         <div class="Speaker-grid _grid-3 _grid-2-xs _grid-gap">
-          {#each $Blocks.speakers.rows.sort() as speaker}
+          {#each $Blocks.speakers.rows.sort((speaker)=>speaker.Youtube? -1 : 1) as speaker}
             <div class="Speaker _card _flex-col"> 
               <div class="Speaker-video">
                 {#if speaker.Youtube}

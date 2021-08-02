@@ -27,7 +27,7 @@ import Cytosis from 'cytosis';
 // import * as sapper from '@sapper/server';
 // import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
-import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal, updatePaymentPaypal, updateProfile} from "@/_project/registration" 
+import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal, updatePaymentPaypal, completePaymentStripe, updateProfile} from "@/_project/registration" 
 import { addComment, addQuestion, addMessage, unsubscribe } from "@/_project/app-helpers" 
 
 import { _err, _msg, _tr } from '@/_utils/sentry'
@@ -94,16 +94,22 @@ export async function post(req, res) {
       }, res);
     }
 
-    if (type === 'post_payment') {
+    if (type === 'post_payment_stripe') {
 			let ok
-      if(process.env.PAYMENT_MODE == 'STRIPE')
-        ok = await registerPostPaymentStripe(req.body)
-      else {
-        let { data } = await registerPostPaymentPaypal(req.body)
-        return sendData({
-          data // send data back
-        }, res);
-      }
+      // if(process.env.PAYMENT_MODE == 'STRIPE') {
+
+      let data = await registerPostPaymentStripe(req.body)
+
+      return sendData({
+        ...data // send data back
+      }, res);
+        // ok = await registerPostPaymentStripe(req.body)
+      // } else {
+      //   let { data } = await registerPostPaymentPaypal(req.body)
+      //   return sendData({
+      //     data // send data back
+      //   }, res);
+      // }
       sendData({
         success: ok // don't send cytosis back, just send empty data to confirm
       }, res);
@@ -113,6 +119,16 @@ export async function post(req, res) {
     if (type === 'update_payment') {
       // only implemented for PayPal 
       let data = await updatePaymentPaypal(req.body)
+      if(data)
+        return sendData(
+          data // send data back
+        , res);
+    }
+
+    if (type === 'complete_stripe') {
+      // only implemented for PayPal 
+      let data = await completePaymentStripe(req.body)
+      // console.log('complete stripe...', data)
       if(data)
         return sendData(
           data // send data back
