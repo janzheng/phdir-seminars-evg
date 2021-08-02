@@ -135,7 +135,9 @@
 
 {#if $Profile.ticketnumber && isAttending($Profile)}
   {#if process.browser && blockId}
-    <Notion loadingMsg='' classes={'_center'} id={blockId} api={process.env.NOTION_API}/>
+    <div class="_section-page _margin-center">
+      <Notion loadingMsg='' classes={'_center'} id={blockId} api={process.env.NOTION_API}/>
+    </div>
   {/if}
 {/if}
 
