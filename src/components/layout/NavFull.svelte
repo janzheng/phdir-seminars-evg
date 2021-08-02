@@ -19,6 +19,7 @@
 
   let top = _content('top') || ''
   let caldate = _content('_caldate') || ''
+  let notice = _content('notice') || ''
 
 
   import { stores } from "@sapper/app";
@@ -48,9 +49,9 @@
     <!-- {@html marked(content)} -->
     <div class="_section-article _margin-center _padding-xs">
     	<!-- <div class="_md-pfix">{@html marked(content)}</div> -->
-    	<div class="_center _padding-top-2 _padding-bottom-2 _margin-top-2">
+    	<div class="_center _padding-top-2 _margin-top-2">
     		<a rel=prefetch href="/">
-    			<img class="Header-img" src="evg-full-logo.png" alt="Evergreen 2021" style="">
+    			<img class="Header-img" src="evg-full-logo.png" alt="Evergreen 2021" width="450" style="">
     		</a>
     	</div> 
     </div>
@@ -59,15 +60,18 @@
 
   <div class="Nav-content _section-page _margin-center ">
     <div class="_section-article _margin-center ">
-      <div class="_section-narrow _margin-center _center _margin-bottom-2">{@html marked(top||'')}</div>
+      <!-- <div class="_section-narrow _margin-center _center _margin-bottom-2">{@html marked(top||'')}</div> -->
 
 			<div class="_margin-top-2 _center _padding-top-2">
 				<EventCounter classes='_card _padding __flat' />
 			</div>
 
-      <div class="_margin-top-2 _padding-top-2 _margin-bottom-2 _center">
+      <!-- <div class="_margin-top-2 _padding-top-2 _margin-bottom-2 _center">
         <CalDate str={caldate} classes="_margin-center" styles="max-width: 10rem;" />
-      </div>
+      </div> -->
+
+
+      {@html marked(notice)}
 
 			<div class="_margin-top-2 _center _padding-top-2">
 				<EventLogin classes='_card _padding __white' />

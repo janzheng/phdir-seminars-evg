@@ -4,17 +4,16 @@
 
 <div class="Home">
 
-
+<!-- 
   <div id="intro" class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
     <div class="_section-article _margin-center">
-      <!-- <div class="Content-box _margin-bottom-2">{@html marked(_intro||'')}</div> -->
       <div class="_margin-top-2 _margin-center _card _betty-card ">
         <div class="betty-intro">{@html marked(bettyintro||'')}</div>
         <div id="betty-letter" class="_betty-letter {showBetty ? '_betty-letter-expanded': '_betty-letter-shrunk'}">{@html marked(betty||'')}</div>
         <Switch classes="_margin-top-2 __action-outline _width-full" showWhenTrue={false} bind:value="{showBetty}" hideText="Shrink letter" showText="Read the full letter" handler={()=>{showBetty != showBetty}} />
       </div>
     </div>
-  </div>
+  </div> -->
 
 
   <!-- <div id="betty" class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
@@ -27,12 +26,8 @@
 
 
   <div class="_section-page _padding-top-2 _margin-center _margin-bottom-2">
-    <div class="_section-article _margin-center">
-
-      <!-- <SignupNews /> -->
-
+    <div class=" _margin-center">
       <ContentBlock id="sponsors" name="_sponsors" classes="SponsorSection _section-page _margin-center _center _divider-top _divider-bottom" />
-
     </div>
   </div>
 
