@@ -415,7 +415,7 @@ textarea, .textarea {
     margin-bottom: $size-quart;
     position: relative;
     $outerCheck: var(--checkboxOuter, 18px);
-    $innerCheck: var(--checkboxInner, 14px);
+    $innerCheck: var(--checkboxInner, 11px);
 
 
 	  border: $border-thin solid usetheme(brand-soft);
