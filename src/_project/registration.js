@@ -42,9 +42,9 @@ const sendEmails = async (_data) => {
 
 
 
-
+// handles registrations BEFORE payment now
 // handles notifications and stuff after payment's gone through
-export const registerPostPaymentPaypal = async ({data}) => {
+export const registerBeforePayment = async ({data}) => {
 
   const ticketgen = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)
   const ticketnumber = `${ticketgen()}`

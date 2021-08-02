@@ -190,7 +190,7 @@
           paymentMethod: 'Stripe',
           paymentReceipt: stripePayment.paymentIntent.id,
         },
-        type: 'post_payment'
+        type: 'register_before_payment'
       }, fetch)
 
       if(!payConfirmRes.ok) {
