@@ -11,14 +11,13 @@
     <div class="_margin-center _margin-bottom-2 _padding-bottom-2">
 
       {#if isLoading}
-        Loading speakers ...
+        Loading speakers & talks...
       {:else}
         <h1>Speakers & Talks</h1>
- 
 
         <div class="Speaker-grid _grid-3 _grid-2-xs _grid-gap">
           {#each $Blocks.speakers.rows.sort() as speaker}
-            <div class="Speaker _card _flex-col">
+            <div class="Speaker _card _flex-col"> 
               <div class="Speaker-video">
                 {#if speaker.Youtube}
                   <iframe class="_margin-center __width-full " style="width: 100%; height: 100%"

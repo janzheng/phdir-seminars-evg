@@ -127,7 +127,7 @@ blockquote + p,
 
 
 
-
+ 
 
 /* WHITOUT PAGED.JS */
 @media screen{
@@ -155,4 +155,29 @@ blockquote + p,
     position: relative;
     top: -6px;
     font-size: 13px !important;
+  }
+  .notion-list-disc, ul, ul.notion-list, ol, ol.notion-list {
+    padding-left: 0px !important;
+    padding-bottom: 0px !important;
+  }
+  ul li, ol li {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+
+
+ 
+
+
+
+  /* 
+  
+    Notion / embed styles
+  
+  */
+
+  /* embedded twitter */
+  .twitter-tweet {
+    max-width: 380px;
   }
