@@ -23,11 +23,23 @@
           
           <div class="_grid-2-1 _grid-gap-large">
             <div>
+              <h2>You’re Almost Registered...</h2>
+
+              <div class="_margin-top-2 _margin-bottom-2">
+                <FinalizeStripe bind:user={user} classes=" _divider-bottom" />
+  
+                <p>Alternatively, you may also pay with PayPal, but many users have encountered issues:</p>
+                <FinalizePaypal bind:user={user} classes=" _divider-bottom" />
+              </div>
+
               {@html marked(almostsignedup||'')}
             </div>
             <div>
               {@html marked(finalizenotice||'')}
-              <Finalize bind:user={user} classes=" _divider-bottom" />
+              <!-- Stripe:
+              <FinalizeStripe bind:user={user} classes=" _divider-bottom" />
+
+              Paypal: -->
             </div>
           </div>
           
@@ -78,7 +90,8 @@
   import { _content, _get } from "@/stores/sitedata"
 	import { textReplacer } from "@/_project/app-helpers"
 
-  import Finalize from '@/components/project/signup/SignupFinalizePaypal.svelte'
+  import FinalizePaypal from '@/components/project/signup/SignupFinalizePaypal.svelte'
+  import FinalizeStripe from '@/components/project/signup/SignupFinalizeStripe.svelte'
   import UpdateProfile from '@/components/project/UpdateProfile.svelte'
 
 

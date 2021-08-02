@@ -23,15 +23,15 @@ config(); // https://github.com/sveltejs/sapper/issues/122
 // Set your secret key. Remember to switch to your live secret key in production!
 // See your keys here: https://dashboard.stripe.com/account/apikeys
 import stripe from 'stripe'
-// const _stripe = process.env.STRIPE_SK ? stripe(process.env.STRIPE_SK, {apiVersion: ''}) : null
-const _stripe = process.env.PAYMENT_MODE == 'STRIPE' ? stripe(process.env.STRIPE_SK, {apiVersion: ''}) : null
+const _stripe = process.env.STRIPE_SK ? stripe(process.env.STRIPE_SK, {apiVersion: ''}) : null
+// const _stripe = process.env.PAYMENT_MODE == 'STRIPE' ? stripe(process.env.STRIPE_SK, {apiVersion: ''}) : null
 
 
 
 
 
 // initiate a stripe payment intent
-export async function createStripePayment(price, metadata, currency='usd') {
+export async function createStripePayment(price, {email, name, ticketnumber, institution, position, tickettype, interest}, currency='usd') {
 	if (price == 0 || !_stripe) {
     console.error('[createStripePayment] Could not create stripe payment')
 		return undefined
@@ -41,7 +41,9 @@ export async function createStripePayment(price, metadata, currency='usd') {
 	  amount: price * 100, // turn into cents
 	  currency: currency,
 	  // Verify your integration in this guide by including this parameter
-	  metadata
+	  metadata: {
+      email, name, ticketnumber, institution, position, tickettype, interest,
+    }
 	});
 }
 
@@ -67,13 +69,14 @@ export let getTicketPrice = (state) => {
 
 
 // get prices and Stripe secret for starting Stripe payment
-export async function prePayment(state) {
-  let ticketPrice = getTicketPrice(state)
+export async function prePayment({mode}) {
+  // let ticketPrice = getTicketPrice(state)
   // console.log('[prePayment] queries:', state, ticketPrice)
 
   // if prices are correct, send Stripe or Paypal public key
   // this is required to generate the Stripe or Paypal payments fields
-  if (process.env.PAYMENT_MODE=='STRIPE' && ticketPrice > 0) {
+  // if (process.env.PAYMENT_MODE=='STRIPE' && ticketPrice > 0) {
+  if (mode=='stripe') {
     return process.env.STRIPE_PK
   } else {
     return process.env.PAYPAL_CLIENT

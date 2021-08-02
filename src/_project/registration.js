@@ -489,31 +489,85 @@ export const registerSignupStripe = async ({data}) => {
 }
 
 
+// updates a free user to a paid user
+// user should already have info at this point
+// Stripe requires server to pay
+export const completePaymentStripe = async ({data}) => {
+
+  let ticketnumber, ticketprice, user
+
+  try {
+     console.log('[completePaymentStripe] data:', data)
+  
+     
+    // verify user from data
+    user = await getUserFromCode(data['ticketnumber'])
+    
+    if(!user || user.status == false) {
+      _err(`Unknown ticket number: ${data['ticketnumber']}`)
+      return {
+        message: `Unknown ticket number: ${data['ticketnumber']}`
+      }
+    }
+    
+    ticketnumber = user.fields['Ticket Number']
+    ticketprice = getTicketPrice(data)
+
+    let paymentKey
+    
+    if(process.env.STRIPE_SK) {
+      paymentKey = await createStripePayment(ticketprice, {
+        ...data,
+        ticketnumber,
+        id: user.id,
+      })
+    }
+
+    return {
+      ticketnumber,
+      ticketprice,
+      data: {
+        ...data,
+        ticketnumber,
+        id: user.id,
+        paymentKey,
+      },
+    }
+  } catch (e) {
+    _err(e, `[completePaymentStripe] Error completing Stripe payment: ${data['ticketnumber']}`, {...data, ticketprice, user} )
+    console.error(e, `[completePaymentStripe] Error completing Stripe payment: ${data['ticketnumber']}`, data, user, ticketprice, ticketnumber)
+  }
+}
+
+
+
 
 // handles notifications and stuff after payment's gone through
-export const registerPostPaymentStripe = async ({data}) => {
+export const registerPostPaymentStripe = async (data) => {
   // console.log('[registerPostPayment] ', data, ' — — — — ' , data['signupData'].id)
 
   try {
     const cytosis = await Cytosis.save({
       apiKey: apiEditorKey,
       baseId: baseId,
-      recordId: data.signupData.id,
+      recordId: data.id,
       tableName: 'Attendees',
       payload: {
         'Payment': data.paymentMethod,
         'Receipt': data.paymentReceipt,
         'Receipt Data': data.paymentReceiptData,
+        'Reg Status': ['Attendee'],
       },
       tableOptions: {
         insertOptions: ['typecast'],
       },
     })
 
-    return true
-    // return {
-    //   cytosis
-    // }
+    return {
+      regstatus: ['Attendee'],
+      id: cytosis.id,
+      ...data,
+    }
   } catch(e) {
     console.error('[registerPostPayment] error:', e)
   }
