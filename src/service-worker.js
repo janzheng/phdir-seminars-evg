@@ -1,3 +1,24 @@
+
+
+// skip service workers
+// https://stackoverflow.com/questions/49740931/unregistering-removing-a-service-worker/49771828#49771828
+// https://stackoverflow.com/questions/33986976/how-can-i-remove-a-buggy-service-worker-or-implement-a-kill-switch
+
+self.addEventListener('install', function(e) {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', function(e) {
+  self.registration.unregister()
+    .then(function() {
+      return self.clients.matchAll();
+    })
+    .then(function(clients) {
+      clients.forEach(client => client.navigate(client.url))
+    });
+});
+
+
 // import { files, shell, routes } from '@sapper/service-worker';
 
 // const timestamp = process.env.SAPPER_TIMESTAMP; // instead of `import { timestamp }`

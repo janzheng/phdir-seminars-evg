@@ -114,8 +114,8 @@
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/abstracts" ? "__active" : ""}' aria-current='{segment === "/start/abstracts" ? "page" : undefined}' href='/start/abstracts'>Abstracts</a></li>
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/people" ? "__active" : ""}' aria-current='{segment === "/start/people" ? "page" : undefined}' href='/start/people'>People</a></li>
               <li class="_align-vertically" ><a rel=prefetch target="_blank" class='{$page.path === "/start/zoom" ? "__active" : ""}' aria-current='{segment === "/start/zoom" ? "page" : undefined}' href='/start/zoom'>Zoom ↗️</a></li>
-              <li class="_align-vertically" ><a rel=prefetch href='https://phagedirectory.slack.com/archives/C026XQ7HH5Z' target="_blank">#Evergreen Slack ↗️</a></li>
-              <!-- <li class="_align-vertically" ><a rel=prefetch href='https://phage.directory/slack' target="_blank">#Evergreen Slack ↗️</a></li> -->
+              <!-- <li class="_align-vertically" ><a rel=prefetch href='https://phagedirectory.slack.com/archives/C026XQ7HH5Z' target="_blank">#Evergreen Slack ↗️</a></li> -->
+              <li class="_align-vertically" ><a rel=prefetch href='https://join.slack.com/t/phagedirectory/shared_invite/zt-90r8eyg6-WLhFZlojUtMQLCotq0crsQ' target="_blank">#Evergreen Slack ↗️</a></li>
               <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/sponsors" ? "__active" : ""}' aria-current='{segment === "/sponsors" ? "page" : undefined}' href='/sponsors'>Sponsors</a></li>
               {#if isVIP($Profile)}
                 <li class="_align-vertically" ><a rel=prefetch class='{$page.path === "/start/backstage" ? "__active" : ""}' aria-current='{segment === "/start/backstage" ? "page" : undefined}' href='/start/backstage'>Backstage</a></li>

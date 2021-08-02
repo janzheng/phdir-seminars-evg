@@ -27,7 +27,7 @@ import Cytosis from 'cytosis';
 // import * as sapper from '@sapper/server';
 // import { cacheGet, cacheSet, cacheClear } from "@/_utils/cache"
 import { sendData } from "@/_utils/sapper-helpers" 
-import { registerSignupStripe, registerPostPaymentStripe, registerPostPaymentPaypal, updatePaymentPaypal, completePaymentStripe, updateProfile} from "@/_project/registration" 
+import { registerSignupStripe, registerPostPaymentStripe, registerBeforePayment, updatePaymentPaypal, completePaymentStripe, updateProfile} from "@/_project/registration" 
 import { addComment, addQuestion, addMessage, unsubscribe } from "@/_project/app-helpers" 
 
 import { _err, _msg, _tr } from '@/_utils/sentry'
@@ -91,6 +91,21 @@ export async function post(req, res) {
 			const status = await unsubscribe(req.body)
       return sendData({
         status
+      }, res);
+    }
+
+
+    if (type === 'register_before_payment') {
+			let ok
+
+      let { data } = await registerBeforePayment(req.body)
+      return sendData({
+        data // send data back
+      }, res);
+    
+      
+      sendData({
+        success: ok // don't send cytosis back, just send empty data to confirm
       }, res);
     }
 

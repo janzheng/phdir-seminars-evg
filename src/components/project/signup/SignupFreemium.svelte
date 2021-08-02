@@ -115,7 +115,7 @@
         paymentMethod: 'Free',
         regstatus: ['Free'],
       },
-      type: 'post_payment'
+      type: 'register_before_payment'
     }, fetch)
 
 

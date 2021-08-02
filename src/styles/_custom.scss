@@ -611,6 +611,9 @@ $notion-page-icon: $size-7;
 .notion-embed {
   width: 100% !important;
 }
+.notion-callout {
+  align-items: center !important; // makes callouts centered
+}
 
 
 

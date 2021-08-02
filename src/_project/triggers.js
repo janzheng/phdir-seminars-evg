@@ -6,6 +6,7 @@ import { config } from "dotenv";
 
 import { redeploy } from '@/_project/redeploy.js'
 import { sendGroupEmailToAttendees } from '@/_project/notifiers.js'
+  import { trail } from '@/_utils/logger-trails'
 
 
 
@@ -67,23 +68,26 @@ export const testTrigger = async () => {
 
 // custom sender
 export const customSender = async (req) => {
-  const _triggerRecordId = 'recd5Wm9ZeWtMLMCa' // record of the trigger
-  const {template, view} = req.query
-
+  if(process.env.NODE_ENV !== 'production') {
+    const {template, view, record} = req.query
+    const _triggerRecordId = record // 'recd5Wm9ZeWtMLMCa' // record of the trigger
   
-  const _triggerRecord = await Cytosis.getRecord({
-    apiKey: apiEditorKey,
-    baseId: baseId,
-    tableName: 'Content',
-    recordId: _triggerRecordId,
-  })
+    const _triggerRecord = await Cytosis.getRecord({
+      apiKey: apiEditorKey,
+      baseId: baseId,
+      tableName: 'Content',
+      recordId: _triggerRecordId,
+    })
+    
+    if(!_triggerRecord || process.env.TRIGGERS_ON !== 'true' || _triggerRecord.fields['Status'] !== 'On')
+      return '[Trigger:customSender] Status is Off; not triggered'
+    
+      trail(`[Trigger:customSender] Sending: ${template} - ${view} - ${record}`)
+      console.log(`[Trigger:customSender] Sending: ${template} - ${view} - ${record}`, template, view )
+          
+      await sendGroupEmailToAttendees(template, view)
+      await turnOffTrigger(_triggerRecordId)
   
-  if(process.env.TRIGGERS_ON !== 'true' || _triggerRecord.fields['Status'] !== 'On')
-    return '[trigger] Status is Off; not triggered'
-  
-  console.log('[testTrigger] Sending custom sender', template, view )
-  await sendGroupEmailToAttendees(template, view)
-
-  await turnOffTrigger(_triggerRecordId)
-  return '[testTrigger] complete'
+    return '[Trigger:customSender] complete'
+  }
 }
