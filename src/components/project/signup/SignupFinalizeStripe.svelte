@@ -403,11 +403,14 @@
     const stripePayment = await stripe.confirmCardPayment(signupData.paymentKey.client_secret, {
       payment_method: {
         card: card,
-      }
+      },
+      receipt_email: signupData['email']
     })
 
 
-    // console.log('Stripe payment:', stripePayment)
+    console.log('Stripe payment:',signupData, stripePayment)
+
+
     if (stripePayment.error) {
       // Show error to your customer (e.g., insufficient funds)
       console.error(stripePayment.error.message);
@@ -455,7 +458,7 @@
       confirmingPayment = false
       confirmedPayment = true
 
-      console.log('signup data?!?', signupData)
+      // console.log('signup data?!?', signupData)
 
       // store this for login
       Profile.set(signupData)

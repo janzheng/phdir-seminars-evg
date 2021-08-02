@@ -15,6 +15,8 @@
       {:else}
         <h1>Speakers & Talks</h1>
 
+        {@html marked(speakersintro||'')}
+
         <div class="Speaker-grid _grid-3 _grid-2-xs _grid-gap">
           {#each $Blocks.speakers.rows.sort((speaker)=>speaker.Youtube? -1 : 1) as speaker}
             <div class="Speaker _card _flex-col"> 
@@ -55,6 +57,8 @@
   
   import { onMount } from 'svelte';
 
+  import marked from 'marked'
+
   import { Profile, checkUser } from "@/stores/profile"
   import { Blocks, _content, _get, _fetchSpeakers } from "@/stores/sitedata"
   
@@ -68,6 +72,7 @@
   export let api = process.env.NOTION_API
 
 
+  let speakersintro = _content('speakersintro')
   _fetchSpeakers(api, blockId)
 
   $: if($Blocks.speakers) {
