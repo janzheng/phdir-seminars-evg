@@ -46,7 +46,7 @@
         <div class="Poster-authors">{@html marked(`${poster._authorString}`)}</div>
         <div class="Poster-affiliations">{@html marked(`${poster.Affiliations}`)}</div>
 
-        {#if poster.Profiles}
+        {#if poster && poster.Profiles}
           {#each poster.Profiles.split(',') as profile}
             {#if $Profiles[profile]}
               <ProfileThumb showName={true} profile={$Profiles[profile]} />
@@ -93,7 +93,7 @@
     poster = _posterId(id)
     console.log('poster:', poster, )
 
-    if(poster.Youtube) {
+    if(poster && poster.Youtube) {
       if(poster.Youtube.substring(0,4) == 'http') {
         youtubeId = poster.Youtube.substring(poster.Youtube.lastIndexOf('/')+1)
       } else {
