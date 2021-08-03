@@ -37,7 +37,9 @@
                   </div>
                   {#if speaker.Attending}<div class="Speaker-Attending _font-small _right">{speaker.Attending}</div>{/if}
                 </div>
-                {#if speaker.Title}<div class="Speaker-Title _padding-top-half">{speaker.Title}</div>{/if}
+                {#if speaker.Title}<div class="Speaker-Title _padding-top-half">
+                  <a href="/start/speakers/{speaker.Slug}">{speaker.Title}</a></div>
+                {/if}
                 {#if speaker.Name}<div class="Speaker-Name _font-small _padding-top-half">{speaker.Name}</div>{/if}
                 {#if speaker.Affiliation}<div class="Speaker-Affiliation _font-small">{speaker.Affiliation}</div>{/if}
               </div>
@@ -51,7 +53,7 @@
       <!-- <NotionSpeakers /> -->
     </div>
   </div>
-</UserCheck>
+</UserCheck> 
 
 <script>
   
@@ -64,7 +66,7 @@
   
   import UserCheck from '@/components/UserCheck.svelte'
 
-  import NotionSpeakers from '@/components/project/notion/NotionSpeakers.svelte'
+  // import NotionSpeakers from '@/components/project/notion/NotionSpeakers.svelte'
 
 
   let blockId = _content('_notion-speakers') || ''
@@ -77,7 +79,7 @@
 
   $: if($Blocks.speakers) {
     isLoading = false
-    console.log('Speakers:', $Blocks.speakers)
+    // console.log('Speakers:', $Blocks.speakers)
   }
 
   function getYoutubeId(youtube) {
