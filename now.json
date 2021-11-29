@@ -9,7 +9,7 @@
   ],
   "headers": [
     {
-      "source": "/service-worker.js",
+      "source": "/client/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

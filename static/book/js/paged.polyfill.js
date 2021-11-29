@@ -26503,7 +26503,7 @@
 	--pagedjs-width-left: 8.5in;
 	--pagedjs-height-left: 11in;
 	--pagedjs-pagebox-width: 8.5in;
-	--pagedjs-pagebox-height: 11in;
+	--pagedjs-pagebox-height: 11.2in;
 	--pagedjs-footnotes-height: 0mm;
 	--pagedjs-margin-top: 1in;
 	--pagedjs-margin-right: 1in;

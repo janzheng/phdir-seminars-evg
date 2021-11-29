@@ -25,13 +25,13 @@
 <div class="AbstractBook-render ">
   {#if process.browser && !isLoading}
 
-    <p id="permission">This abstract book is not a formal conference proceedings. Information can not be referenced without explicit permission of the author(s).</p>
+    <p id="permission">This abstract book is not a formal conference proceedings. Information can not be referenced <br>without explicit permission of the author(s).</p>
     <div class="book">
       <div class='AbstractContainer {classes}' >
         {#if $Blocks && $Blocks.posters}
  
           <section id="toc" style="">  
-            <h1 class="_padding-bottom-2">Abstract Topics</h1>
+            <h1 class="_padding-bottom-2 _margin-bottom-2">Abstract Topics</h1>
             <ul>
               {#each topics as topic}
                 <li id="{"toc-"+slugify(topic)}"><a href="{'#'+slugify(topic)}">{topic}</a></li>
@@ -41,7 +41,12 @@
 
           <!-- abstracts listed in order, like the notion db? -->
           <section id="author-index" class="break-left"> 
-            <h1>Author Index</h1>
+            <div class="_padding-bottom">
+              <h1 class="_inline _padding-right">Author Index</h1>
+              <p class="_inline">
+                Authors listed alphabetically, with associated abstract and page numbers.  
+              </p>
+            </div>
             <ul>
               {#each Object.keys(authorIndex).sort() as authorName}
               <li id="{"toc-author-"+slugify(authorName)}">
@@ -60,7 +65,7 @@
                   poster['Category'] == topic && 
                   poster['Presentation Type'] == presType && 
                   poster['AbstractStatus'] == 'Published' 
-                ) as poster, counter}
+                ) as poster, counter} 
                 {#if poster}
                   <section class="Abstract-item chapter {itemClasses}" id={counter==0 ? slugify(topic) : null} >
                     <!-- {#if poster['Presentation Type']}<div class="Abstract-Type _inline-block">{poster['Presentation Type']}</div>{/if} -->
@@ -238,7 +243,7 @@
   #toc {
     /* counter-reset: page 5; */
     /* --page: 10; */
-    /* counter-reset: page 5; */
+    counter-reset: page 5;
   }
  
   h1{ 
@@ -254,10 +259,32 @@
   }
 
 
+  .pagedjs_page {
+    --pagedjs-margin-top: 80px;
+    --pagedjs-margin-bottom: 48px;
+    --pagedjs-pagebox-height: 11.2in;
+  }
+  :root {
+    --pagedjs-margin-top: 80px;
+    --pagedjs-margin-bottom: 48px;
+    --pagedjs-pagebox-height: 11.2in;
+  }
   
 
   @media print {
     
+
+    /* .pagedjs_page {
+      --pagedjs-margin-top: 80px;
+      --pagedjs-margin-bottom: 48px;
+      --pagedjs-pagebox-height: 11.2in;
+    }
+    :root {
+      --pagedjs-margin-top: 80px;
+      --pagedjs-margin-bottom: 48px;
+      --pagedjs-pagebox-height: 11.2in;
+    }
+     */
 
     
     /* ALL PAGES ----------------------------------------------------------------------- */
@@ -265,15 +292,15 @@
     @page {
       /* size: 148mm 210mm; */
       size: letter;
-      margin-top: 80px;
-      margin-bottom: 65px;
+      margin-top: 74px;
+      margin-bottom: 40px;
 
 
       /* running header (book title)  */
       @top-center {
         content: element(permission);
         vertical-align: top;
-        padding-top: 25px;
+        padding-top: 18px;
       }
       
       /* running header (chapter title)  */
@@ -282,7 +309,7 @@
         font-family: Times, 'Times New Roman', serif;
         font-weight: 400;
         vertical-align: top;
-        padding-top: 25px;
+        /* padding-top: 18px; */
       }
 
     }
@@ -300,7 +327,7 @@
         font-weight: 400;
         padding-left: 18mm;
         vertical-align: top;
-        padding-top: 25px;
+        /* padding-top: 18px; */
       }
     }
 
@@ -317,7 +344,7 @@
         font-weight: 400;
         padding-right: 18mm;
         vertical-align: top;
-        padding-top: 25px;
+        /* padding-top: 18px; */
       }
 
     }
@@ -348,14 +375,22 @@
     #author-index ul {
       column-count: 2;
     }
-
+ 
 
     ul{ 
       list-style: none;
     }
     li { margin-left: 0; }
 
+    section {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
 
+
+    .Abstract-body {
+      padding-top: 10px;
+    }
 
 
     
@@ -458,6 +493,9 @@
      .pagedjs_page:last-of-type{ }
 
 
+    .pagedjs_page .pagedjs_margin-bottom-center {
+      padding-top: 0
+    }
 
 
 

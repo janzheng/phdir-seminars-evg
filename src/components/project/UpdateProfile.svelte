@@ -3,9 +3,9 @@
 
 <div class="UpdateProfile _margin-top _margin-bottom {classes}">
 
-  <div class="Live-messages _margin-bottom-2" style="">
+  <!-- <div class="Live-messages _margin-bottom-2" style="">
     <Messages />
-  </div>
+  </div> -->
   {#if user && $Profiles[user.profile]}
     <div class="UpdateProfile-preview _margin-bottom-2">
       <h3>Profile Preview</h3>

@@ -16,35 +16,39 @@
         
         <!-- <Switch classes="_button __action-outline _width-full _margin-top" value="{true}" hideText="Hide filters" showText="Show filters" handler={()=>{console.log('boop')}} /> -->
 
-        <details class="_margin-top"> 
-          <summary class="_pointer">Filter by Topics</summary>
-          <div id="formlet--options" class="Formlet Formlet-input _margin-top">
-            {#each options as item}
-              <label class="_form-checkbox-label __checkbox" for={item}>
+        {#if options && options.length > 0}
+          <details class="_margin-top"> 
+            <summary class="_pointer">Filter by Topics</summary>
+            <div id="formlet--options" class="Formlet Formlet-input _margin-top">
+              {#each options as item}
+                <label class="_form-checkbox-label __checkbox" for={item}>
 
-                <input type="checkbox" 
-                  id={item}
-                  value={item}
-                  name={item}
-                  bind:group={filterOptions}
-                  class={`_form-input`}
-                />
+                  <input type="checkbox" 
+                    id={item}
+                    value={item}
+                    name={item}
+                    bind:group={filterOptions}
+                    class={`_form-input`}
+                  />
 
-                <div class="checkbox _padding _padding-top-half _padding-bottom-half " for={item}>
-                  <div class="checkbox-content _padding-left-2 _font-small">
-                    {item}
+                  <div class="checkbox _padding _padding-top-half _padding-bottom-half " for={item}>
+                    <div class="checkbox-content _padding-left-2 _font-small">
+                      {item}
+                    </div>
                   </div>
-                </div>
 
-              </label>
-            {/each}
+                </label>
+              {/each}
+            </div>
+          </details>
+        {/if}
+
+        {#if showScrollTop}
+          <div class="_margin-top">
+            <!-- <button class="_button __action-outline __short __width-full" on:click={()=>scrollToAnchor('filterlist-top')}>Scroll to top</button> -->
+            <span class="_link" on:click={()=>scrollToAnchor('filterlist-top')}>Scroll back up</span>
           </div>
-        </details>
-
-        <div class="_margin-top">
-          <!-- <button class="_button __action-outline __short __width-full" on:click={()=>scrollToAnchor('filterlist-top')}>Scroll to top</button> -->
-          <span class="_link" on:click={()=>scrollToAnchor('filterlist-top')}>Scroll back up</span>
-        </div>
+        {/if}
 
       </form>
       
@@ -62,7 +66,7 @@
 import { scrollToAnchor } from "@/_utils/scrollto.js";
 
 export let classes = '_grid-1-2 _grid-gap-large', sidebarClasses = '', placeholder='phage'
-export let filterString
+export let filterString, showScrollTop=true
 export let filterOptions = []
 
 export let options = []

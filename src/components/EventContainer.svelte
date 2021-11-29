@@ -56,8 +56,14 @@
     <div class="Start">
       <div class="_section-page _padder-top _padder-bottom _margin-center">
         <div class=" _margin-center">
+<!-- 
+          <div>
+            {@html marked(signedup||'')}
+            <UpdateProfile classes=" _divider-bottom" />
+            {@html marked(info||'')}
+          </div> -->
 
-          <div class="_grid-2-1 _grid-gap-large">
+          <div class="_grid-3-2 _grid-gap-large">
             <div>
               {@html marked(signedup||'')}
               {@html marked(info||'')}

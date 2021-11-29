@@ -93,6 +93,7 @@ export default {
 		output: config.client.output(),
 		plugins: [
 			replace({
+        'max-age=600': 'no-cache', // prevents caching
 				'process.env.npm_package_version': undefined, // so airtable can compile properly
 				'process.browser': true,
 				'process.env.NODE_ENV': JSON.stringify(mode),
@@ -182,6 +183,7 @@ export default {
     	json(),
 			replace({
         // NO SECRETS HERE
+        'max-age=600': 'no-cache', // prevents caching
 				'process.env.npm_package_version': undefined,
 				'process.browser': false,
 				'process.env.NODE_ENV': JSON.stringify(mode),
@@ -234,22 +236,23 @@ export default {
 		onwarn,
 	},
 
-	// serviceworker: {
-	// 	input: config.serviceworker.input(),
-	// 	output: config.serviceworker.output(),
-	// 	plugins: [
+	serviceworker: {
+		input: config.serviceworker.input(),
+		output: config.serviceworker.output(),
+		plugins: [
 
-	// 		legacy && babel(useBabel),
-	// 		resolve(),
-	// 		replace({
-	// 			'process.browser': true,
-	// 			'process.env.NODE_ENV': JSON.stringify(mode),
-	// 			'process.env.SAPPER_TIMESTAMP': process.env.SAPPER_TIMESTAMP || Date.now()
-	// 		}),
-	// 		commonjs(),
-	// 		!dev && terser()
-	// 	],
+			legacy && babel(useBabel),
+			resolve(),
+			replace({
+        'max-age=600': 'no-cache', // prevents caching
+				'process.browser': true,
+				'process.env.NODE_ENV': JSON.stringify(mode),
+				'process.env.SAPPER_TIMESTAMP': process.env.SAPPER_TIMESTAMP || Date.now()
+			}),
+			commonjs(),
+			!dev && terser()
+		],
 
-	// 	onwarn,
-	// }
+		onwarn,
+	}
 };
