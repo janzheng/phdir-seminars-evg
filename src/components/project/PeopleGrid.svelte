@@ -4,9 +4,11 @@
 
   
   {#if isLoading}
-    Loading Profiles...
+    <div class="_card _padding _center">
+      Loading Profiles...
+    </div>
   {:else}
-    <FilterList bind:filterString={filterString} classes="" sidebarClasses="_margin-top-2 _divider-bottom" placeholder={'Search for a name or a term'} >
+    <FilterList bind:filterString={filterString} classes="" showScrollTop={false} sidebarClasses="_margin-top-2 _divider-bottom" placeholder={'Search for a name or a term'} >
       {#if profiles}
         {#each profiles as profile}
           <div class="PeopleGrid-item {itemClasses}" >

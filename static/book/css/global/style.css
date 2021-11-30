@@ -75,18 +75,29 @@ a{ color: currentColor; text-decoration: none; }
 
 /* TEXT ---------------------------------------------------- */
 
+i, em {
+  font-size: inherit;
+}
+
 h1, h2, h3, h4, h5, h6, p, li, b {
   /* font-family: 'Georgia', sans-serif !important; */
   font-family: Times, 'Times New Roman', serif !important;
   color: black;
 }
 
-.book p, .book li, .book b, .book div, .book a, .book ol, .book em, .book sup, .book span {
+.book p, .book li, .book b, .book div, .book a, .book ol, .book p em, .book sup, .book span {
   /* font-family: 'Georgia', sans-serif !important; */
   font-family: Times, 'Times New Roman', serif !important;
   color: black;
   font-size: 15px !important;
-  line-height: 19px !important;
+  line-height: 17px !important;
+}
+.book p {
+  margin-bottom: 0px;
+  padding: 0
+}
+.book em + b {
+  padding-left: 4px;
 }
 
 li {
