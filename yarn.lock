@@ -5830,6 +5830,11 @@ svelte-forms-lib@^1.1.1:
     property-expr "2.0.2"
     svelte "3.16.5"
 
+svelte-lazy@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/svelte-lazy/-/svelte-lazy-1.0.12.tgz#c74da37123007b21f55ae9abd061e173ef691a92"
+  integrity sha512-BHzoXAnY41dIJxUteGNOassxL3KihC3SfViuVJGiIyH10SaVlAKL2gUTPPrmOLuDfmwG0pa6jmUF4VabCkRNUg==
+
 svelte-local-storage-store@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/svelte-local-storage-store/-/svelte-local-storage-store-0.2.3.tgz#6a652391fe1f4b8d26ff012af95e39dd8e8bbd39"

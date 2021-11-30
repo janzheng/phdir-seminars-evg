@@ -21,12 +21,11 @@
           {#each $Blocks.speakers.rows.sort((speaker)=>speaker.Youtube? -1 : 1) as speaker}
             <div class="Speaker _card _flex-col"> 
               <div class="Speaker-video">
-                {#if speaker.Youtube}
-                  <iframe class="_margin-center __width-full " style="width: 100%; height: 100%"
-                          width="220" height="156" src="https://www.youtube.com/embed/{getYoutubeId(speaker.Youtube)}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                {:else}
-                  <img src="no_video.jpg" width="220" height="150" alt="Video not uploaded" />
-                {/if}
+                  {#if speaker.Youtube}
+                    <Youtube id={getYoutubeId(speaker.Youtube)} />
+                  {:else}
+                    <img src="no_video.jpg" width="220" height="150" alt="Video not uploaded" />
+                  {/if}
               </div>
               <div class="Speaker-details _padding _padding-top-half _flex-1">
                 <div class="_grid-2-xs _align-vertically">
@@ -60,11 +59,13 @@
   import { onMount } from 'svelte';
 
   import marked from 'marked'
+  import Lazy from 'svelte-lazy' // doesn't load w/o scrolling first (bug)
 
   import { Profile, checkUser } from "@/stores/profile"
   import { Blocks, _content, _get, _fetchSpeakers } from "@/stores/sitedata"
   
   import UserCheck from '@/components/UserCheck.svelte'
+  import Youtube from '@/components/widgets/Youtube.svelte'
 
   // import NotionSpeakers from '@/components/project/notion/NotionSpeakers.svelte'
 
